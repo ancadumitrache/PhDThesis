@@ -1,0 +1,45 @@
+% ****************************************************************************************************
+% Personal data
+% ****************************************************************************************************
+\newcommand{\myTitle}{Crowdsourcing Disagreement in Ground Truth for Natural Language Processing\xspace}
+\newcommand{\mySubtitle}{}
+\newcommand{\myDegree}{~}
+\newcommand{\myName}{Anca Dumitrache\xspace}
+\newcommand{\myProf}{Lora Aroyo\xspace}
+\newcommand{\mySuperVisor}{Chris Welty\xspace}
+\newcommand{\myFaculty}{Faculty of Science\xspace}
+\newcommand{\myDepartment}{User Centric Data Science\xspace}
+\newcommand{\myUni}{Vrije Universiteit\xspace}
+\newcommand{\myLocation}{Amsterdam\xspace}
+\newcommand{\myTime}{December 2018\xspace}
+\newcommand{\myVersion}{version 0.1\xspace}
+
+\makeatletter
+\renewcommand{\@chapapp}{}% Not necessary...
+\newenvironment{chapquote}[2][2em]
+  {\setlength{\@tempdima}{#1}%
+   \def\chapquote@author{#2}%
+   \parshape 1 \@tempdima \dimexpr\textwidth-2\@tempdima\relax%
+   \itshape}
+  {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
+\makeatother
+
+% ****************************************************************************************************
+% Consistent use of names and abbreviations
+% ****************************************************************************************************
+\newcommand{\api}{API\xspace}
+\newcommand{\server}{http://datahub.io/dataset/rijksmuseum}
+\newcommand{\resource}[1]{\textit{#1}}
+\newcommand{\footnoteref}[1]{\textsuperscript{\ref{#1}}}
+
+% ****************************************************************************************************
+% Place hyphenation at the right place
+% ****************************************************************************************************
+\hyphenation{Crowd-Truth}
+\hyphenation{re-us-ab-ili-ty}
+\hyphenation{map-ped}
+
+% ****************************************************************************************************
+% Print all authors publication
+% ****************************************************************************************************
+\newcommand{\printpublication}[1]{\AtNextCite{\defcounter{maxnames}{99}}\fullcite{#1}}

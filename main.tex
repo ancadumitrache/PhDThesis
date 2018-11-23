@@ -1,0 +1,89 @@
+% ****************************************************************************************************
+% Set document settings
+% ****************************************************************************************************
+\RequirePackage{silence} % silence errors
+\WarningFilter{scrreprt}{Usage of package `titlesec'}
+\WarningFilter{scrreprt}{Activating an ugly workaround}
+\WarningFilter{biblatex}{Using fall-back BibTeX(8) backend}
+\WarningFilter{latexrelease}{Current format date selected, no patches applied}
+\WarningFilter{titlesec}{Non standard sectioning command detected}
+
+\documentclass[
+  twoside, openright, titlepage, numbers=noenddot, %1headlines,
+  headinclude, footinclude, cleardoublepage=empty,
+  BCOR=5mm, paper=a4, fontsize=11pt % binding correction, paper type and font size
+]{scrreprt}
+
+\input{config} % load additional adjustments
+
+% ********************************************************************
+% Compile only selected parts
+% ********************************************************************
+%\includeonly{frontBackMatter/acknowledgements}
+%\includeonly{
+%	chapters/introduction,
+%	chapters/conclusion,
+%	front_back_matter/bibliography
+%}
+%\includeonly{chapters/conclusion}
+%\includeonly{
+%	frontBackMatter/titlePage,
+%	chapters/intro/intro,
+%}
+
+% ********************************************************************
+% Bibliographies
+% ********************************************************************
+\addbibresource{bibliography.bib}
+
+% ****************************************************************************************************
+% Document
+% ****************************************************************************************************
+\begin{document}
+
+\frenchspacing % reduces space after periods to make text more compact
+\raggedbottom % makes all pages the height of the text on that page
+\selectlanguage{american} % select your default language - e.g. american
+%\renewcommand*{\bibname}{new name}
+%\setbibpreamble{}
+\pagenumbering{roman} % roman page numbering prior to the start of the thesis 
+\pagestyle{plain} % suppress headers for the pre-content pages
+
+% ********************************************************************
+% Pre-content thesis pages
+% ********************************************************************
+
+\include{front_back_matter/title_page} % main title page
+\include{front_back_matter/siks_reference} % Siks reference
+\include{front_back_matter/declaration} % declaration
+\include{front_back_matter/supervisors_and_commission} % declaration
+\include{front_back_matter/acknowledgements} % acknowledgements 
+\include{front_back_matter/contents} % contents, list of figures/tables/listings and acronyms
+
+\cleardoublepage
+\pagestyle{scrheadings}
+\pagenumbering{arabic}
+%\setcounter{page}{90} % sets page counter add right page number
+\cleardoublepage % avoids problems with pdfbookmark
+
+% ********************************************************************
+% Chapters
+% ********************************************************************
+\cleardoublepage\include{content/chapter-introduction}
+\cleardoublepage\include{content/chapter-2}
+\cleardoublepage\include{content/chapter-3}
+\cleardoublepage\include{content/chapter-4.1}
+\cleardoublepage\include{content/chapter-4.2}
+\cleardoublepage\include{content/chapter-5}
+\cleardoublepage\include{content/chapter-conclusion}
+
+% ********************************************************************
+% Post-content thesis pages
+% ********************************************************************
+\cleardoublepage\include{front_back_matter/bibliography} % bibliography
+\include{front_back_matter/summary} % abstract page
+\include{front_back_matter/samenvatting} % Romanian abstract page
+\include{front_back_matter/siks_dissertations} % list SIKS dissertations
+\include{front_back_matter/colophon} % colophon
+
+\end{document}

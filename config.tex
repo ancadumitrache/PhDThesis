@@ -1,0 +1,227 @@
+% ****************************************************************************************************
+% 0. Set encoding of files
+% ****************************************************************************************************
+\PassOptionsToPackage{utf8}{inputenc}
+\usepackage{inputenc}
+
+% ****************************************************************************************************
+% 1. Configure template
+% ****************************************************************************************************
+\PassOptionsToPackage{
+  drafting=true, % print version information on the bottom of the pages
+  tocaligned=false, % the left column of the toc will be aligned (no indentation)
+  dottedtoc=false, % page numbers in ToC flushed right
+  parts=true, % use part division
+  eulerchapternumbers=true, % use AMS Euler for chapter font (otherwise Palatino)
+  linedheaders=false, % chaper headers will have line above and beneath
+  floatperchapter=true, % numbering per chapter for all floats (i.e., Figure 1.1)
+  eulermath=false, % use awesome Euler fonts for mathematical formulae (only with pdfLaTeX)
+  beramono=true, % toggle a nice monospaced font (w/ bold)
+  % palatino=false, % deactivate standard font for loading another one, see the last section at the end of this file for suggestions
+}{template}
+
+% ****************************************************************************************************
+% 2. Useful commands, setup and finetuning
+% ****************************************************************************************************
+\input{commands.tex} % File with commands
+\newcounter{dummy} % necessary for correct hyperlinks (to index, bib, etc.)
+\newlength{\abcd} % for ab..z string length calculation
+\providecommand{\mLyX}{L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+
+% ****************************************************************************************************
+% 3. Packages
+% ****************************************************************************************************
+% ********************************************************************
+% Packages with options that might require adjustments
+% ********************************************************************
+\PassOptionsToPackage{dutch,american}{babel} % change this to your language(s), main language last
+\usepackage{babel}
+\usepackage{csquotes}
+\PassOptionsToPackage{
+  %backend=biber,bibencoding=utf8, %instead of bibtex
+  backend=bibtex8,bibencoding=ascii,
+  language=auto,
+  style=numeric-comp,
+  %style=authoryear-comp, % Author 1999, 2010
+  bibstyle=numeric,
+  %bibstyle=authoryear,dashed=false, % dashed: substitute rep. author with ---
+  sorting=nyt, % name, year, title
+  maxbibnames=20, % default: 3, et al.
+  %backref=true,
+  natbib=true % natbib compatibility mode (\citep and \citet still work)
+}{biblatex}
+\usepackage{biblatex}
+
+\DeclareFieldFormat{titlecase}{\MakeSentenceCase{#1}} % bibliography titles in sentence case
+
+\AtEveryBibitem{
+  \clearlist{location} % do not print location publisher
+}
+
+\PassOptionsToPackage{fleqn}{amsmath}       % math environments and more by the AMS
+\usepackage{amsmath}
+\usepackage{enumitem} % enable shrinking space between enum items
+\usepackage{geometry}
+% ********************************************************************
+% General useful packages
+% ********************************************************************
+\PassOptionsToPackage{T1}{fontenc} % T2A for cyrillics
+\usepackage{fontenc}
+\usepackage{textcomp} % fix warning with missing font shapes
+\usepackage{scrhack} % fix warnings when using KOMA with listings package
+\usepackage{xspace} % to get the spacing after macros right
+\usepackage{mparhack} % get marginpar right
+\PassOptionsToPackage{printonlyused,smaller}{acronym}
+\usepackage{acronym} % nice macros for handling all acronyms in the thesis
+\def\bflabel#1{{\acsfont{#1}\hfill}}
+\def\aclabelfont#1{\acsfont{#1}}
+\usepackage{multicol} % allow multiple columns (siks dissertations)
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage[np, autolanguage]{numprint}
+\usepackage{subcaption}
+\usepackage{epigraph}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% ********************************************************************
+% 4. Setup floats: tables, (sub)figures, and captions
+% ********************************************************************
+\usepackage{tabularx} % better tables
+\setlength{\extrarowheight}{3pt} % increase table row height
+\newcommand{\tableheadline}[1]{\multicolumn{1}{l}{\spacedlowsmallcaps{#1}}}
+\newcommand{\myfloatalign}{\centering} % to be used with each float for alignment
+\usepackage{caption}
+\captionsetup{font=small} % format=hang,
+%\usepackage{subfig}
+\usepackage{color, colortbl} % color tables
+\usepackage[export]{adjustbox}
+
+% ********************************************************************
+% 5. Setup code listings
+% ********************************************************************
+\usepackage{listings}
+\lstset{language=[LaTeX]Tex, % specify the language for listings here
+  morekeywords={PassOptionsToPackage,selectlanguage},
+  keywordstyle=\color{RoyalBlue},  % add \bfseries for bold
+  basicstyle=\small\ttfamily,  % makes listings a smaller font size and a different font
+  %identifierstyle=\color{NavyBlue}, % color of text inside brackets
+  commentstyle=\color{Green}\ttfamily, % color of comments
+  stringstyle=\rmfamily, % font type to use for strings
+  numbers=none, % change left to none to remove line numbers
+  numberstyle=\scriptsize, % font size of the line numbers
+  stepnumber=5, % increment of line numbers
+  numbersep=8pt, % distance of line numbers from code listing
+  showstringspaces=false, % sets whether spaces in strings should appear underlined
+  breaklines=true, % force the code to stay in the confines of the listing box
+  %frameround=ftff, % uncomment for rounded frame
+  %frame=single, % frame border, channge to lines for - 
+  belowcaptionskip=.75\baselineskip % space after the "Listing #: Desciption" text and the listing box
+  %frame=L
+}
+
+% ****************************************************************************************************
+% 6. PDFLaTeX, hyperreferences, and citation backreferences
+% ****************************************************************************************************
+% ********************************************************************
+% Using PDFLaTeX
+% ********************************************************************
+\PassOptionsToPackage{hyperfootnotes=false,pdfpagelabels}{hyperref}
+\usepackage{hyperref} % backref linktocpage pagebackref
+\usepackage{graphicx}
+
+% ********************************************************************
+% Hyperreferences
+% ********************************************************************
+\hypersetup{%
+  %draft, % hyperref's draft mode, for printing see below
+  colorlinks=true, linktocpage=true, pdfstartpage=3, pdfstartview=FitV,
+  % uncomment the following line if you want to have black links (e.g., for printing)
+  %colorlinks=false, linktocpage=false, pdfstartpage=3, pdfstartview=FitV, pdfborder={0 0 0},
+  breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,
+  plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,
+  hypertexnames=true, pdfhighlight=/O,%nesting=true,%frenchlinks,
+  %urlcolor=RoyalBlue, linkcolor=RoyalBlue, citecolor=RoyalBlue, %pagecolor=RoyalBlue,
+  urlcolor=Black, linkcolor=Black, citecolor=Black, %pagecolor=Black,
+  pdftitle={\myTitle},
+  pdfauthor={\textcopyright\ \myName, \myUni, \myFaculty},
+  pdfsubject={},
+  pdfkeywords={},
+  pdfcreator={pdfLaTeX},
+  pdfproducer={LaTeX with hyperref and classicthesis}
+}
+
+% ********************************************************************
+% Setup autoreferences
+% ********************************************************************
+% There are some issues regarding autorefnames
+% http://www.ureader.de/msg/136221647.aspx
+% http://www.tex.ac.uk/cgi-bin/texfaq2html?label=latexwords
+% you have to redefine the makros for the
+% language you use, e.g., american, ngerman
+% (as chosen when loading babel/AtBeginDocument)
+% ********************************************************************
+\makeatletter
+\@ifpackageloaded{babel}
+  {
+    \addto\extrasamerican{
+      \renewcommand*{\figureautorefname}{Figure}
+      \renewcommand*{\tableautorefname}{Table}
+      \renewcommand*{\partautorefname}{Part}
+      \renewcommand*{\chapterautorefname}{Chapter}
+      \renewcommand*{\sectionautorefname}{Section}
+      \renewcommand*{\subsectionautorefname}{Section}
+      \renewcommand*{\subsubsectionautorefname}{Section}
+    }
+      % Fix to getting autorefs for subfigures right
+      \providecommand{\subfigureautorefname}{\figureautorefname}
+    }{\relax}
+\makeatother
+
+% ********************************************************************
+% Add environment for showing changelog
+% ********************************************************************
+\newenvironment{changelog}[1]{
+\begin{center}
+\textbf{Changelog #1}
+\vspace{-2mm}
+  \begin{itemize}{}{}% whatever you want the list to be
+  \setlength\itemsep{-2mm}
+}{
+  \end{itemize}
+\end{center}
+} 
+
+% ********************************************************************
+% Load classis thesis package
+% ********************************************************************
+\usepackage{classicthesis}
+
+% ****************************************************************************************************
+% 8. Further adjustments (experimental)
+% ****************************************************************************************************
+% ********************************************************************
+% Changing the text area
+% ********************************************************************
+%\areaset[current]{312pt}{761pt} % 686 (factor 2.2) + 33 head + 42 head \the\footskip
+%\setlength{\marginparwidth}{7em}%
+%\setlength{\marginparsep}{2em}%
+
+% ********************************************************************
+% Using different fonts
+% ********************************************************************
+%\usepackage[oldstylenums]{kpfonts} % oldstyle notextcomp
+%\usepackage[osf]{libertine}
+%\usepackage[light,condensed,math]{iwona}
+%\renewcommand{\sfdefault}{iwona}
+%\usepackage{lmodern} % <-- no osf support :-(
+%\usepackage{cfr-lm} %
+%\usepackage[urw-garamond]{mathdesign} <-- no osf support :-(
+%\usepackage[default,osfigures]{opensans} % scale=0.95
+%\usepackage[sfdefault]{FiraSans}
+%\usepackage[opticals,mathlf]{MinionPro} % onlytext
+% ********************************************************************
+%\usepackage[largesc,osf]{newpxtext}
+%\linespread{1.05} % a bit more for Palatino
+% Used to fix these:
+% https://bitbucket.org/amiede/classicthesis/issues/139/italics-in-pallatino-capitals-chapter
+% https://bitbucket.org/amiede/classicthesis/issues/45/problema-testatine-su-classicthesis-style
