@@ -7,8 +7,16 @@ It is not humanly possible to gather immediately from it what the logic of langu
 
 Distant supervision (DS) is a well-established method for relation extraction from text, based on the assumption that when a knowledge-base contains a relation between a term pair, then sentences that contain that pair are likely to express the relation. In this chapter, we use the results of a crowdsourcing relation extraction task to identify two problems with DS data quality: the widely varying degree of false positives across different relations, and the observed causal connection between relations that are not considered by the DS method. The crowdsourcing data aggregation is performed using ambiguity-aware CrowdTruth metrics, that are used to capture and interpret inter-annotator disagreement. We also present preliminary results of using the crowd to enhance DS training data for a relation classification model, without requiring the crowd to annotate the entire set. 
 
-This chapter was published as ``False Positive and Cross-relation Signals in Distant Supervision Data'' in the Automated 
-Knowledge Base Construction Workshop at NIPS 2017~(\citet{dumitrache2017false}) and was co-authored by Lora Aroyo and Chris Welty.
+This chapter is based on the following publications:
+
+\begin{itemize}
+
+\item \textit{False Positive and Cross-relation Signals in Distant Supervision Data} in the Automated 
+Knowledge Base Construction Workshop at NIPS 2017,co-authored by Lora Aroyo and Chris Welty~\cite{dumitrache2017false};
+
+\item \textit{Crowdsourcing Semantic Label Propagation in Relation Classification} in the Fact Extraction and Verification Workshop at EMNLP 2018, co-authored by Lora Aroyo and Chris Welty~\cite{dumitrache2018crowdsourcing}.
+
+\end{itemize}
 
 \section{Introduction}
 
@@ -60,15 +68,16 @@ Manual error analysis on the dev set showed that many sentences contain a $Perso
     \centering
     \scalebox{0.8}{
     \begin{tabular}{rccccccc}
-    %\hline
-          & PoB   & O     & PoR   & PoD   & FO  & EoM     & TEoM \\ \hline \hline
+    \toprule
+          & PoB   & O     & PoR   & PoD   & FO  & EoM     & TEoM \\ \toprule
      PoB  & 1     & \textbf{0.64}  & 0.17  & -0.12 & -0.19 & -0.2  & -0.21  \\ 
-     \cellcolor{Gray}O    & \cellcolor{Gray}\textbf{0.88}  & \cellcolor{Gray}1     & \cellcolor{Gray}0.31  & \cellcolor{Gray}-0.16 & \cellcolor{Gray}-0.29 & \cellcolor{Gray}-0.22 & \cellcolor{Gray}-0.22 \\ 
+     \cellcolor{aliceblue}O    & \cellcolor{aliceblue}\textbf{0.88}  & \cellcolor{aliceblue}1     & \cellcolor{aliceblue}0.31  & \cellcolor{aliceblue}-0.16 & \cellcolor{aliceblue}-0.29 & \cellcolor{aliceblue}-0.22 & \cellcolor{aliceblue}-0.22 \\ 
      PoR  & 0.42  & \textbf{0.56}  & 1     & \textbf{-0.1}  & -0.59 & 0.12  & 0.13 \\ 
-     \cellcolor{Gray}PoD  & \cellcolor{Gray}-0.03 & \cellcolor{Gray}-0.03 & \cellcolor{Gray}-0.01 & \cellcolor{Gray}1     & \cellcolor{Gray}-0.04 & \cellcolor{Gray}-0.05 & \cellcolor{Gray}-0.05 \\ 
+     \cellcolor{aliceblue}PoD  & \cellcolor{aliceblue}-0.03 & \cellcolor{aliceblue}-0.03 & \cellcolor{aliceblue}-0.01 & \cellcolor{aliceblue}1     & \cellcolor{aliceblue}-0.04 & \cellcolor{aliceblue}-0.05 & \cellcolor{aliceblue}-0.05 \\ 
      FO   & -0.07 & -0.07 & -0.09 & -0.06 & 1     & 0.1   & 0.13 \\ 
-     \cellcolor{Gray}EoM  & \cellcolor{Gray}-0.45 & \cellcolor{Gray}-0.36 & \cellcolor{Gray}0.11  & \cellcolor{Gray}-0.47 & \cellcolor{Gray}0.62  & \cellcolor{Gray}1     & \cellcolor{Gray}0.82 \\ 
+     \cellcolor{aliceblue}EoM  & \cellcolor{aliceblue}-0.45 & \cellcolor{aliceblue}-0.36 & \cellcolor{aliceblue}0.11  & \cellcolor{aliceblue}-0.47 & \cellcolor{aliceblue}0.62  & \cellcolor{aliceblue}1     & \cellcolor{aliceblue}0.82 \\ 
      TEoM & -0.5  & -0.38 & 0.13  & -0.45 & 0.86  & \textbf{0.86}  & 1 \\ %\hline
+     \bottomrule
     \end{tabular}
     }
 \end{subfigure}
@@ -78,15 +87,15 @@ Manual error analysis on the dev set showed that many sentences contain a $Perso
     \centering
     \scalebox{0.8}{
     \begin{tabular}{rccccccc}
-    %\hline
-           & PoB   & O     & PoR   & PoD   & FO    & EoM   & TEoM \\ \hline \hline
+    \toprule
+           & PoB   & O     & PoR   & PoD   & FO    & EoM   & TEoM \\ \toprule
      PoB   & 1     & \textbf{-0.6}  & 0.55  & -0.14 & -0.54 & -0.48 & -0.57 \\ 
-     \cellcolor{Gray}O     & \cellcolor{Gray}\textbf{-0.02} & \cellcolor{Gray}1     & \cellcolor{Gray}-0.11 & \cellcolor{Gray}-0.16 & \cellcolor{Gray}-0.16 & \cellcolor{Gray}0.19  & \cellcolor{Gray}-0.15 \\ 
+     \cellcolor{aliceblue}O     & \cellcolor{aliceblue}\textbf{-0.02} & \cellcolor{aliceblue}1     & \cellcolor{aliceblue}-0.11 & \cellcolor{aliceblue}-0.16 & \cellcolor{aliceblue}-0.16 & \cellcolor{aliceblue}0.19  & \cellcolor{aliceblue}-0.15 \\ 
      PoR   & 0.65  & \textbf{-0.33} & 1     & \textbf{0.45}  & -0.7  & -0.68 & -0.75 \\  
-     \cellcolor{Gray}PoD   & \cellcolor{Gray}-0.06 & \cellcolor{Gray}-0.18 & \cellcolor{Gray}0.17  & \cellcolor{Gray}1     & \cellcolor{Gray}-0.18 & \cellcolor{Gray}-0.13 & \cellcolor{Gray}-0.19 \\ 
+     \cellcolor{aliceblue}PoD   & \cellcolor{aliceblue}-0.06 & \cellcolor{aliceblue}-0.18 & \cellcolor{aliceblue}0.17  & \cellcolor{aliceblue}1     & \cellcolor{aliceblue}-0.18 & \cellcolor{aliceblue}-0.13 & \cellcolor{aliceblue}-0.19 \\ 
      FO    & -0.08 & -0.06 & -0.09 & -0.06 & 1     & 0.09  & 0.09 \\ 
-     \cellcolor{Gray}EoM   & \cellcolor{Gray}-0.35 & \cellcolor{Gray}0.35  & \cellcolor{Gray}-0.42 & \cellcolor{Gray}-0.21 & \cellcolor{Gray}0.46  & \cellcolor{Gray}1     & \cellcolor{Gray}0.66 \\ 
-     TEoM  & -0.16 & -0.1  & -0.17 & -0.12 & 0.34  & \textbf{0.24}  & 1 \\ %\hline
+     \cellcolor{aliceblue}EoM   & \cellcolor{aliceblue}-0.35 & \cellcolor{aliceblue}0.35  & \cellcolor{aliceblue}-0.42 & \cellcolor{aliceblue}-0.21 & \cellcolor{aliceblue}0.46  & \cellcolor{aliceblue}1     & \cellcolor{aliceblue}0.66 \\ 
+     TEoM  & -0.16 & -0.1  & -0.17 & -0.12 & 0.34  & \textbf{0.24}  & 1 \\ \bottomrule
     \end{tabular}
     }
 \end{subfigure}
@@ -122,12 +131,13 @@ We expect that the metrics from CrowdTruth annotation can be used to systematica
 \centering
 \scalebox{0.8}{
 \begin{tabular}{rccc}
-%\hline
-& \textbf{Precision} & \textbf{Recall} &\textbf{F1 score} \\ \hline \hline
+\toprule
+& \textbf{Precision} & \textbf{Recall} &\textbf{F1 score} \\ \toprule
 \textbf{DS} & 0.19 & 0.22 & 0.2 \\
 \textbf{DS merged} & \textbf{0.43} & 0.33 & \textbf{0.37}  \\
 \textbf{DS\_RCP} & 0.19 & \textbf{0.48} & 0.27 \\
 \textbf{DS\_FP} & 0.21 & 0.22 & 0.21  \\ % \hline
+\bottomrule
 \end{tabular}
 }
 \end{table}
@@ -149,8 +159,8 @@ We are currently considering experiments that take advantage of another aspect o
 \bgroup
 \def\arraystretch{1.5}
 \begin{tabular}{p{5cm}c>{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{2cm}}
-%\hline
-\textbf{Sentence} & \textbf{Relation} & \textbf{Crowd SRS} & \textbf{DS label} \\ \hline  \hline
+\toprule
+\textbf{Sentence} & \textbf{Relation} & \textbf{Crowd SRS} & \textbf{DS label} \\ \toprule
 
 \multirow{4}{5cm}{After growing up on Cat Island, \textbf{Tony McKay} moved to \textbf{New York City} at age 17 to study architecture.} & \multirow{2}{*}{$place\_of\_death$} & \multirow{2}{*}{0.004} & \multirow{2}{*}{1} \\
 & & & \\ \cline{2-4}
@@ -170,7 +180,7 @@ We are currently considering experiments that take advantage of another aspect o
 \multirow{4}{5cm}{\textbf{Osama bin Laden} had moved from \textbf{Saudi Arabia} to Sudan during the 1990-91 Gulf War.} & \multirow{2}{*}{$origin$} & \multirow{2}{*}{0.3} & \multirow{2}{*}{1} \\
 & & & \\ \cline{2-4}
 & \multirow{2}{*}{$places\_of\_residence$} & \multirow{2}{*}{0.74} & \multirow{2}{*}{1} \\
-& & & \\ %\hline
+& & & \\ \bottomrule
  
 \end{tabular}
 \egroup
@@ -185,8 +195,8 @@ We are currently considering experiments that take advantage of another aspect o
 \bgroup
 \def\arraystretch{1.5}
 \begin{tabular}{p{5cm}c>{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{2cm}}
-%\hline
-\textbf{Sentence} & \textbf{Relation} & \textbf{Crowd SRS} & \textbf{DS label} \\ \hline  \hline
+\toprule
+\textbf{Sentence} & \textbf{Relation} & \textbf{Crowd SRS} & \textbf{DS label} \\ \toprule
 
 \multirow{4}{5cm}{China on Monday officially appointed \textbf{Donald Tsang} as \textbf{Hong Kong}'s chief executive for a second term.} & \multirow{2}{*}{$employee\_or\_member$} & \multirow{2}{*}{0.623} & \multirow{2}{*}{0} \\
 & & & \\ \cline{2-4}
@@ -207,6 +217,7 @@ We are currently considering experiments that take advantage of another aspect o
 & & & \\ \cline{2-4}
 & \multirow{2}{*}{$place\_of\_birth$} & \multirow{2}{*}{0.791} & \multirow{2}{*}{1} \\
 & & & \\ %\hline
+\bottomrule
  
 \end{tabular}
 \egroup

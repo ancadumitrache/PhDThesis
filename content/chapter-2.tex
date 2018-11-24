@@ -7,7 +7,7 @@ One is always wrong; but with two, truth begins. One cannot prove his case, but 
 
 Cognitive computing systems require human labeled data for evaluation, and often for training. The standard practice used in gathering this data minimizes disagreement between annotators, and we have found this results in data that fails to account for the ambiguity inherent in language. We have proposed the CrowdTruth method for collecting ground truth through crowdsourcing, that reconsiders the role of people in machine learning based on the observation that disagreement between annotators provides a useful signal for phenomena such as ambiguity in the text. We report on using this method to build an annotated data set for medical relation extraction for the $cause$ and $treat$ relations, and how this data performed in a supervised training experiment. We demonstrate that by modeling ambiguity, labeled data gathered from crowd workers can (1) reach the level of quality of domain experts for this task while reducing the cost, and (2) provide better training data at scale than distant supervision. We further propose and validate new weighted measures for precision, recall, and F-measure, that account for ambiguity in both human and machine performance on this task.
 
-This chapter was published as ``Crowdsourcing Ground Truth for Medical Relation Extraction'' in the ACM Transactions on Interactive Intelligent Systems~(\citet{DBLP:journals/corr/DumitracheAW17}) and was co-authored by Lora Aroyo and Chris Welty.
+This chapter was published as \textit{Crowdsourcing Ground Truth for Medical Relation Extraction} in the ACM Transactions on Interactive Intelligent Systems, and was co-authored by Lora Aroyo and Chris Welty~\cite{DBLP:journals/corr/DumitracheAW17}.
 
 
 \section{Introduction}
@@ -86,36 +86,37 @@ The dataset used in our experiments contains 3,984 medical sentences extracted f
 %\begin{tabular}{|c|p{3.25cm}|p{4.25cm}|p{3.75cm}|}
 \begin{tabular}{cp{3.25cm}p{4.25cm}p{3.75cm}}
 %\hline
+\toprule
 \multirow{2}{*}{\textbf{Relation}} & \textbf{Corresponding} & \multirow{2}{*}{\textbf{Definition}} & \multirow{2}{*}{\textbf{Example}} \\ 
- & \textbf{UMLS Relation(s)} &  &   \\ \hline \hline
+ & \textbf{UMLS Relation(s)} &  &   \\ \toprule
 
 \textit{treat} & may treat &  therapeutic use of 
-a drug &  penicillin treats infection \\ \hline
+a drug &  penicillin treats infection \\ %\hline
 
-\textit{cause} & \parbox[t]{3.5cm}{cause of; \\ has causative agent} & the underlying reason for a symptom or a disease &   fever induces dizziness \\  \hline
+\cellcolor{aliceblue}\textit{cause} & \cellcolor{aliceblue}\parbox[t]{3.25cm}{cause of; \\ has causative agent} & \cellcolor{aliceblue}the underlying reason for a symptom or a disease &   \cellcolor{aliceblue}fever induces dizziness \\  %\hline
 
-\textit{prevent} & may prevent &  preventative use of
-a drug &  vitamin C prevents influenza \\  \hline
+\textit{prevent} & may prevent &  preventative use of a drug &  vitamin C prevents influenza \\  %\hline
 
-\textit{diagnoses} & may diagnose & diagnostic use of an ingredient, test or a drug &  RINNE test is used to diagnose hearing loss \\  \hline
+\cellcolor{aliceblue}\textit{diagnoses} & \cellcolor{aliceblue}may diagnose & \cellcolor{aliceblue}diagnostic use of an ingredient, test or a drug &  \cellcolor{aliceblue}RINNE test is used to diagnose hearing loss \\  %\hline
 
 \textit{location} & disease has primary anatomic site; has finding site  & body part 
-in which disease or disorder is observed &  leukemia is found in the circulatory system \\ \hline
+in which disease or disorder is observed &  leukemia is found in the circulatory system \\ %\hline
 
-\textit{symptom} & disease has finding; disease may have finding & deviation from normal function indicating the presence of disease or abnormality &  pain is a symptom of a broken arm \\  \hline
+\cellcolor{aliceblue}\textit{symptom} & \cellcolor{aliceblue}disease has finding; disease may have finding & \cellcolor{aliceblue}deviation from normal function indicating the presence of disease or abnormality &  \cellcolor{aliceblue}pain is a symptom of a broken arm \\  %\hline
 
-\textit{manifestation} & has manifestation & links disorders to the observations that are closely associated with them &  abdominal distention is a manifestation of liver failure \\ \hline
+\textit{manifestation} & has manifestation & links disorders to the observations that are closely associated with them &  abdominal distention is a manifestation of liver failure \\ %\hline
 
-\textit{contraindicate} & contraindicated drug & a condition for which a drug or treatment should not be used &  patients with obesity should avoid using danazol \\  \hline
+\cellcolor{aliceblue}\textit{contraindicate} & \cellcolor{aliceblue}contraindicated drug & \cellcolor{aliceblue}a condition for which a drug or treatment should not be used &  \cellcolor{aliceblue}patients with obesity should avoid using danazol \\  %\hline
 
 \textit{side effect} & side effect & a secondary condition or symptom that results from a drug %or treatment 
-&  use of antidepressants causes dryness in the eyes \\  \hline
+&  use of antidepressants causes dryness in the eyes \\  %\hline
 
-\textit{associated with} & associated with & signs, symptoms or findings that often appear together &  patients who smoke often have yellow teeth \\  \hline
+\cellcolor{aliceblue}\textit{associated with} & \cellcolor{aliceblue}associated with & \cellcolor{aliceblue}signs, symptoms or findings that often appear together &  \cellcolor{aliceblue}patients who smoke often have yellow teeth \\  %\hline
 
-\textit{is a} & is a & a relation that indicates that one of the terms is more specific variation of the other &  migraine is a kind of headache \\  \hline
+\textit{is a} & is a & a relation that indicates that one of the terms is more specific variation of the other &  migraine is a kind of headache \\  %\hline
 
-\textit{part of} & part of & an anatomical or structural sub-component &  the left ventricle is part of the heart \\  %\hline
+\cellcolor{aliceblue}\textit{part of} & \cellcolor{aliceblue}part of & \cellcolor{aliceblue}an anatomical or structural sub-component &  \cellcolor{aliceblue}the left ventricle is part of the heart \\  %\hline
+\bottomrule
 \end{tabular}
 %\egroup
 }
@@ -149,7 +150,8 @@ The crowd output was processed with the use of CrowdTruth metrics -- a set of ge
 
 \end{itemize}
 
-\newcolumntype{g}{>{\columncolor{Gray}}c}
+%\definecolor{light-gray}{gray}{0.65} 
+\newcolumntype{g}{>{\columncolor{aliceblue}}c}
 \begin{table}[htb!]
 
 \caption[CrowdTruth metrics examples]{Given two sentences, \textit{Sent.1} and \textit{Sent.2}, with term pairs in bold font, the table shows the transformation of the sentence vectors to sentence -- relation scores, and then to \textit{crowd} scores used for model training. The sentence-relation threshold for the train score is set at $0.5$ for these examples. \\
@@ -164,28 +166,30 @@ The crowd output was processed with the use of CrowdTruth metrics -- a set of ge
 \scalebox{0.8}{
 %\begin{tabular}{r|cc|cc|cc|}
 \begin{tabular}{rcccccc}
+\toprule
 %\hline
 %\multirow{3}{*}{\textbf{Relation}} & \multicolumn{2}{c|}{\textbf{sentence}} &
 %\multicolumn{2}{c|}{\textbf{sentence-relation}} & \multicolumn{2}{c|}{\textbf{crowd score used in}} \\
 \multirow{3}{*}{\textbf{Relation}} & \multicolumn{2}{c}{\textbf{sentence}} &
 \multicolumn{2}{c}{\textbf{sentence-relation}} & \multicolumn{2}{c}{\textbf{crowd score used in}} \\
 & \multicolumn{2}{c}{\textbf{vector}} & \multicolumn{2}{c}{\textbf{score}} & \multicolumn{2}{c}{\textbf{model training}} \\ \cline{2-7}
-& \textit{Sent.1} & \textit{Sent.2} & \textit{Sent.1} & \textit{Sent.2} & \textit{Sent.1} & \textit{Sent.2} \\ \hline
+& \textit{Sent.1} & \textit{Sent.2} & \textit{Sent.1} & \textit{Sent.2} & \textit{Sent.1} & \textit{Sent.2} \\ \toprule
 \textit{treat}           & 0  & 3 & 0    & 0.36 & -1    & -0.64 \\
-\cellcolor{Gray}\textit{prevent}         & \cellcolor{Gray}0  & \cellcolor{Gray}1 & \cellcolor{Gray}0    & \cellcolor{Gray}0.12 & \cellcolor{Gray}-1    & \cellcolor{Gray}-0.88 \\
+\cellcolor{aliceblue}\textit{prevent}         & \cellcolor{aliceblue}0  & \cellcolor{aliceblue}1 & \cellcolor{aliceblue}0    & \cellcolor{aliceblue}0.12 & \cellcolor{aliceblue}-1    & \cellcolor{aliceblue}-0.88 \\
 \textit{diagnose}        & 1  & 7 & 0.09 & 0.84 & -0.91 & 0.84 \\
-\cellcolor{Gray}\textit{cause}           & \cellcolor{Gray}10 & \cellcolor{Gray}0 & \cellcolor{Gray}0.96 & \cellcolor{Gray}0    & \cellcolor{Gray}0.96  & \cellcolor{Gray}-1 \\
+\cellcolor{aliceblue}\textit{cause}           & \cellcolor{aliceblue}10 & \cellcolor{aliceblue}0 & \cellcolor{aliceblue}0.96 & \cellcolor{aliceblue}0    & \cellcolor{aliceblue}0.96  & \cellcolor{aliceblue}-1 \\
 \textit{location}        & 1  & 0 & 0.09 & 0    & -0.91 & -1 \\
-\cellcolor{Gray}\textit{symptom}         & \cellcolor{Gray}2  & \cellcolor{Gray}0 & \cellcolor{Gray}0.19 & \cellcolor{Gray}0    & \cellcolor{Gray}-0.81 & \cellcolor{Gray}-1 \\
+\cellcolor{aliceblue}\textit{symptom}         & \cellcolor{aliceblue}2  & \cellcolor{aliceblue}0 & \cellcolor{aliceblue}0.19 & \cellcolor{aliceblue}0    & \cellcolor{aliceblue}-0.81 & \cellcolor{aliceblue}-1 \\
 \textit{manifestation}   & 0  & 0 & 0    & 0    & -1    & -1 \\
-\cellcolor{Gray}\textit{contraindicate}  & \cellcolor{Gray}0  & \cellcolor{Gray}0 & \cellcolor{Gray}0    & \cellcolor{Gray}0    & \cellcolor{Gray}-1    & \cellcolor{Gray}-1 \\
+\cellcolor{aliceblue}\textit{contraindicate}  & \cellcolor{aliceblue}0  & \cellcolor{aliceblue}0 & \cellcolor{aliceblue}0    & \cellcolor{aliceblue}0    & \cellcolor{aliceblue}-1    & \cellcolor{aliceblue}-1 \\
 \textit{associated with} & 1  & 3 & 0.09 & 0.36 & -0.91 & -0.64 \\
-\cellcolor{Gray}\textit{side effect}     & \cellcolor{Gray}0  & \cellcolor{Gray}0 & \cellcolor{Gray}0    & \cellcolor{Gray}0    & \cellcolor{Gray}-1    & \cellcolor{Gray}-1 \\
+\cellcolor{aliceblue}\textit{side effect}     & \cellcolor{aliceblue}0  & \cellcolor{aliceblue}0 & \cellcolor{aliceblue}0    & \cellcolor{aliceblue}0    & \cellcolor{aliceblue}-1    & \cellcolor{aliceblue}-1 \\
 \textit{is a}            & 0  & 0 & 0    & 0    & -1    & -1 \\
-\cellcolor{Gray}\textit{part of}         & \cellcolor{Gray}0  & \cellcolor{Gray}0 & \cellcolor{Gray}0    & \cellcolor{Gray}0    & \cellcolor{Gray}-1    & \cellcolor{Gray}-1 \\
+\cellcolor{aliceblue}\textit{part of}         & \cellcolor{aliceblue}0  & \cellcolor{aliceblue}0 & \cellcolor{aliceblue}0    & \cellcolor{aliceblue}0    & \cellcolor{aliceblue}-1    & \cellcolor{aliceblue}-1 \\
 \textit{other}           & 0  & 1 & 0    & 0.12 & -1    & -0.88 \\
-\cellcolor{Gray}\textit{none}            & \cellcolor{Gray}0  & \cellcolor{Gray}0 & \cellcolor{Gray}0    & \cellcolor{Gray}0    & \cellcolor{Gray}-1    & \cellcolor{Gray}-1 \\
+\cellcolor{aliceblue}\textit{none}            & \cellcolor{aliceblue}0  & \cellcolor{aliceblue}0 & \cellcolor{aliceblue}0    & \cellcolor{aliceblue}0    & \cellcolor{aliceblue}-1    & \cellcolor{aliceblue}-1 \\
 %\hline
+\bottomrule
 \end{tabular}
 }
 \end{table}
@@ -294,18 +298,21 @@ Tab.\ref{tab:statistic_exp} shows the full results of the evaluation, together w
 \caption{Model evaluation results over sentences with expert annotation. Crowd scores are shown at 0.5 negative/positive sentence-relation score threshold.}
 \label{tab:statistic_exp}
 \scalebox{0.8}{
-\begin{tabular}{|r|c|cc|cc|cc|}
+\begin{tabular}{rccccccc}
 
-\hline
-& \textbf{Dataset} & \textbf{P} & \textbf{P'} & \textbf{R} & \textbf{R'} & \textbf{F1} & \textbf{F1'}   \\ \hline \hline 
-& \textit{crowd} & 0.565 & 0.632 & 0.743 & 0.754 & \textbf{0.642} & \textbf{0.687} \\ % & 0.784  &  \\ %\cline{2-6}
-\textit{cause} & \textit{expert} & \textbf{0.672} & \textbf{0.711} & 0.604 & 0.616 & 0.638 & 0.658 \\ % & 0.818  &  \\ %\cline{2-6}
-relation & \textit{baseline} & 0.436 & 0.474 & \textbf{0.844} & \textbf{0.842} & 0.575 & 0.606 \\ % & 0.674  &  \\ %\cline{2-6}
-& \textit{single} & 0.495 & 0.545 & 0.473 & 0.478 & 0.483 & 0.658 \\ \hline % & 0.737  &  \\ \hline 
-& \textit{crowd} & 0.823 & 0.843 & 0.891 & 0.902 & 0.854 & 0.869 \\ % & 0.854  & 0.868 \\ %\cline{2-6}
-\textit{treat} & \textit{expert} & \textbf{0.834} & \textbf{0.863} & 0.833 & 0.84 & 0.832 & 0.85 \\ % & 0.839  & 0.855 \\ %\cline{2-6}
-relation & \textit{baseline} & 0.767 & 0.811 & \textbf{0.968} & \textbf{0.968} & \textbf{0.856} & \textbf{0.882} \\ % & 0.844  & 0.874 \\ %\cline{2-6}
-& \textit{single} & 0.774 & 0.819 & 0.856 & 0.866 & 0.811 & 0.84 \\ \hline % & 0.81 & 0.839 \\
+\toprule
+& \textbf{Dataset} & \cellcolor{aliceblue}\textbf{P} & \cellcolor{aliceblue}\textbf{P'} & \textbf{R} & \textbf{R'} & \cellcolor{aliceblue}\textbf{F1} & \cellcolor{aliceblue}\textbf{F1'}   \\ \toprule
+
+& \textit{crowd} & \cellcolor{aliceblue}0.565 & \cellcolor{aliceblue}0.632 & 0.743 & 0.754 & \cellcolor{aliceblue}\textbf{0.642} & \cellcolor{aliceblue}\textbf{0.687} \\ % & 0.784  &  \\ %\cline{2-6}
+\textit{cause} & \textit{expert} & \cellcolor{aliceblue}\textbf{0.672} & \cellcolor{aliceblue}\textbf{0.711} & 0.604 & 0.616 & \cellcolor{aliceblue}0.638 & \cellcolor{aliceblue}0.658 \\ % & 0.818  &  \\ %\cline{2-6}
+relation & \textit{baseline} & \cellcolor{aliceblue}0.436 & \cellcolor{aliceblue}0.474 & \textbf{0.844} & \textbf{0.842} & \cellcolor{aliceblue}0.575 & \cellcolor{aliceblue}0.606 \\ % & 0.674  &  \\ %\cline{2-6}
+& \textit{single} & \cellcolor{aliceblue}0.495 & \cellcolor{aliceblue}0.545 & 0.473 & 0.478 & \cellcolor{aliceblue}0.483 & \cellcolor{aliceblue}0.658 \\ \midrule % & 0.737  &  \\ \hline 
+
+& \textit{crowd} & \cellcolor{aliceblue}0.823 & \cellcolor{aliceblue}0.843 & 0.891 & 0.902 & \cellcolor{aliceblue}0.854 & \cellcolor{aliceblue}0.869 \\ % & 0.854  & 0.868 \\ %\cline{2-6}
+\textit{treat} & \textit{expert} & \cellcolor{aliceblue}\textbf{0.834} & \cellcolor{aliceblue}\textbf{0.863} & 0.833 & 0.84 & \cellcolor{aliceblue}0.832 & \cellcolor{aliceblue}0.85 \\ % & 0.839  & 0.855 \\ %\cline{2-6}
+relation & \textit{baseline} & \cellcolor{aliceblue}0.767 & \cellcolor{aliceblue}0.811 & \textbf{0.968} & \textbf{0.968} & \cellcolor{aliceblue}\textbf{0.856} & \cellcolor{aliceblue}\textbf{0.882} \\ % & 0.844  & 0.874 \\ %\cline{2-6}
+& \textit{single} & \cellcolor{aliceblue}0.774 & \cellcolor{aliceblue}0.819 & 0.856 & 0.866 & \cellcolor{aliceblue}0.811 & \cellcolor{aliceblue}0.84 \\  % & 0.81 & 0.839 \\
+\bottomrule
 \end{tabular}
 }
 \end{table}
@@ -354,13 +361,14 @@ Distant supervision is a widely used technique in NLP, because its obvious flaws
 \caption{Model evaluation results over 3,984 sentences. Crowd scores are shown at 0.5 sentence-relation score threshold.}
 \label{tab:statistic_bas}
 \scalebox{0.8}{
-\begin{tabular}{|r|c|cc|cc|cc|}
-\hline
-& \textbf{Dataset} & \textbf{P} & \textbf{P'} & \textbf{R} & \textbf{R'} & \textbf{F1} & \textbf{F1'}   \\ \hline \hline
-\textit{cause} & \textit{crowd} & \textbf{0.538} & \textbf{0.61} & 0.79  & 0.802 & \textbf{0.64}  & \textbf{0.692} \\ % & 0.768 & 0.803  \\ %\cline{2-10}
-relation & \textit{baseline} & 0.475 & 0.53 & \textbf{0.889} & \textbf{0.887} & 0.619 & 0.663 \\ \hline %  & 0.715 & 0.751 \\ \hline 
-\textit{treat} & \textit{crowd} & \textbf{0.876} & \textbf{0.913} & \textbf{0.887} & \textbf{0.898} & \textbf{0.88} & \textbf{0.904} \\ %  & 0.884 & 0.907  \\ %\cline{2-10}
-relation & \textit{baseline} & 0.808 & 0.858 & 0.678 & 0.673 & 0.736 & 0.754 \\ \hline %  & 0.767 & 0.783  \\
+\begin{tabular}{rccccccc}
+\toprule
+& \textbf{Dataset} & \cellcolor{aliceblue}\textbf{P} & \cellcolor{aliceblue}\textbf{P'} & \textbf{R} & \textbf{R'} & \cellcolor{aliceblue}\textbf{F1} & \cellcolor{aliceblue}\textbf{F1'}   \\ \toprule
+\textit{cause} & \textit{crowd} & \cellcolor{aliceblue}\textbf{0.538} & \cellcolor{aliceblue}\textbf{0.61} & 0.79  & 0.802 & \cellcolor{aliceblue}\textbf{0.64}  & \cellcolor{aliceblue}\textbf{0.692} \\ % & 0.768 & 0.803  \\ %\cline{2-10}
+relation & \textit{baseline} & \cellcolor{aliceblue}0.475 & \cellcolor{aliceblue}0.53 & \textbf{0.889} & \textbf{0.887} & \cellcolor{aliceblue}0.619 & \cellcolor{aliceblue}0.663 \\ \midrule %  & 0.715 & 0.751 \\ \hline 
+\textit{treat} & \textit{crowd} & \cellcolor{aliceblue}\textbf{0.876} & \cellcolor{aliceblue}\textbf{0.913} & \textbf{0.887} & \textbf{0.898} & \cellcolor{aliceblue}\textbf{0.88} & \cellcolor{aliceblue}\textbf{0.904} \\ %  & 0.884 & 0.907  \\ %\cline{2-10}
+relation & \textit{baseline} & \cellcolor{aliceblue}0.808 & \cellcolor{aliceblue}0.858 & 0.678 & 0.673 & \cellcolor{aliceblue}0.736 & \cellcolor{aliceblue}0.754 \\  %  & 0.767 & 0.783  \\
+\bottomrule
 \end{tabular}
 }
 \end{table}
@@ -426,13 +434,20 @@ The authors would like to thank Dr. Chang Wang for support with using the medica
 \def\arraystretch{1.5}
 \begin{tabular}{p{9cm}c>{\centering\arraybackslash}p{1.7cm}>{\centering\arraybackslash}p{1.3cm}}
 %\hline
-\multirow{2}{*}{\textbf{Sentence}} & \multirow{2}{*}{\textbf{Relation}} & \textbf{Crowd Label} & \textbf{Expert Label} \\ \hline  \hline
-The physician should ask about a history of \textbf{diabetes} of long duration, including other manifestations of \textbf{diabetic neuropathy}. & $cause$ & 0.977 & -1 \\ \hline
-If the oxygen is too low, the incidence of \textbf{decompression sickness} increases; if the \textbf{oxygen} is too high, oxygen poisoning becomes a problem. & $cause$ & 0.743 & -1 \\ \hline
-Evidence: ? Vigilant intraoperative magement of \textbf{hypertension} is essential during resection of \textbf{pherochromocytoma}. & $cause$ & -0.651 & 1 \\ \hline
-This is the first case of \textbf{Aicardi Syndrome} associated with lipoma and \textbf{metastatic angiosarcoma}. & $cause$ & -0.909 & 1 \\ \hline
-Will giving \textbf{Acetaminophen} prevent the \textbf{pain} of the immunization? & $treat$ & 0.995 & -1 \\ \hline
-FDA approves \textbf{Thalidomide} for \textbf{Hansen's disease} side effect, imposes unprecedented restrictions on distribution. & $treat$ & 0.913 & -1 \\ % \hline
+\toprule
+\multirow{2}{*}{\textbf{Sentence}} & \multirow{2}{*}{\textbf{Relation}} & \textbf{Crowd Label} & \textbf{Expert Label} \\ \toprule
+The physician should ask about a history of \textbf{diabetes} of long duration, including other manifestations of \textbf{diabetic neuropathy}. & $cause$ & 0.977 & -1 \\ %\hline
+
+\cellcolor{aliceblue}If the oxygen is too low, the incidence of \textbf{decompression sickness} increases; if the \textbf{oxygen} is too high, oxygen poisoning becomes a problem. & \cellcolor{aliceblue}$cause$ & \cellcolor{aliceblue}0.743 & \cellcolor{aliceblue}-1 \\ %\hline
+
+Evidence: ? Vigilant intraoperative magement of \textbf{hypertension} is essential during resection of \textbf{pherochromocytoma}. & $cause$ & -0.651 & 1 \\ %\hline
+
+\cellcolor{aliceblue}This is the first case of \textbf{Aicardi Syndrome} associated with lipoma and \textbf{metastatic angiosarcoma}. & \cellcolor{aliceblue}$cause$ & \cellcolor{aliceblue}-0.909 & \cellcolor{aliceblue}1 \\ %\hline
+
+Will giving \textbf{Acetaminophen} prevent the \textbf{pain} of the immunization? & $treat$ & 0.995 & -1 \\ %\hline
+
+\cellcolor{aliceblue}FDA approves \textbf{Thalidomide} for \textbf{Hansen's disease} side effect, imposes unprecedented restrictions on distribution. & \cellcolor{aliceblue}$treat$ & \cellcolor{aliceblue}0.913 & \cellcolor{aliceblue}-1 \\ % \hline
+\bottomrule
 \end{tabular}
 \egroup
 }
@@ -448,15 +463,24 @@ FDA approves \textbf{Thalidomide} for \textbf{Hansen's disease} side effect, imp
 \def\arraystretch{1.5}
 \begin{tabular}{p{9cm}c>{\centering\arraybackslash}p{1.7cm}>{\centering\arraybackslash}p{1.3cm}}
 %\hline
-\multirow{2}{*}{\textbf{Sentence}} & \multirow{2}{*}{\textbf{Relation}} & \textbf{Crowd Label} & \textbf{Expert Label} \\ \hline  \hline
-Patients with a history of \textbf{bee sting allergy} may have a higher risk of a \textbf{hypersensitivity reaction} with paclitaxel treatment. & $cause$ & 0.9 & -1 \\ \hline
-In contrast, we did not find a definite increase in the LGL percentage within 6 months postpartum in patients with \textbf{Grave's disease} who relapsed into \textbf{Grave's thyrotoxicosis}. & $cause$ & 0.737 & -1 \\ \hline
-\textbf{Hepatoma} in one patient was correctly identified by both methods, as well as the presence of \textbf{ascites}. & $cause$ & -0.579 & 1 \\ \hline
-The diagnosis of \textbf{gyrate atrophy} was confirmed biochemically and clinically; \textbf{hyperornithinemia} and a deficiency of ornithine ketoacid transamise were confirmed biochemically. & $cause$ & -0.863 & 1 \\ \hline
-Thirdly the evidence of the efficacy of \textbf{Clomipramine} in \textbf{OCD without concomitant depression} reported by Montgomery 1980 and supported by other studies suggests that 5 HT uptake inhibitors have a specifically anti obsessiol effect. & $treat$ & 0.905 & -1 \\ \hline
-The 1 placebo controlled trial that found black cohosh to be effective for \textbf{hot flashes} did not find \textbf{estrogen} to be effective, which casts doubt on the study's validity. & $treat$ & 0.73 & -1 \\ \hline
-\textbf{Graft Versus Host Disease (GVHD) Prophylaxis} was methotrexate (1 patient), cyclosporine (2 patients), methotrexate + \textbf{cyclosporine} (3 patients), cyclosporine + physical removal of T cells (2 patients). & $treat$ & -0.657 & 1 \\ \hline
-Patients with severe forms of \textbf{Von Willebrands' Disease (VWD)} may have frequent haemarthroses, especially when \textbf{Factor VIII (FVIII)} levels are below 10 U/dL, so that some of them develop target joints like patients with severe haemophilia A. & $treat$ & -1 & 1 \\ %\hline
+\toprule
+\multirow{2}{*}{\textbf{Sentence}} & \multirow{2}{*}{\textbf{Relation}} & \textbf{Crowd Label} & \textbf{Expert Label} \\ \toprule
+Patients with a history of \textbf{bee sting allergy} may have a higher risk of a \textbf{hypersensitivity reaction} with paclitaxel treatment. & $cause$ & 0.9 & -1 \\ %\hline
+
+\cellcolor{aliceblue}In contrast, we did not find a definite increase in the LGL percentage within 6 months postpartum in patients with \textbf{Grave's disease} who relapsed into \textbf{Grave's thyrotoxicosis}. & \cellcolor{aliceblue}$cause$ & \cellcolor{aliceblue}0.737 & \cellcolor{aliceblue}-1 \\ %\hline
+
+\textbf{Hepatoma} in one patient was correctly identified by both methods, as well as the presence of \textbf{ascites}. & $cause$ & -0.579 & 1 \\ %\hline
+
+\cellcolor{aliceblue}The diagnosis of \textbf{gyrate atrophy} was confirmed biochemically and clinically; \textbf{hyperornithinemia} and a deficiency of ornithine ketoacid transamise were confirmed biochemically. & \cellcolor{aliceblue}$cause$ & \cellcolor{aliceblue}-0.863 & \cellcolor{aliceblue}1 \\ %\hline
+
+Thirdly the evidence of the efficacy of \textbf{Clomipramine} in \textbf{OCD without concomitant depression} reported by Montgomery 1980 and supported by other studies suggests that 5 HT uptake inhibitors have a specifically anti obsessiol effect. & $treat$ & 0.905 & -1 \\ %\hline
+
+\cellcolor{aliceblue}The 1 placebo controlled trial that found black cohosh to be effective for \textbf{hot flashes} did not find \textbf{estrogen} to be effective, which casts doubt on the study's validity. & \cellcolor{aliceblue}$treat$ & \cellcolor{aliceblue}0.73 & \cellcolor{aliceblue}-1 \\ %\hline
+
+\textbf{Graft Versus Host Disease (GVHD) Prophylaxis} was methotrexate (1 patient), cyclosporine (2 patients), methotrexate + \textbf{cyclosporine} (3 patients), cyclosporine + physical removal of T cells (2 patients). & $treat$ & -0.657 & 1 \\ %\hline
+
+\cellcolor{aliceblue}Patients with severe forms of \textbf{Von Willebrands' Disease (VWD)} may have frequent haemarthroses, especially when \textbf{Factor VIII (FVIII)} levels are below 10 U/dL, so that some of them develop target joints like patients with severe haemophilia A. & \cellcolor{aliceblue}$treat$ & \cellcolor{aliceblue}-1 & \cellcolor{aliceblue}1 \\ %\hline
+\bottomrule
 \end{tabular}
 \egroup
 }
@@ -472,15 +496,25 @@ Patients with severe forms of \textbf{Von Willebrands' Disease (VWD)} may have f
 \def\arraystretch{1.5}
 \begin{tabular}{p{9cm}c>{\centering\arraybackslash}p{1.7cm}>{\centering\arraybackslash}p{1.3cm}}
 %\hline
-\multirow{2}{*}{\textbf{Sentence}} & \multirow{2}{*}{\textbf{Relation}} & \textbf{Crowd Label} & \textbf{Expert Label} \\ \hline  \hline
-Instability of \textbf{bone} fragments is regarded as the most important factor in pathogenesis of \textbf{pseudoarthrosis}. & $cause$ & 0.928 & -1 \\ \hline
-\textbf{Atopic conditions} include allergic rhinitis, atopic eczema, \textbf{allergic conjunctivitis} and asthma. & $cause$ & 0.507 & -1 \\ \hline
-The histological finding of \textbf{Psammoma bodies} is important in the diagnosis of \textbf{duodel stomatostatinomas}. & $cause$ & -0.558 & 1 \\ \hline
-A retrospective review of 64 patients with haematuria and subsequent histologically proven \textbf{carcinoma of the bladder} revealed that bladder tumours could be diagnosed pre operatively in 34 of 46 (76\%) of patients with gross \textbf{haematuria} and 12 of of 18 (67\%) of those with microhaematuria. & $cause$ & -0.658 & 1 \\ \hline
-Hypersecretion of insulin increases the chance of the incidence of \textbf{diabetes type I and II} while inhibiting \textbf{insulin} secretion helps prevent diabetes. & $treat$ & 0.949 & -1 \\ \hline
-To determine whether late asthmatic reactions and the associated increase in airway responsiveness induced by toluene diisocyate (TDI) are linked to \textbf{airway inflammation} we investigated whether they are inhibited by \textbf{Prednisone}. & $treat$ & 0.52 & -1 \\ \hline
-In one group of four pigs sensitive to \textbf{Malignant Hyperthermia (MHS)} a dose response to \textbf{intravenous Dantrolene} was determined by quantitation of toe twitch tension.. & $treat$ & -0.575 & 1 \\ \hline
-Deficiency diseases include night blindness and keratomalacia (caused by lack of vitamin A); beriberi and polyneuritis (lack of thiamine); \textbf{pellagra} (lack of \textbf{niacin}); scurvy (lack of vitamin C); rickets and osteomalacia (lack of vitamin D); pernicious anemia (lack of gastric intrinsic factor and vitamin B 12. & $treat$ & -1 & 1 \\ %\hline
+\toprule
+\multirow{2}{*}{\textbf{Sentence}} & \multirow{2}{*}{\textbf{Relation}} & \textbf{Crowd Label} & \textbf{Expert Label} \\ \toprule
+
+Instability of \textbf{bone} fragments is regarded as the most important factor in pathogenesis of \textbf{pseudoarthrosis}. & $cause$ & 0.928 & -1 \\ %\hline
+
+\cellcolor{aliceblue}\textbf{Atopic conditions} include allergic rhinitis, atopic eczema, \textbf{allergic conjunctivitis} and asthma. & \cellcolor{aliceblue}$cause$ & \cellcolor{aliceblue}0.507 & \cellcolor{aliceblue}-1 \\ %\hline
+
+The histological finding of \textbf{Psammoma bodies} is important in the diagnosis of \textbf{duodel stomatostatinomas}. & $cause$ & -0.558 & 1 \\ %\hline
+
+\cellcolor{aliceblue}A retrospective review of 64 patients with haematuria and subsequent histologically proven \textbf{carcinoma of the bladder} revealed that bladder tumours could be diagnosed pre operatively in 34 of 46 (76\%) of patients with gross \textbf{haematuria} and 12 of of 18 (67\%) of those with microhaematuria. & \cellcolor{aliceblue}$cause$ & \cellcolor{aliceblue}-0.658 & \cellcolor{aliceblue}1 \\ %\hline
+
+Hypersecretion of insulin increases the chance of the incidence of \textbf{diabetes type I and II} while inhibiting \textbf{insulin} secretion helps prevent diabetes. & $treat$ & 0.949 & -1 \\ %\hline
+
+\cellcolor{aliceblue}To determine whether late asthmatic reactions and the associated increase in airway responsiveness induced by toluene diisocyate (TDI) are linked to \textbf{airway inflammation} we investigated whether they are inhibited by \textbf{Prednisone}. & \cellcolor{aliceblue}$treat$ & \cellcolor{aliceblue}0.52 & \cellcolor{aliceblue}-1 \\ %\hline
+
+In one group of four pigs sensitive to \textbf{Malignant Hyperthermia (MHS)} a dose response to \textbf{intravenous Dantrolene} was determined by quantitation of toe twitch tension.. & $treat$ & -0.575 & 1 \\ %\hline
+
+\cellcolor{aliceblue}Deficiency diseases include night blindness and keratomalacia (caused by lack of vitamin A); beriberi and polyneuritis (lack of thiamine); \textbf{pellagra} (lack of \textbf{niacin}); scurvy (lack of vitamin C); rickets and osteomalacia (lack of vitamin D); pernicious anemia (lack of gastric intrinsic factor and vitamin B 12. & \cellcolor{aliceblue}$treat$ & \cellcolor{aliceblue}-1 & \cellcolor{aliceblue}1 \\ %\hline
+\bottomrule
 \end{tabular}
 \egroup
 }

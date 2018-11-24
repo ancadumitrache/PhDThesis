@@ -9,15 +9,57 @@
 Language is the source of misunderstandings.
 \end{chapquote}
 
-..
+In this chapter, we introduce the CrowdTruth methodology for crowdsourcing ground truth while preserving inter-annotator disagreement. CrowdTruth is based on the idea that disagreement is not noise, but an important signal that can be used to capture ambiguity in the annotation data. We present the motivation and related work of the research presented in this thesis. We define the main research goal of how to interpret disagreement in crowdsourcing ground truth for natural language processing, along with four research questions that address this goal. Finally, we outline the main contributions of this thesis.
 
-\section{Background \& Motivation}
+This chapter is based on the paper titled \textit{Crowdsourcing Disagreement for Collecting Semantic Annotation} in the European Semantic Web Conference (\citet{dumitrache2015crowdsourcing}).
 
-..
+
+\section{Motivation}
+
+As knowledge available on the Web expands, natural language processing methods have become invaluable for facilitating data navigation. Tasks such as knowledge base completion and disambiguation are solved with machine learning models for natural language processing that require a lot of data. Human-annotated gold standard, or ground truth, is used for training, testing, and evaluation of these machine learning components. The traditional approach to gathering this data is to employ domain experts to perform annotation tasks.
+
+However, such an annotation process can be both expensive, and time consuming~\cite{aroyo2012harnessing}, due to the costs of working with domain experts. Furthermore, experts might prove difficult to find for broad, open domains (e.g. the annotation of news articles). This presents a challenge for extending natural language processing methods into new domains. Human annotation is needed to solve this problem, but the process of gathering this data is not scalable at the level of the large datasets currently available on the Web. Efficiently integrating human knowledge with automated methods is necessary for tackling this issue. Being cheaper and more scalable, crowdsourcing is a viable alternative to using domain expert annotators~\cite{Sabou:2012:CRO:2362456.2362479}.
+
+Furthermore, in typical annotation setups it is assumed that one correct answer exists for every question. However, many tasks and domains are more ambiguous in practice -- e.g., in the medical domain, it is often the case that doctors disagree on the same diagnosis. The traditional approach to gathering annotation is based on restrictive annotation guidelines, and often results in over-generalized observations, as well as a loss of ambiguity inherent to language~\cite{aroyo2012harnessing}, thus becoming unsuitable for use in training natural language processing systems. Crowdsourcing also allows for collecting enough annotations per task in order to represent the diversity inherent in language. By employing a large crowd to collect semantic annotations, it becomes possible to observe inter-annotator disagreement. Previous research in crowdsourcing medical relation extraction~\cite{aroyo2013crowd,aroyo2013measuring} has shown that disagreement can be an informative, useful property, and its analysis can result in reduced time, lower cost, better scalability, and better quality human-annotated data.
+
+This thesis describes a project within the context of CrowdTruth~\cite{inel2013}, a larger initiative investigating how disagreement-aware crowdsourcing can be used to collect annotations for text, videos, sounds and images. Building on previous successful results~\cite{aroyo2013crowd,aroyo2013measuring}, we aim to explore the question of how crowdsourcing can be employed as a tool for collecting ground truth for natural language processing. Specifically, we analyze the role of disagreement, and whether its analysis can be used to improve the quality of existing ground truth.
+
+........
+
+%We propose a methodology to crowdsource a series of semantic annotation tasks (relation extraction, sentiment analysis), with the purpose of demonstrating that disagreement can be a task and domain-independent indicator of semantic ambiguity.
+
+
+\section{Crowdsourcing with CrowdTruth}
+
+To address the challenge of capturing an interpreting disagreement in crowdsourced annotations, we have proposed the CrowdTruth methodology~\cite{aroyo2012harnessing,aroyo2013crowd}. The goal of this methodology is to correct the myths of human annotation proposed by~\citet{aroyo2015truth}:
+
+\begin{itemize}
+    \item \textbf{Myth \#1: Disagreement is bad -} This myth holds that, whenever inter-annotator disagreement occurs, it is the fault of the annotators. Therefore disagreement should be eliminated at all cost. In contrast, CrowdTruth proposes the idea that disagreement can also be caused by ambiguity in the annotation task. Specifically for the case of natural language, ambiguity is an inherent property of text. CrowdTruth proposes that capturing disagreement is a method to capture this ambiguity.
+    
+    \item \textbf{Myth \#2: One is enough -} Following from the previous myth, if inter-annotator disagreement can be an important indicator, then having a single worker perform the annotations means missing out on the signal the disagreement can send. CrowdTruth proposes using multiple workers for the same annotation task, in order to collect all possible disagreement that can occur.
+    
+    \item \textbf{Myth \#3: Experts are better -} While traditional annotation tasks ask a single domain expert to give their input, CrowdTruth proposes expanding this singular perspective with that of crowd workers. That is not to say that the experts are not necessary, or that the crowd is better suited at understanding an annotation task, just that often the perspective of the crowd is necessary in order to get a more accurate overview.
+    
+    \item \textbf{Myth \#4: One truth -} This myth holds that, for each annotation task, there is only one possible truth to how it should be done. Instead of forcing annotations into binary labels that are either positive or negative, CrowdTruth proposes that the truth exists on a scale, and is expressed with various degrees of clarity.
+    
+    \item \textbf{Myth \#5: All examples are equal -} If the truth value of a label is expressed on a scale, then it follows that there exists some variability in how clear a label is expressed in different examples. For instance, for the task of text labeling, some texts might express the desired label more clearly than others. The CrowdTruth methodology attempts to capture the degree of clarity of each example in the annotation task through the use of dedicated metrics, thus quantifying the fact that not all examples are equal in how well they express a label.
+    
+    \item \textbf{Myth \#6: Detailed guidelines help -} Typical annotation practice which provides detailed annotation guidelines to workers, which result in brittle overly-specific interpretations of the annotations. In contrast, the CrowdTruth methodology employs simple annotation guidelines that allow for disagreement over the interpretation of annotations.
+    
+\end{itemize}
+
+triangle of disagreement
+
+CrowdTruth metrics: v1~\cite{inel2013}, v2~\cite{dumitrache2018crowdtruth}
+
+in this thesis we apply CrowdTruth to a variety of NLP tasks and see what is the role of disagreement
+
+
+\section{Background}
 
 \subsection{Crowd Data Quality}
 
-Determining the quality of crowdsourced data collected from non-experts has been the subject of study since the work of \citet{Snow:2008}, who have shown that the crowd can produce annotations with expert-level quality for a variety of natural language processing tasks: affect  recognition, word similarity, recognizing textual entailment, event temporal ordering, and word sense disambiguation. Despite these promising results, establishing the quality of crowdsourced data is still a challenge, due primarily to the difficulty of identifying and preventing spam behavior of workers~\cite{difallah2012mechanical,demartini2012zencrowd}. This is especially the case when applying non-expert crowdsourcing to domains that are typically thought to require expertise on the part of the annotators.
+Determining the quality of crowdsourced data collected from non-experts has been the subject of study since the work of \citet{Snow:2008}, who have shown that the crowd can produce annotations with expert-level quality for a variety of natural language processing tasks: affect  recognition, word similarity, recognizing textual entailment, event temporal ordering, and word sense disambiguation. Despite these promising results, collecting high quality crowdsourced data is still a challenge, due primarily to the difficulty of identifying and preventing spam behavior of workers~\cite{difallah2012mechanical,demartini2012zencrowd}. This is especially the case when applying non-expert crowdsourcing to domains that are typically thought to require expertise on the part of the annotators~\cite{callison2010creating}.
 
 The medical domain is particularly difficult, with even expert annotators sometimes producing low-quality data~\cite{Marcheggiani:2017:ELT:3139489.3106235}. Nevertheless, there exists some research that successfully employed non-expert crowdsourcing to collect annotations in the medical domain. \citet{mortensen2013crowdsourcing} use crowdsourcing to verify relation hierarchies in biomedical ontologies. On 14 relations from the SNOMED CT CORE Problem List Subset, the authors report the crowd's accuracy at 85\% for identifying whether the relations were correct or not. \citet{burger2012validating} used crowdsourcing to extract the gene-mutation relations in Medical Literature Analysis and Retrieval System Online (MEDLINE) abstracts. Focusing on a very specific gene-mutation domain, the authors report a weighted accuracy of 82\% over a corpus of 250 MEDLINE abstracts. \citet{li2015exposing} performed a study exposing ambiguities in a gold standard for drug-disease relations with crowdsourcing. They found that, over a corpus of 60 sentences, levels  of  crowd agreement varied in a similar manner to the levels of agreement  among  the  original  expert  annotators. \citet{zhai2013web} describe a method for crowdsourcing a ground truth for medical named entity recognition and entity linking. In a dataset of over 1,000 clinical trials, the authors show no statistically significant difference between the crowd and expert-generated gold standard for the task of extracting medications and their attributes.
 
@@ -46,37 +88,10 @@ The approach in these works is to restrict disagreement between annotators by us
 
 \subsection{Capturing Ambiguity}
 
-Recent work in collecting annotations for text~\cite{poesio2005reliability,chang2016linguistic}, sounds~\cite{doi:10.1080/09298215.2016.1200631} and images~\cite{schaekermann2016,cheplygina2018crowd} found that disagreement between annotators is not just a result of poor quality work, and can actually be an indicator for other properties of the data, such as ambiguity and uncertainty~\cite{aroyo2018aimag}.
-
-Our work is part of a continuous effort in exploring the inter-annotator disagreement as an indicator for (1) inherent uncertainty in the domain knowledge as \citet{cheatham2014conference} found when assessing the Ontology Alignment Evaluation Initiative (OAEI) benchmark, (2) debatable cases in linguistic theory, rather than faulty annotation, as \citet{plank-hovy-sogaard:2014:P14-2} found in their part-of-speech tagging task, and (3) ambiguity inherent in natural language~\cite{Bayerl2011}.
-
-Finally we note recent efforts to consider in ground truth corpora (1) the notion of uncertainty, where \citet{schaekermann2016} also use disagreement in crowdsourcing for modeling it, (2) the notion of ambiguity, where \citet{Chang:2017:Revolt} found that ambiguous cases cannot simply be resolved by better annotation guidelines or through worker quality control, and (3) the notion of noise, where \citet{lin2014re} show that machine learning classifiers can often achieve a higher accuracy when trained with noisy crowdsourcing data.
+Our work is part of a continuous effort in exploring the causes of inter-annotator disagreement in crowdsourcing, that go beyond simply the variable quality of workers. In an experiment for crowdsourcing anaphora resolution, \citet{poesio2005reliability} found that inter-annotator disagreement is linked to ambiguity in the text, and that directly asking the annotators to identify the ambiguous annotations is not enough to identify all the implicitly ambiguous cases. In assessing the OAEI benchmark, \citet{cheatham2014conference} found that disagreement between annotators (both crowd and expert) is an indicator for inherent uncertainty in the domain knowledge, and that current benchmarks in ontology alignment and evaluation are not designed to model this uncertainty. \citet{plank-hovy-sogaard:2014:P14-2} found similar results for the task of crowdsourced part-of-speech tagging -- most inter-annotator disagreement was indicative of debatable cases in linguistic theory, rather than faulty annotation. \citet{Bayerl2011} also investigate the role of inter-annotator disagreement as a possible indicator of ambiguity inherent in natural language. \citet{lau2014measuring} propose a method for crowdsourcing ambiguity in the grammatical correctness of text by giving workers the possibility to pick various degrees of correctness, but inter-annotator disagreement is not discussed as a factor in measuring this ambiguity. \citet{Chang:2017:Revolt} found that ambiguous cases cannot simply be resolved by better annotation guidelines or through worker quality control. Across a series of textual annotation tasks, \citet{chang2016linguistic} found that the vast majority of annotators that disagree with the gold standard were correct in their assessment, either because the gold standard was faulty, or the task allowed for multiple correct answers. Beyond text, studies in the annotation of music similarity~\cite{doi:10.1080/09298215.2016.1200631}, time series~\cite{schaekermann2016,schaekermann2018resolvable}, and medical images~\cite{cheplygina2018crowd} have shown that disagreement between annotators can be an indicator for interesting properties of the data, such as ambiguity and uncertainty.
 
 
-\section{Crowdsourcing with CrowdTruth}
-
-To address the challenge of capturing an interpreting disagreement in crowdsourced annotations, we have proposed the CrowdTruth methodology~\cite{aroyo2012harnessing,aroyo2013crowd}. The main goal of this methodology is to correct the myths of human annotation proposed by~\citet{aroyo2015truth}:
-
-\begin{itemize}
-    \item \textbf{Myth \#1: Disagreement is bad -} This myth holds that, whenever inter-annotator disagreement occurs, it is the fault of the annotators. Therefore disagreement should be eliminated at all cost. In contrast, CrowdTruth proposes the idea that disagreement can also be caused by ambiguity in the annotation task. Specifically for the case of natural language, ambiguity is an inherent property of text. CrowdTruth proposes that capturing disagreement is a method to capture this ambiguity.
-    
-    \item \textbf{Myth \#2: One is enough -} Following from the previous myth, if inter-annotator disagreement can be an important indicator, then having a single worker perform the annotations means missing out on the signal the disagreement can send. CrowdTruth proposes using multiple workers for the same annotation task, in order to collect all possible disagreement that can occur.
-    
-    \item \textbf{Myth \#3: Experts are better -} While traditional annotation tasks ask a single domain expert to give their input, CrowdTruth proposes expanding this singular perspective with that of crowd workers. That is not to say that the experts are not necessary, or that the crowd is better suited at understanding an annotation task, just that often the perspective of the crowd is necessary in order to get a more accurate overview.
-    
-    \item \textbf{Myth \#4: One truth -} This myth holds that, for each annotation task, there is only one possible truth to how it should be done. Instead of forcing annotations into binary labels that are either positive or negative, CrowdTruth proposes that the truth exists on a scale, and is expressed with various degrees of clarity.
-    
-    \item \textbf{Myth \#5: All examples are equal -} If the truth value of a label is expressed on a scale, then it follows that there exists some variability in how clear a label is expressed in different examples. For instance, for the task of text labeling, some texts might express the desired label more clearly than others. The CrowdTruth methodology attempts to capture the degree of clarity of each example in the annotation task through the use of dedicated metrics, thus quantifying the fact that not all examples are equal in how well they express a label.
-    
-    \item \textbf{Myth \#6: Detailed guidelines help -} Typical annotation practice which provides detailed annotation guidelines to workers, which result in brittle overly-specific interpretations of the annotations. In contrast, the CrowdTruth methodology employs simple annotation guidelines that allow for disagreement over the interpretation of annotations.
-    
-\end{itemize}
-
-
-CrowdTruth metrics: v1~\cite{inel2013}, v2~\cite{dumitrache2018crowdtruth}
-
-
-\section{Research Questions \& Summary of Chapters}
+\section{Research Questions \& Contributions}
 
 The overall goal of this thesis is to investigate the role of inter-annotator disagreement in crowdsourcing ground truth for natural language processing, as collected using CrowdTruth methodology and metrics. The main research goal is addressed by answering the following research questions:
 

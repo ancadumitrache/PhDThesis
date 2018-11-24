@@ -11,7 +11,7 @@ Against that positivism [\ldots] saying ``there are only facts,'' I should say: 
 
 FrameNet is a computational linguistics resource composed of semantic frames, high-level concepts that represent the meanings of words. In this paper, we present an approach to gather frame disambiguation annotations in sentences using a crowdsourcing approach with multiple workers per sentence to capture inter-annotator \emph{disagreement}. We perform an experiment over a set of 433 sentences annotated with frames from the FrameNet corpus, and show that the aggregated crowd annotations achieve an F1 score greater than 0.67 as compared to expert linguists. We highlight cases where the crowd annotation was correct even though the expert is in disagreement, arguing for the need to have multiple annotators per sentence.  Most importantly, we examine cases in which crowd workers could not agree, and demonstrate that these cases exhibit ambiguity, either in the sentence, frame, or the task itself, and argue that collapsing such cases to a single, discrete truth value (i.e. correct or incorrect) is inappropriate, creating arbitrary targets for machine learning.
 
-This chapter was published as ``Capturing Ambiguity in Crowdsourcing Frame Disambiguation'' in AAAI Conference on Human Computation and Crowdsourcing~(\citet{DBLP:conf/hcomp/DumitracheAW18}) and was co-authored by Lora Aroyo and Chris Welty.
+This chapter was published as \textit{Capturing Ambiguity in Crowdsourcing Frame Disambiguation} in the AAAI Conference on Human Computation and Crowdsourcing and was co-authored by Lora Aroyo and Chris Welty~\cite{DBLP:conf/hcomp/DumitracheAW18}.
 
 \section{Introduction}
 
@@ -126,8 +126,8 @@ To aggregate the results of the crowd, while also capturing inter-annotator disa
 
 \scalebox{0.8}{
 \begin{tabular}{cp{8cm}cc}
-%\hline
-\textbf{\#} & \textbf{Sentence} & \textbf{Frame} & \textbf{FSS} \\ \hline \hline
+\toprule
+\textbf{\#} & \textbf{Sentence} & \textbf{Frame} & \textbf{FSS} \\ \toprule
 
 \multirow{4}{*}{S1} & \multirow{4}{8cm}{Shops \textit{aimed} at the tourist market are interspersed with the more workaday ironmongers.} & \multirow{2}{*}{$aiming$} & \multirow{2}{*}{0.808} \\
 & & & \\ \cline{3-4}
@@ -153,7 +153,7 @@ To aggregate the results of the crowd, while also capturing inter-annotator disa
 
 \multirow{2}{*}{S7} & \multirow{2}{8cm}{Fish (heads discreetly \textit{wrapped} in paper) are still hung out to dry in the sun.} & $adorning$ & 0.31 \\  \cline{3-4}
 & & $filling^{(*)}$ & 0.278 \\ %\hline
-
+\bottomrule
 \end{tabular}
 }
 \end{table}
@@ -173,8 +173,8 @@ At the best FSS threshold, the accuracy scores are comparable to those presented
 
 \scalebox{0.8}{
 \begin{tabular}{cp{5.5cm}ccc}
-%\hline
-\textbf{\#} & \textbf{Sentence} & \textbf{SQS} &  \textbf{Frame} & \textbf{FSS}  \\ \hline \hline
+\toprule
+\textbf{\#} & \textbf{Sentence} & \textbf{SQS} &  \textbf{Frame} & \textbf{FSS}  \\ \toprule
 
 \multirow{5}{*}{P1} & \multirow{5}{5.5cm}{Egypt has provided no evidence demonstrating the \textit{elimination} of its biological warfare ability, which has existed since at least 1972.} & \multirow{5}{*}{0.841} & & \\
 & & & $removing^{(*)}$ & 0.938 \\ \cline{4-5}
@@ -191,7 +191,7 @@ At the best FSS threshold, the accuracy scores are comparable to those presented
 & & & $theft$ & 0.494 \\ \cline{4-5}
 & & & $committing\_crime$ & 0.459 \\ \cline{4-5}
 & & & $misdeed$ & 0.431 \\ \cline{4-5}
-& & & $cause\_change$ & 0.273 \\ \hline \hline
+& & & $cause\_change$ & 0.273 \\ \toprule
 
 \multirow{4}{*}{P4} & \multirow{4}{5.5cm}{The above mentioned protection \textit{procedures} are only for observation purposes, while patrols check the fences, the barriers, and the towers.} & \multirow{4}{*}{0.786} & \multirow{2}{*}{$means^{(*)}$} & \multirow{2}{*}{0.889} \\
 & & & &  \\ \cline{4-5}
@@ -206,7 +206,7 @@ At the best FSS threshold, the accuracy scores are comparable to those presented
 \multirow{4}{*}{P6} & \multirow{4}{5.5cm}{The latest \textit{approach} is perhaps the best of the post-mob era : the comprehensive resort.} & \multirow{4}{*}{0.208} & $means^{(*)}$ & 0.457 \\ \cline{4-5}
 & & & $conduct$ & 0.225 \\ \cline{4-5}
 & & & $path\_traveled$ & 0.159 \\ \cline{4-5}
-& & & $communication$ & 0.121 \\ \hline \hline
+& & & $communication$ & 0.121 \\ \toprule
 
 \multirow{6}{*}{P7} & \multirow{6}{5.5cm}{Prime Minister Ariel Sharon of Israel \textit{urged} President Bush to step up pressure on Iran to give up all elements of its nuclear program.} & \multirow{6}{*}{0.528} & & \\
 & & & $attempt\_suasion^{(*)}$ & 0.81 \\ \cline{4-5}
@@ -224,7 +224,7 @@ At the best FSS threshold, the accuracy scores are comparable to those presented
 & & & $communication$ & 0.567 \\ \cline{4-5}
 & & & $expertise$ & 0.167 \\ \cline{4-5}
 & & & $request$ & 0.156 \\ %\hline
-
+\bottomrule
 \end{tabular}
 }
 \end{table}
@@ -274,8 +274,8 @@ The cases where the experts and crowd disagree exemplify how difficult frame dis
 
 \scalebox{0.8}{
 \begin{tabular}{cp{6cm}ccc}
-%\hline
-\textbf{\#} & \textbf{Sentence} & \textbf{SQS} &  \textbf{Frame} & \textbf{FSS}  \\ \hline \hline
+\toprule
+\textbf{\#} & \textbf{Sentence} & \textbf{SQS} &  \textbf{Frame} & \textbf{FSS}  \\ \toprule
 
 \multirow{6}{*}{Q1} & \multirow{6}{6cm}{Although David bought the land for the Temple and carefully assembled its building materials, he was deemed unworthy of \textit{constructing} the Temple.} & \multirow{6}{*}{0.711} & \multirow{2}{*}{$building^{(*)}$} & \multirow{2}{*}{0.925} \\
 & & & & \\  \cline{4-5}
@@ -298,9 +298,9 @@ The cases where the experts and crowd disagree exemplify how difficult frame dis
 \multirow{4}{*}{Q3} & \multirow{4}{6cm}{\textit{Constructed} in wood, brick, stone, ceramic, and bronze, this is a work of extravagant beauty, uniting many ancient art forms.} & \multirow{4}{*}{0.351} & $building^{(*)}$ & 0.515 \\ \cline{4-5}
 & & & $create\_physical\_artwork$ & 0.335 \\ \cline{4-5}
 & & & $manufacturing$ & 0.237 \\
-& & & & \\ \hline \hline
+& & & & \\ \toprule
 %& & & $cause\_to\_start$ & 0.072 \\ 
-%& & & $opinion$ & 0.004 \\ \hline \hline
+%& & & $opinion$ & 0.004 \\ \toprule
 
 \multirow{4}{*}{Q4} & \multirow{4}{6cm}{U.S. Congressman Tony Hall arrived here Sunday evening, \textit{becoming} the first U.S. lawmaker to visit Iraq since the 1991 Gulf War.} & \multirow{4}{*}{0.901} & $becoming^{(*)}$ & 0.995 \\ \cline{4-5}
 & & & $cause\_change$ & 0.24 \\ \cline{4-5}
@@ -310,7 +310,7 @@ The cases where the experts and crowd disagree exemplify how difficult frame dis
 \multirow{4}{*}{Q5} & \multirow{4}{6cm}{Cheung Chau \textit{becomes} the center of Hong Kong life once a year, usually in May , during the Bun Festival, a folklore extravaganza.} & \multirow{4}{*}{0.562} & $becoming^{(*)}$ & 0.783 \\ \cline{4-5}
 & & & $undergo\_change$ & 0.783 \\  \cline{4-5}
 & & & $cause\_change$ & 0.402 \\
-& & & & \\ \hline \hline
+& & & & \\ \toprule
 
 \multirow{2}{*}{Q6} & \multirow{2}{6cm}{Are there any \textit{efforts} to bring back small investors?} & \multirow{2}{*}{0.811} & $attempt^{(*)}$ & 0.926 \\ \cline{4-5}
 & & & $commitment$ & 0.178 \\ \hline
@@ -318,6 +318,7 @@ The cases where the experts and crowd disagree exemplify how difficult frame dis
 \multirow{2}{*}{Q7} & \multirow{2}{6cm}{At AOL there was a conscious \textit{effort} to develop other ``characters,'' for lack of a better word.} & \multirow{2}{*}{0.588} &  $attempt^{(*)}$ & 0.739 \\ \cline{4-5}
 & & & $commitment$ & 0.468 \\
 & & & & \\ %\hline 
+\bottomrule
 
 
 \end{tabular}
@@ -346,8 +347,8 @@ In Table~\ref{tab:sqs}, we show some examples of how SQS captures the clarity fo
 
 \scalebox{0.8}{
 \begin{tabular}{ccp{3.5cm}p{5.5cm}c}
-%\hline
-\textbf{Frame} & \textbf{FQS} & \textbf{Definition} & \textbf{Example Sentences} & \textbf{FSS} \\ \hline \hline
+\toprule
+\textbf{Frame} & \textbf{FQS} & \textbf{Definition} & \textbf{Example Sentences} & \textbf{FSS} \\ \toprule
 
 
 \multirow{7}{*}{$killing$} & \multirow{7}{*}{0.954} & \multirow{7}{3.5cm}{A Killer or Cause causes the death of the Victim.} &  $F1$: Older kids left homeless after a recent murder-\textit{suicide} in Indianapolis claimed Mom and Dad. & 0.8 \\ \cline{4-5}
@@ -372,6 +373,7 @@ In Table~\ref{tab:sqs}, we show some examples of how SQS captures the clarity fo
 \multirow{8}{1cm}{$undergo$ $change$} & \multirow{8}{*}{0.313} & \multirow{8}{3.5cm}{An Entity changes, either in its category membership or in terms of the value of an Attribute.} & $F15$: The animosity between these two traditional enemies is beginning to \textit{diminish}. & 0.805 \\  \cline{4-5}
  & & & $F16$: The \textit{shift} in the image of Gates has been an interesting one for me to watch. & 0.351 \\ \cline{4-5}
 & & & $F17$: The settlements of Thira and Akrotiri \textit{thrived} at this time. & 0.256 \\ %\hline
+\bottomrule
 
 \end{tabular}
 }

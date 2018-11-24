@@ -7,7 +7,7 @@ Whenever you find yourself on the side of the majority, it is time to reform (or
 
 The process of gathering ground truth data through human annotation is a major bottleneck in the use of information extraction methods for populating the Semantic Web. Crowdsourcing-based approaches are gaining popularity in the attempt to solve the issues related to volume of data and lack of annotators. Typically these practices use inter-annotator agreement as a measure of quality. However, in many domains, such as event detection, there is ambiguity in the data, as well as a multitude of perspectives of the information examples. We present an empirically derived methodology for efficiently gathering of ground truth data in a diverse set of use cases covering a variety of domains and annotation tasks. Central to our approach is the use of CrowdTruth metrics that capture inter-annotator disagreement. We show that measuring disagreement is essential for acquiring a high quality ground truth. We achieve this by comparing the quality of the data aggregated with CrowdTruth metrics with majority vote, over a set of diverse crowdsourcing tasks: Medical Relation Extraction, Twitter Event Identification, News Event Extraction and Sound Interpretation. We also show that an increased number of crowd workers leads to growth and stabilization in the quality of annotations, going against the usual practice of employing a small number of annotators.
 
-This chapter is in publication as ``Empirical Methodology for Crowdsourcing Ground Truth'' in the Semantic Web Journal~(\citet{dumitracheempirical}) and was co-authored by Oana Inel, Benjamin Timmermans, Carlos Ortiz, Robert-Jan Sips, Lora Aroyo and Chris Welty.
+This chapter will appear in publication as \textit{Empirical Methodology for Crowdsourcing Ground Truth} in the Semantic Web Journal and was co-authored by Oana Inel, Benjamin Timmermans, Carlos Ortiz, Robert-Jan Sips, Lora Aroyo and Chris Welty~\cite{dumitracheempirical}.
 
 \section{Introduction}
 \label{sec:introduction}
@@ -86,11 +86,11 @@ Three core \textbf{worker metrics} are defined to differentiate between low-qual
     \label{tab:example_annotation}
     \scalebox{0.85}{
 	\begin{tabular}{rccccc}
-    \hline
+    \toprule
     \textbf{worker annotations} & \textit{dog barking} & \textit{walking} & \textit{animal} & \textit{echo} & \textit{loud} \\ \hline
-    \textbf{media unit -- annotation score} &  0.47 & 0.31 & 0.79 & 0.15 & 0.15 \\ \hline
-    \textbf{media unit vector} & 3 & 2 & 5 & 1 & 1 \\ \hline
-    \textbf{majority vote} &  0 & 0 & 1 & 0 & 0 \\ \hline
+    \textbf{media unit -- annotation score} &  0.47 & 0.31 & 0.79 & 0.15 & 0.15 \\ %\hline
+    \textbf{media unit vector} & 3 & 2 & 5 & 1 & 1 \\ %\hline
+    \textbf{majority vote} &  0 & 0 & 1 & 0 & 0 \\ \bottomrule
     \end{tabular}
     }
 \end{table}
@@ -113,9 +113,9 @@ Based on the specificity of each task, closed or open-ended, the effort required
 	\caption {Crowdsourcing Task Details}
 	\scalebox{0.8}{
 	\begin{tabular}{rccl}
-    %\hline
+    \toprule
     \textbf{Task} & \textbf{Type} & \textbf{Media Unit} & \textbf{Annotations} \\
-    \hline \hline
+    \toprule
     & \multirow{5}{*}{closed} & \multirow{5}{*}{sentence} & medical relations: \textit{cause}, \textit{treat}, \\
     Medical &  &  & \textit{prevent}, \textit{symptom}, \textit{diagnose},  \\
     Relation & & & \textit{side effect}, \textit{location} \textit{manifestation}, \\
@@ -136,6 +136,7 @@ Based on the specificity of each task, closed or open-ended, the effort required
     Extraction & & & \\ \hline
     Sound & \multirow{2}{*}{open-ended} & \multirow{2}{*}{sound} & \multirow{2}{*}{tags describing sound} \\   
     Interpretation & & & \\ %\hline
+    \bottomrule
     \end{tabular}
     }
     \label{tab:crowd_data}
@@ -188,14 +189,15 @@ Tables \ref{tab:crowd_data} and \ref{tab:crowd_tasks} present an overview of the
 	\caption {Crowdsourcing Task Data}
 	\scalebox{0.8}{
 	\begin{tabular}{r c c c c c}
-    %\hline
+    \toprule
     \textbf{Task} & \textbf{Source} & \textbf{Has} & \textbf{Media} & \textbf{Workers/} & \textbf{Cost/} \\
     &  & \textbf{Expert} & \textbf{Units} & \textbf{Unit} & \textbf{Judgment} \\
-    \hline \hline
+    \toprule
     Medical Relation Extraction & PubMed & yes & 975 & 15 & \$0.05  \\
     Twitter Event Identification & Twitter (2014) & no & \np{3019} & 7 & \$0.02 \\
     News Event Extraction & TimeBank & yes & \np{200} & 15 & \$0.02 \\
     Sound Interpretation & Freesound.org & yes  & \np{284} & 10 & \$0.01 \\ %\hline
+    \bottomrule
     \end{tabular}
     }
     \label{tab:crowd_tasks}
@@ -292,8 +294,8 @@ We begin by evaluating \textbf{how the majority vote method compares with CrowdT
 \scalebox{0.8}{
 \label{tab:f1_mv}
 \begin{tabular}{lrccccl}
-%\hline
-\textbf{Task} & \textbf{Dataset} & \textbf{Precision} & \textbf{Recall} & \textbf{F1 score} & \textbf{Accuracy} &  \textbf{Threshold} \\ \hline \hline
+\toprule
+\textbf{Task} & \textbf{Dataset} & \textbf{Precision} & \textbf{Recall} & \textbf{F1 score} & \textbf{Accuracy} &  \textbf{Threshold} \\ \toprule
 
 \multirow{4}{*}{\parbox{1.8cm}{\textbf{Medical \\ Relation \\ Extraction}}} & CrowdTruth & 0.86 & 0.962 & 0.908 & 0.932 & \multirow{4}{*}{0.6} \\
  & expert & 0.899 & 0.89 & 0.895 & 0.927 &  \\
@@ -313,7 +315,7 @@ We begin by evaluating \textbf{how the majority vote method compares with CrowdT
  & expert & 1 & 0.291 & 0.45 & 0.515 & \\
  & majority vote & 1 & 0.148 & 0.258 & 0.418 & \\
  & single & 1 & 0.098 & 0.178 & 0.383 & \\ 
-%\hline
+\bottomrule
 \end{tabular}
 }
 \end{table}
@@ -324,12 +326,13 @@ We begin by evaluating \textbf{how the majority vote method compares with CrowdT
 \centering
 \scalebox{0.8}{
 \begin{tabular}{rccc}
-%\hline
-\textbf{Task} & \textbf{Maj. Vote} & \textbf{Expert} & \textbf{Single} \\ \hline \hline
+\toprule
+\textbf{Task} & \textbf{Maj. Vote} & \textbf{Expert} & \textbf{Single} \\ \toprule
 Medical Relation Extraction & $0.0001$ & $0.629$ & $< 2.2 \times 10^{-16}$ \\ 
 Twitter Event Identification & $0.0001$ & N/A &  $6.145 \times 10^{-15}$ \\ 
 News Event Extraction &  $< 2.2 \times 10^{-16}$ & $0.505$ & $< 2.2 \times 10^{-16}$ \\
 Sound Interpretation & $< 2.2 \times 10^{-16}$ & $< 2.2 \times 10^{-16}$ & $< 2.2 \times 10^{-16}$ \\ %\hline
+\bottomrule
 \end{tabular}
 }
 \end{table}
@@ -454,25 +457,26 @@ We would like to thank Emiel van Miltenburg for assisting with the exploration o
 \label{tab:ex_relex}
 \scalebox{0.8}{
 \begin{tabular}{p{6cm}cccc}
-%\hline
+\toprule
 \multirow{2}{*}{\textbf{Media Unit}} & \multirow{2}{*}{\textbf{Annotation}} & \textbf{Expert} & \textbf{Crowd} & \textbf{Trusted} \\ 
- & & \textbf{Judgment} & \textbf{Score} & \textbf{Judgment} \\ \hline \hline
+ & & \textbf{Judgment} & \textbf{Score} & \textbf{Judgment} \\ \toprule
  
-The \textit{epidermal nevus syndrome} is a neurocutaneous disorder characterized by \textit{distinctive skin lesions} and often serious somatic and central nervous system (CNS) abnormalities. &	\multirow{6}{*}{$cause$} & \multirow{6}{*}{no} & \multirow{6}{*}{0.98} & \multirow{6}{*}{yes} \\ \hline
+The \textit{epidermal nevus syndrome} is a neurocutaneous disorder characterized by \textit{distinctive skin lesions} and often serious somatic and central nervous system (CNS) abnormalities. &	\multirow{6}{*}{$cause$} & \multirow{6}{*}{no} & \multirow{6}{*}{0.98} & \multirow{6}{*}{yes} \\ %\hline
 
-For empiric $treat$ment of epididymitis, especially when gonococcal or \textit{chlamydial infection} is likely Ofloxacin or \textit{levofloxacin} should be used  only  if epididymitis is not $cause$d by gonorrhea. & \multirow{6}{*}{$treat$} & \multirow{6}{*}{no} & \multirow{6}{*}{0.966} & \multirow{6}{*}{yes} \\ \hline 
+\cellcolor{aliceblue}For empiric $treat$ment of epididymitis, especially when gonococcal or \textit{chlamydial infection} is likely Ofloxacin or \textit{levofloxacin} should be used  only  if epididymitis is not $cause$d by gonorrhea. & \cellcolor{aliceblue}\multirow{6}{*}{$treat$} & \cellcolor{aliceblue}\multirow{6}{*}{no} & \cellcolor{aliceblue}\multirow{6}{*}{0.966} & \cellcolor{aliceblue}\multirow{6}{*}{yes} \\ %\hline 
 
-In contrast, we did not find a definite increase in the LGL percentage within 6 months postpartum in patients with \textit{Graves' disease} who relapsed into \textit{Graves' thyrotoxicosis}. & \multirow{6}{*}{$cause$} & \multirow{6}{*}{no} & \multirow{6}{*}{0.738} & \multirow{6}{*}{yes} \\ \hline 
+In contrast, we did not find a definite increase in the LGL percentage within 6 months postpartum in patients with \textit{Graves' disease} who relapsed into \textit{Graves' thyrotoxicosis}. & \multirow{6}{*}{$cause$} & \multirow{6}{*}{no} & \multirow{6}{*}{0.738} & \multirow{6}{*}{yes} \\ %\hline 
 
-The 1 placebo controlled trial that found black cohosh to be effective for \textit{hot flashes} did not find \textit{estrogen} to be effective, which casts doubt on the study's validity. & \multirow{5}{*}{$treat$} & \multirow{5}{*}{no} & \multirow{5}{*}{0.73} & \multirow{5}{*}{yes} \\ \hline 
+\cellcolor{aliceblue}The 1 placebo controlled trial that found black cohosh to be effective for \textit{hot flashes} did not find \textit{estrogen} to be effective, which casts doubt on the study's validity. & \cellcolor{aliceblue}\multirow{5}{*}{$treat$} & \cellcolor{aliceblue}\multirow{5}{*}{no} & \cellcolor{aliceblue}\multirow{5}{*}{0.73} & \cellcolor{aliceblue}\multirow{5}{*}{yes} \\ %\hline 
 
-\textit{Multicentric reticulohistiocytosis (MR)} is a \textit{systemic disease} of unknown $cause$ characterized by the presence of a heavy macrophage infiltrate in skin and synovial tissues and the development of an erosive polyarthritis. & \multirow{8}{*}{$cause$} & \multirow{8}{*}{yes} & \multirow{8}{*}{0.697} & \multirow{8}{*}{no} \\ \hline 
+\textit{Multicentric reticulohistiocytosis (MR)} is a \textit{systemic disease} of unknown $cause$ characterized by the presence of a heavy macrophage infiltrate in skin and synovial tissues and the development of an erosive polyarthritis. & \multirow{8}{*}{$cause$} & \multirow{8}{*}{yes} & \multirow{8}{*}{0.697} & \multirow{8}{*}{no} \\ %\hline 
 
-Urokise versus \textit{tissue plasminogen activator} in \textit{pulmonary embolism}. & \multirow{2}{*}{$treat$} & \multirow{2}{*}{yes} & \multirow{2}{*}{0.365} & \multirow{2}{*}{no} \\ \hline 
+\cellcolor{aliceblue}Urokise versus \textit{tissue plasminogen activator} in \textit{pulmonary embolism}. & \cellcolor{aliceblue}\multirow{2}{*}{$treat$} & \cellcolor{aliceblue}\multirow{2}{*}{yes} & \cellcolor{aliceblue}\multirow{2}{*}{0.365} & \cellcolor{aliceblue}\multirow{2}{*}{no} \\ %\hline 
 
-The principal differences between these vaccines are the transmission of live vaccine viruses from recipients to their contacts and the occurrence of occasional cases of \textit{paralytic poliomyelitis} associated with use of \textit{live poliovirus vaccine} & \multirow{7}{*}{$treat$} & \multirow{7}{*}{yes} & \multirow{7}{*}{0.1} & \multirow{7}{*}{no} \\ \hline 
+The principal differences between these vaccines are the transmission of live vaccine viruses from recipients to their contacts and the occurrence of occasional cases of \textit{paralytic poliomyelitis} associated with use of \textit{live poliovirus vaccine} & \multirow{7}{*}{$treat$} & \multirow{7}{*}{yes} & \multirow{7}{*}{0.1} & \multirow{7}{*}{no} \\ %\hline 
 
-These cases highlight the importance of considering \textit{PTLD} in the differential diagnosis of \textit{lymphadenopathy}. & \multirow{4}{*}{$cause$} & \multirow{4}{*}{yes} & \multirow{4}{*}{0.09} & \multirow{4}{*}{no} \\ %\hline 
+\cellcolor{aliceblue}These cases highlight the importance of considering \textit{PTLD} in the differential diagnosis of \textit{lymphadenopathy}. & \cellcolor{aliceblue}\multirow{4}{*}{$cause$} & \cellcolor{aliceblue}\multirow{4}{*}{yes} & \cellcolor{aliceblue}\multirow{4}{*}{0.09} & \cellcolor{aliceblue}\multirow{4}{*}{no} \\ %\hline 
+\bottomrule
 \end{tabular}
 }
 \end{table}
@@ -484,23 +488,24 @@ These cases highlight the importance of considering \textit{PTLD} in the differe
 
 \scalebox{0.8}{
 \begin{tabular}{p{6cm}cccc}
-%\hline
+\toprule
 \multirow{2}{*}{\textbf{Media Unit}} & \multirow{2}{*}{\textbf{Annotation}} & \textbf{Expert} & \textbf{Crowd} & \textbf{Trusted} \\ 
- & & \textbf{Judgment} & \textbf{Score} & \textbf{Judgment} \\ \hline \hline
+ & & \textbf{Judgment} & \textbf{Score} & \textbf{Judgment} \\ \toprule
  
-The plan provides for the \textit{distribution} of one common stock-purchase right as a dividend for each share of common outstanding & \multirow{4}{*}{$distribution$} & \multirow{4}{*}{no} & \multirow{4}{*}{0.95} & \multirow{4}{*}{yes} \\ \hline 
+The plan provides for the \textit{distribution} of one common stock-purchase right as a dividend for each share of common outstanding & \multirow{4}{*}{$distribution$} & \multirow{4}{*}{no} & \multirow{4}{*}{0.95} & \multirow{4}{*}{yes} \\ %\hline 
 
-Two Middle East terrorists with records of successful \textit{attacks} against Western targets Abu Nidal and Abu Abbas have ties to Baghdad. & \multirow{4}{*}{$attacks$} & \multirow{4}{*}{no} & \multirow{4}{*}{0.73} & \multirow{4}{*}{yes} \\ \hline 
+\cellcolor{aliceblue}Two Middle East terrorists with records of successful \textit{attacks} against Western targets Abu Nidal and Abu Abbas have ties to Baghdad. & \cellcolor{aliceblue}\multirow{4}{*}{$attacks$} & \cellcolor{aliceblue}\multirow{4}{*}{no} & \cellcolor{aliceblue}\multirow{4}{*}{0.73} & \cellcolor{aliceblue}\multirow{4}{*}{yes} \\ %\hline 
 
-Secretary of State James Baker said on ABC-TV's ``This Week With David Brinkley'' that the series of UN resolutions condemning Iraq's \textit{invasion} of Kuwait ``imply that the restoration of peace and stability in the Gulf would be a heck of a lot easier if he and that leadership were not in power in Iraq.'' & \multirow{9}{*}{$invasion$} & \multirow{9}{*}{no} & \multirow{9}{*}{0.53} & \multirow{9}{*}{yes} \\ \hline 
+Secretary of State James Baker said on ABC-TV's ``This Week With David Brinkley'' that the series of UN resolutions condemning Iraq's \textit{invasion} of Kuwait ``imply that the restoration of peace and stability in the Gulf would be a heck of a lot easier if he and that leadership were not in power in Iraq.'' & \multirow{9}{*}{$invasion$} & \multirow{9}{*}{no} & \multirow{9}{*}{0.53} & \multirow{9}{*}{yes} \\ %\hline 
 
-The company also said it continues to explore all options concerning the possible \textit{sale} of National Aluminum's 54.5\% stake in an aluminum smelter in Hawesville Ky. & \multirow{5}{*}{$sale$} & \multirow{5}{*}{no} & \multirow{5}{*}{0.24} & \multirow{5}{*}{yes} \\ \hline 
+\cellcolor{aliceblue}The company also said it continues to explore all options concerning the possible \textit{sale} of National Aluminum's 54.5\% stake in an aluminum smelter in Hawesville Ky. & \cellcolor{aliceblue}\multirow{5}{*}{$sale$} & \cellcolor{aliceblue}\multirow{5}{*}{no} & \cellcolor{aliceblue}\multirow{5}{*}{0.24} & \cellcolor{aliceblue}\multirow{5}{*}{yes} \\ %\hline 
 
-Yield on the issue was 7.88\% & $no$ $event$ & yes & 0.14 & no \\ \hline 
+Yield on the issue was 7.88\% & $no$ $event$ & yes & 0.14 & no \\ %\hline 
 
-Har-Shefi said she heard Amir talk about killing Rabin but did not tell the police because she did not believe he was \textit{serious}. & \multirow{4}{*}{$serious$} & \multirow{4}{*}{yes} & \multirow{4}{*}{0} & \multirow{4}{*}{no} \\ \hline 
+\cellcolor{aliceblue}Har-Shefi said she heard Amir talk about killing Rabin but did not tell the police because she did not believe he was \textit{serious}. & \cellcolor{aliceblue}\multirow{4}{*}{$serious$} & \cellcolor{aliceblue}\multirow{4}{*}{yes} & \cellcolor{aliceblue}\multirow{4}{*}{0} & \cellcolor{aliceblue}\multirow{4}{*}{no} \\ %\hline 
 
 The American hope is that someone from within Iraq perhaps from the army 's professional ranks will step forward and push Saddam Hussein aside so that the country can begin recovering from the disaster. & \multirow{6}{*}{$no$ $event$} & \multirow{6}{*}{yes} & \multirow{6}{*}{0} & \multirow{6}{*}{no} \\ %\hline
+\bottomrule
 \end{tabular}
 }
 \end{table}
@@ -512,34 +517,35 @@ The American hope is that someone from within Iraq perhaps from the army 's prof
 \label{tab:ex_sounds}
 \scalebox{0.8}{
 \begin{tabular}{p{4cm}ccccc}
-%\hline
+\toprule
 \multirow{2}{*}{\textbf{Media Unit URL}} & \textbf{Media Unit} & \multirow{2}{*}{\textbf{Annotation}} & \textbf{Expert} & \textbf{Crowd} & \textbf{Trusted} \\ 
- & \textbf{Description} &  & \textbf{Judgment} & \textbf{Score} & \textbf{Judgment} \\ \hline \hline
+ & \textbf{Description} &  & \textbf{Judgment} & \textbf{Score} & \textbf{Judgment} \\ \toprule
 
-\multirow{4}{4cm}{\url{https://freesound.org/data/previews/21/21266_88803-hq.mp3}} & \multirow{4}{*}{jazz} & cymbals & no & 0.272 & yes \\
-& & bangle & no & 0.136 & yes \\ 
-& & rhythmic & no & 0.136 & yes \\ 
+\multirow{4}{4cm}{\url{https://freesound.org/data/previews/21/21266_88803-hq.mp3}} & \multirow{4}{*}{jazz} & cymbals & no & 0.272 & yes \\ \cline{3-6}
+& & bangle & no & 0.136 & yes \\ \cline{3-6}
+& & rhythmic & no & 0.136 & yes \\
 & &  &  & &  \\ \hline
 
-\multirow{4}{4cm}{\url{https://freesound.org/data/previews/26/26086_11477-hq.mp3}} & \multirow{4}{*}{chicken} & birds & no & 0.538 & yes \\
-& & geese & no & 0.359 & yes \\ 
+\multirow{4}{4cm}{\url{https://freesound.org/data/previews/26/26086_11477-hq.mp3}} & \multirow{4}{*}{chicken} & birds & no & 0.538 & yes \\ \cline{3-6}
+& & geese & no & 0.359 & yes \\ \cline{3-6}
 & & horns & no & 0.359 & yes \\ 
 & &  &  & &  \\ \hline
 
-\multirow{4}{4cm}{\url{https://freesound.org/data/previews/35/35823_317782-hq.mp3}} & \multirow{4}{*}{weird drums} & music & no & 0.875 & yes \\
-& & band & no & 0.145 & yes \\ 
-& & disco & no & 0.145 & yes \\ 
+\multirow{4}{4cm}{\url{https://freesound.org/data/previews/35/35823_317782-hq.mp3}} & \multirow{4}{*}{weird drums} & music & no & 0.875 & yes \\ \cline{3-6}
+& & band & no & 0.145 & yes \\ \cline{3-6}
+& & disco & no & 0.145 & yes \\
 & &  &  & &  \\ \hline
 
-\multirow{4}{4cm}{\url{https://freesound.org/data/previews/39/39329_404624-hq.mp3}} & \multirow{4}{*}{trip hop} & beat & no & 0.371 & yes \\
-& & percussion & no & 0.371 & yes \\ 
-& & chimes & no & 0.371 & yes \\
+\multirow{4}{4cm}{\url{https://freesound.org/data/previews/39/39329_404624-hq.mp3}} & \multirow{4}{*}{trip hop} & beat & no & 0.371 & yes \\ \cline{3-6}
+& & percussion & no & 0.371 & yes \\ \cline{3-6}
+& & chimes & no & 0.371 & yes \\ 
 & &  &  & &  \\ \hline
 
-\multirow{4}{4cm}{\url{https://freesound.org/data/previews/41/41462_78779-hq.mp3}} & \multirow{4}{*}{beer glasses} & clicks & no & 0.242 & yes \\
-& & clink & no & 0.242 & yes \\ 
+\multirow{4}{4cm}{\url{https://freesound.org/data/previews/41/41462_78779-hq.mp3}} & \multirow{4}{*}{beer glasses} & clicks & no & 0.242 & yes \\ \cline{3-6}
+& & clink & no & 0.242 & yes \\ \cline{3-6}
 & & ding & no & 0.242 & yes \\
 & &  &  & &  \\ %\hline
+\bottomrule
 \end{tabular}
 }
 \end{table}
