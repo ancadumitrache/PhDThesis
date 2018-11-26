@@ -87,8 +87,8 @@ The dataset used in our experiments contains 3,984 medical sentences extracted f
 \begin{tabular}{cp{3.25cm}p{4.25cm}p{3.75cm}}
 %\hline
 \toprule
-\multirow{2}{*}{\textbf{Relation}} & \textbf{Corresponding} & \multirow{2}{*}{\textbf{Definition}} & \multirow{2}{*}{\textbf{Example}} \\ 
- & \textbf{UMLS Relation(s)} &  &   \\ \toprule
+\multirow{2}{*}{\textsc{Relation}} & \textsc{Corresponding} & \multirow{2}{*}{\textsc{Definition}} & \multirow{2}{*}{\textsc{Example}} \\ 
+ & \textsc{UMLS Relation(s)} &  &   \\ \toprule
 
 \textit{treat} & may treat &  therapeutic use of 
 a drug &  penicillin treats infection \\ %\hline
@@ -170,9 +170,9 @@ The crowd output was processed with the use of CrowdTruth metrics -- a set of ge
 %\hline
 %\multirow{3}{*}{\textbf{Relation}} & \multicolumn{2}{c|}{\textbf{sentence}} &
 %\multicolumn{2}{c|}{\textbf{sentence-relation}} & \multicolumn{2}{c|}{\textbf{crowd score used in}} \\
-\multirow{3}{*}{\textbf{Relation}} & \multicolumn{2}{c}{\textbf{sentence}} &
-\multicolumn{2}{c}{\textbf{sentence-relation}} & \multicolumn{2}{c}{\textbf{crowd score used in}} \\
-& \multicolumn{2}{c}{\textbf{vector}} & \multicolumn{2}{c}{\textbf{score}} & \multicolumn{2}{c}{\textbf{model training}} \\ \cline{2-7}
+\multirow{3}{*}{\textsc{Relation}} & \multicolumn{2}{c}{\textsc{sentence}} &
+\multicolumn{2}{c}{\textsc{sentence-relation}} & \multicolumn{2}{c}{\textsc{crowd score used in}} \\
+& \multicolumn{2}{c}{\textsc{vector}} & \multicolumn{2}{c}{\textsc{score}} & \multicolumn{2}{c}{\textsc{model training}} \\ \cline{2-7}
 & \textit{Sent.1} & \textit{Sent.2} & \textit{Sent.1} & \textit{Sent.2} & \textit{Sent.1} & \textit{Sent.2} \\ \toprule
 \textit{treat}           & 0  & 3 & 0    & 0.36 & -1    & -0.64 \\
 \cellcolor{aliceblue}\textit{prevent}         & \cellcolor{aliceblue}0  & \cellcolor{aliceblue}1 & \cellcolor{aliceblue}0    & \cellcolor{aliceblue}0.12 & \cellcolor{aliceblue}-1    & \cellcolor{aliceblue}-0.88 \\
@@ -301,7 +301,7 @@ Tab.\ref{tab:statistic_exp} shows the full results of the evaluation, together w
 \begin{tabular}{rccccccc}
 
 \toprule
-& \textbf{Dataset} & \cellcolor{aliceblue}\textbf{P} & \cellcolor{aliceblue}\textbf{P'} & \textbf{R} & \textbf{R'} & \cellcolor{aliceblue}\textbf{F1} & \cellcolor{aliceblue}\textbf{F1'}   \\ \toprule
+& \textsc{Dataset} & \cellcolor{aliceblue}\textsc{P} & \cellcolor{aliceblue}\textsc{P'} & \textsc{R} & \textsc{R'} & \cellcolor{aliceblue}\textsc{F1} & \cellcolor{aliceblue}\textsc{F1'}   \\ \toprule
 
 & \textit{crowd} & \cellcolor{aliceblue}0.565 & \cellcolor{aliceblue}0.632 & 0.743 & 0.754 & \cellcolor{aliceblue}\textbf{0.642} & \cellcolor{aliceblue}\textbf{0.687} \\ % & 0.784  &  \\ %\cline{2-6}
 \textit{cause} & \textit{expert} & \cellcolor{aliceblue}\textbf{0.672} & \cellcolor{aliceblue}\textbf{0.711} & 0.604 & 0.616 & \cellcolor{aliceblue}0.638 & \cellcolor{aliceblue}0.658 \\ % & 0.818  &  \\ %\cline{2-6}
@@ -363,7 +363,7 @@ Distant supervision is a widely used technique in NLP, because its obvious flaws
 \scalebox{0.8}{
 \begin{tabular}{rccccccc}
 \toprule
-& \textbf{Dataset} & \cellcolor{aliceblue}\textbf{P} & \cellcolor{aliceblue}\textbf{P'} & \textbf{R} & \textbf{R'} & \cellcolor{aliceblue}\textbf{F1} & \cellcolor{aliceblue}\textbf{F1'}   \\ \toprule
+& \textsc{Dataset} & \cellcolor{aliceblue}\textsc{P} & \cellcolor{aliceblue}\textsc{P'} & \textsc{R} & \textsc{R'} & \cellcolor{aliceblue}\textsc{F1} & \cellcolor{aliceblue}\textsc{F1'}   \\ \toprule
 \textit{cause} & \textit{crowd} & \cellcolor{aliceblue}\textbf{0.538} & \cellcolor{aliceblue}\textbf{0.61} & 0.79  & 0.802 & \cellcolor{aliceblue}\textbf{0.64}  & \cellcolor{aliceblue}\textbf{0.692} \\ % & 0.768 & 0.803  \\ %\cline{2-10}
 relation & \textit{baseline} & \cellcolor{aliceblue}0.475 & \cellcolor{aliceblue}0.53 & \textbf{0.889} & \textbf{0.887} & \cellcolor{aliceblue}0.619 & \cellcolor{aliceblue}0.663 \\ \midrule %  & 0.715 & 0.751 \\ \hline 
 \textit{treat} & \textit{crowd} & \cellcolor{aliceblue}\textbf{0.876} & \cellcolor{aliceblue}\textbf{0.913} & \textbf{0.887} & \textbf{0.898} & \cellcolor{aliceblue}\textbf{0.88} & \cellcolor{aliceblue}\textbf{0.904} \\ %  & 0.884 & 0.907  \\ %\cline{2-10}
@@ -435,7 +435,7 @@ The authors would like to thank Dr. Chang Wang for support with using the medica
 \begin{tabular}{p{9cm}c>{\centering\arraybackslash}p{1.7cm}>{\centering\arraybackslash}p{1.3cm}}
 %\hline
 \toprule
-\multirow{2}{*}{\textbf{Sentence}} & \multirow{2}{*}{\textbf{Relation}} & \textbf{Crowd Label} & \textbf{Expert Label} \\ \toprule
+\multirow{2}{*}{\textsc{Sentence}} & \multirow{2}{*}{\textsc{Relation}} & \textsc{Crowd Label} & \textsc{Expert Label} \\ \toprule
 The physician should ask about a history of \textbf{diabetes} of long duration, including other manifestations of \textbf{diabetic neuropathy}. & $cause$ & 0.977 & -1 \\ %\hline
 
 \cellcolor{aliceblue}If the oxygen is too low, the incidence of \textbf{decompression sickness} increases; if the \textbf{oxygen} is too high, oxygen poisoning becomes a problem. & \cellcolor{aliceblue}$cause$ & \cellcolor{aliceblue}0.743 & \cellcolor{aliceblue}-1 \\ %\hline
@@ -464,7 +464,7 @@ Will giving \textbf{Acetaminophen} prevent the \textbf{pain} of the immunization
 \begin{tabular}{p{9cm}c>{\centering\arraybackslash}p{1.7cm}>{\centering\arraybackslash}p{1.3cm}}
 %\hline
 \toprule
-\multirow{2}{*}{\textbf{Sentence}} & \multirow{2}{*}{\textbf{Relation}} & \textbf{Crowd Label} & \textbf{Expert Label} \\ \toprule
+\multirow{2}{*}{\textsc{Sentence}} & \multirow{2}{*}{\textsc{Relation}} & \textsc{Crowd Label} & \textsc{Expert Label} \\ \toprule
 Patients with a history of \textbf{bee sting allergy} may have a higher risk of a \textbf{hypersensitivity reaction} with paclitaxel treatment. & $cause$ & 0.9 & -1 \\ %\hline
 
 \cellcolor{aliceblue}In contrast, we did not find a definite increase in the LGL percentage within 6 months postpartum in patients with \textbf{Grave's disease} who relapsed into \textbf{Grave's thyrotoxicosis}. & \cellcolor{aliceblue}$cause$ & \cellcolor{aliceblue}0.737 & \cellcolor{aliceblue}-1 \\ %\hline
@@ -497,7 +497,7 @@ Thirdly the evidence of the efficacy of \textbf{Clomipramine} in \textbf{OCD wit
 \begin{tabular}{p{9cm}c>{\centering\arraybackslash}p{1.7cm}>{\centering\arraybackslash}p{1.3cm}}
 %\hline
 \toprule
-\multirow{2}{*}{\textbf{Sentence}} & \multirow{2}{*}{\textbf{Relation}} & \textbf{Crowd Label} & \textbf{Expert Label} \\ \toprule
+\multirow{2}{*}{\textsc{Sentence}} & \multirow{2}{*}{\textsc{Relation}} & \textsc{Crowd Label} & \textsc{Expert Label} \\ \toprule
 
 Instability of \textbf{bone} fragments is regarded as the most important factor in pathogenesis of \textbf{pseudoarthrosis}. & $cause$ & 0.928 & -1 \\ %\hline
 

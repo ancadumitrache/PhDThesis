@@ -132,11 +132,11 @@ We expect that the metrics from CrowdTruth annotation can be used to systematica
 \scalebox{0.8}{
 \begin{tabular}{rccc}
 \toprule
-& \textbf{Precision} & \textbf{Recall} &\textbf{F1 score} \\ \toprule
-\textbf{DS} & 0.19 & 0.22 & 0.2 \\
-\textbf{DS merged} & \textbf{0.43} & 0.33 & \textbf{0.37}  \\
-\textbf{DS\_RCP} & 0.19 & \textbf{0.48} & 0.27 \\
-\textbf{DS\_FP} & 0.21 & 0.22 & 0.21  \\ % \hline
+& \textsc{Precision} & \textsc{Recall} &\textsc{F1 score} \\ \toprule
+\textsc{DS} & 0.19 & 0.22 & 0.2 \\
+\textsc{DS merged} & \textbf{0.43} & 0.33 & \textbf{0.37}  \\
+\textsc{DS\_RCP} & 0.19 & \textbf{0.48} & 0.27 \\
+\textsc{DS\_FP} & 0.21 & 0.22 & 0.21  \\ % \hline
 \bottomrule
 \end{tabular}
 }
@@ -160,7 +160,7 @@ We are currently considering experiments that take advantage of another aspect o
 \def\arraystretch{1.5}
 \begin{tabular}{p{5cm}c>{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{2cm}}
 \toprule
-\textbf{Sentence} & \textbf{Relation} & \textbf{Crowd SRS} & \textbf{DS label} \\ \toprule
+\textsc{Sentence} & \textsc{Relation} & \textsc{Crowd SRS} & \textsc{DS label} \\ \toprule
 
 \multirow{4}{5cm}{After growing up on Cat Island, \textbf{Tony McKay} moved to \textbf{New York City} at age 17 to study architecture.} & \multirow{2}{*}{$place\_of\_death$} & \multirow{2}{*}{0.004} & \multirow{2}{*}{1} \\
 & & & \\ \cline{2-4}
@@ -196,7 +196,7 @@ We are currently considering experiments that take advantage of another aspect o
 \def\arraystretch{1.5}
 \begin{tabular}{p{5cm}c>{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{2cm}}
 \toprule
-\textbf{Sentence} & \textbf{Relation} & \textbf{Crowd SRS} & \textbf{DS label} \\ \toprule
+\textsc{Sentence} & \textsc{Relation} & \textsc{Crowd SRS} & \textsc{DS label} \\ \toprule
 
 \multirow{4}{5cm}{China on Monday officially appointed \textbf{Donald Tsang} as \textbf{Hong Kong}'s chief executive for a second term.} & \multirow{2}{*}{$employee\_or\_member$} & \multirow{2}{*}{0.623} & \multirow{2}{*}{0} \\
 & & & \\ \cline{2-4}

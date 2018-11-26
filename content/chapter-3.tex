@@ -87,10 +87,10 @@ Three core \textbf{worker metrics} are defined to differentiate between low-qual
     \scalebox{0.85}{
 	\begin{tabular}{rccccc}
     \toprule
-    \textbf{worker annotations} & \textit{dog barking} & \textit{walking} & \textit{animal} & \textit{echo} & \textit{loud} \\ \hline
-    \textbf{media unit -- annotation score} &  0.47 & 0.31 & 0.79 & 0.15 & 0.15 \\ %\hline
-    \textbf{media unit vector} & 3 & 2 & 5 & 1 & 1 \\ %\hline
-    \textbf{majority vote} &  0 & 0 & 1 & 0 & 0 \\ \bottomrule
+    \textsc{worker annotations} & \textit{dog barking} & \textit{walking} & \textit{animal} & \textit{echo} & \textit{loud} \\ \hline
+    \textsc{media unit -- annotation score} &  0.47 & 0.31 & 0.79 & 0.15 & 0.15 \\ %\hline
+    \textsc{media unit vector} & 3 & 2 & 5 & 1 & 1 \\ %\hline
+    \textsc{majority vote} &  0 & 0 & 1 & 0 & 0 \\ \bottomrule
     \end{tabular}
     }
 \end{table}
@@ -114,7 +114,7 @@ Based on the specificity of each task, closed or open-ended, the effort required
 	\scalebox{0.8}{
 	\begin{tabular}{rccl}
     \toprule
-    \textbf{Task} & \textbf{Type} & \textbf{Media Unit} & \textbf{Annotations} \\
+    \textsc{Task} & \textsc{Type} & \textsc{Media Unit} & \textsc{Annotations} \\
     \toprule
     & \multirow{5}{*}{closed} & \multirow{5}{*}{sentence} & medical relations: \textit{cause}, \textit{treat}, \\
     Medical &  &  & \textit{prevent}, \textit{symptom}, \textit{diagnose},  \\
@@ -190,13 +190,13 @@ Tables \ref{tab:crowd_data} and \ref{tab:crowd_tasks} present an overview of the
 	\scalebox{0.8}{
 	\begin{tabular}{r c c c c c}
     \toprule
-    \textbf{Task} & \textbf{Source} & \textbf{Has} & \textbf{Media} & \textbf{Workers/} & \textbf{Cost/} \\
-    &  & \textbf{Expert} & \textbf{Units} & \textbf{Unit} & \textbf{Judgment} \\
+    \textsc{Task} & \textsc{Source} & \textsc{Has} & \textsc{Media} & \textsc{Workers/} & \textsc{Cost/} \\
+    &  & \textsc{Expert} & \textsc{Units} & \textsc{Unit} & \textsc{Judgment} \\
     \toprule
     Medical Relation Extraction & PubMed & yes & 975 & 15 & \$0.05  \\
-    Twitter Event Identification & Twitter (2014) & no & \np{3019} & 7 & \$0.02 \\
+    Twitter Event Identification & Twitter & no & \np{3019} & 7 & \$0.02 \\
     News Event Extraction & TimeBank & yes & \np{200} & 15 & \$0.02 \\
-    Sound Interpretation & Freesound.org & yes  & \np{284} & 10 & \$0.01 \\ %\hline
+    Sound Interpretation & Freesound & yes  & \np{284} & 10 & \$0.01 \\ %\hline
     \bottomrule
     \end{tabular}
     }
@@ -295,23 +295,23 @@ We begin by evaluating \textbf{how the majority vote method compares with CrowdT
 \label{tab:f1_mv}
 \begin{tabular}{lrccccl}
 \toprule
-\textbf{Task} & \textbf{Dataset} & \textbf{Precision} & \textbf{Recall} & \textbf{F1 score} & \textbf{Accuracy} &  \textbf{Threshold} \\ \toprule
+\textsc{Task} & \textsc{Dataset} & \textsc{Precision} & \textsc{Recall} & \textsc{F1 score} & \textsc{Accuracy} &  \textsc{Threshold} \\ \toprule
 
-\multirow{4}{*}{\parbox{1.8cm}{\textbf{Medical \\ Relation \\ Extraction}}} & CrowdTruth & 0.86 & 0.962 & 0.908 & 0.932 & \multirow{4}{*}{0.6} \\
+\multirow{4}{*}{\parbox{1.8cm}{\textsc{Medical \\ Relation \\ Extraction}}} & CrowdTruth & 0.86 & 0.962 & 0.908 & 0.932 & \multirow{4}{*}{0.6} \\
  & expert & 0.899 & 0.89 & 0.895 & 0.927 &  \\
  & majority vote & 0.924 & 0.781 & 0.847 & 0.902 & \\
  & single & 0.222 & 0.776 & 0.346 & 0.748 & \\ \hline
 
-\multirow{3}{*}{\parbox{1.8cm}{\textbf{Twitter \\ Event \\ Identification}}} & CrowdTruth & 0.965 & 0.945 & 0.955 & 0.995 & \multirow{3}{*}{0.4} \\
+\multirow{3}{*}{\parbox{1.8cm}{\textsc{Twitter \\ Event \\ Identification}}} & CrowdTruth & 0.965 & 0.945 & 0.955 & 0.995 & \multirow{3}{*}{0.4} \\
  & majority vote & 0.984 & 0.885 & 0.932 & 0.984 & \\
  & single & 0.959 & 0.819 & 0.884 & 0.972 & \\ \hline
 
-\multirow{4}{*}{\parbox{1.8cm}{\textbf{News \\ Event \\ Extraction}}} & CrowdTruth & 0.984 & 0.929 & 0.956 & 0.931 & \multirow{4}{*}{0.05} \\
+\multirow{4}{*}{\parbox{1.8cm}{\textsc{News \\ Event \\ Extraction}}} & CrowdTruth & 0.984 & 0.929 & 0.956 & 0.931 & \multirow{4}{*}{0.05} \\
  & expert & 0.983 & 0.944 & 0.963 & 0.942 & \\
  & majority vote & 0.985 & 0.375 & 0.544 & 0.492 & \\
  & single & 0.99 & 0.384 & 0.554 & 0.501 & \\ \hline
 
-\multirow{4}{*}{\parbox{1.8cm}{\textbf{Sound \\ Inter- \\ pretation}}} & CrowdTruth & 1 & 0.729 & 0.843 & 0.815 & \multirow{4}{*}{0.1} \\
+\multirow{4}{*}{\parbox{1.8cm}{\textsc{Sound \\ Inter- \\ pretation}}} & CrowdTruth & 1 & 0.729 & 0.843 & 0.815 & \multirow{4}{*}{0.1} \\
  & expert & 1 & 0.291 & 0.45 & 0.515 & \\
  & majority vote & 1 & 0.148 & 0.258 & 0.418 & \\
  & single & 1 & 0.098 & 0.178 & 0.383 & \\ 
@@ -327,7 +327,7 @@ We begin by evaluating \textbf{how the majority vote method compares with CrowdT
 \scalebox{0.8}{
 \begin{tabular}{rccc}
 \toprule
-\textbf{Task} & \textbf{Maj. Vote} & \textbf{Expert} & \textbf{Single} \\ \toprule
+\textsc{Task} & \textsc{Maj. Vote} & \textsc{Expert} & \textsc{Single} \\ \toprule
 Medical Relation Extraction & $0.0001$ & $0.629$ & $< 2.2 \times 10^{-16}$ \\ 
 Twitter Event Identification & $0.0001$ & N/A &  $6.145 \times 10^{-15}$ \\ 
 News Event Extraction &  $< 2.2 \times 10^{-16}$ & $0.505$ & $< 2.2 \times 10^{-16}$ \\
@@ -458,8 +458,8 @@ We would like to thank Emiel van Miltenburg for assisting with the exploration o
 \scalebox{0.8}{
 \begin{tabular}{p{6cm}cccc}
 \toprule
-\multirow{2}{*}{\textbf{Media Unit}} & \multirow{2}{*}{\textbf{Annotation}} & \textbf{Expert} & \textbf{Crowd} & \textbf{Trusted} \\ 
- & & \textbf{Judgment} & \textbf{Score} & \textbf{Judgment} \\ \toprule
+\multirow{2}{*}{\textsc{Media Unit}} & \multirow{2}{*}{\textsc{Annotation}} & \textsc{Expert} & \textsc{Crowd} & \textsc{Trusted} \\ 
+ & & \textsc{Judgment} & \textsc{Score} & \textsc{Judgment} \\ \toprule
  
 The \textit{epidermal nevus syndrome} is a neurocutaneous disorder characterized by \textit{distinctive skin lesions} and often serious somatic and central nervous system (CNS) abnormalities. &	\multirow{6}{*}{$cause$} & \multirow{6}{*}{no} & \multirow{6}{*}{0.98} & \multirow{6}{*}{yes} \\ %\hline
 
@@ -489,8 +489,8 @@ The principal differences between these vaccines are the transmission of live va
 \scalebox{0.8}{
 \begin{tabular}{p{6cm}cccc}
 \toprule
-\multirow{2}{*}{\textbf{Media Unit}} & \multirow{2}{*}{\textbf{Annotation}} & \textbf{Expert} & \textbf{Crowd} & \textbf{Trusted} \\ 
- & & \textbf{Judgment} & \textbf{Score} & \textbf{Judgment} \\ \toprule
+\multirow{2}{*}{\textsc{Media Unit}} & \multirow{2}{*}{\textsc{Annotation}} & \textsc{Expert} & \textsc{Crowd} & \textsc{Trusted} \\ 
+ & & \textsc{Judgment} & \textsc{Score} & \textsc{Judgment} \\ \toprule
  
 The plan provides for the \textit{distribution} of one common stock-purchase right as a dividend for each share of common outstanding & \multirow{4}{*}{$distribution$} & \multirow{4}{*}{no} & \multirow{4}{*}{0.95} & \multirow{4}{*}{yes} \\ %\hline 
 
@@ -518,8 +518,8 @@ The American hope is that someone from within Iraq perhaps from the army 's prof
 \scalebox{0.8}{
 \begin{tabular}{p{4cm}ccccc}
 \toprule
-\multirow{2}{*}{\textbf{Media Unit URL}} & \textbf{Media Unit} & \multirow{2}{*}{\textbf{Annotation}} & \textbf{Expert} & \textbf{Crowd} & \textbf{Trusted} \\ 
- & \textbf{Description} &  & \textbf{Judgment} & \textbf{Score} & \textbf{Judgment} \\ \toprule
+\multirow{2}{*}{\textsc{Media Unit URL}} & \textsc{Media Unit} & \multirow{2}{*}{\textsc{Annotation}} & \textsc{Expert} & \textsc{Crowd} & \textsc{Trusted} \\ 
+ & \textsc{Description} &  & \textsc{Judgment} & \textsc{Score} & \textsc{Judgment} \\ \toprule
 
 \multirow{4}{4cm}{\url{https://freesound.org/data/previews/21/21266_88803-hq.mp3}} & \multirow{4}{*}{jazz} & cymbals & no & 0.272 & yes \\ \cline{3-6}
 & & bangle & no & 0.136 & yes \\ \cline{3-6}
