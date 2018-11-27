@@ -9,7 +9,7 @@
 Against that positivism [\ldots] saying ``there are only facts,'' I should say: no, it is precisely facts that do not exist, only interpretations.
 \end{chapquote}
 
-FrameNet is a computational linguistics resource composed of semantic frames, high-level concepts that represent the meanings of words. In this paper, we present an approach to gather frame disambiguation annotations in sentences using a crowdsourcing approach with multiple workers per sentence to capture inter-annotator \emph{disagreement}. We perform an experiment over a set of 433 sentences annotated with frames from the FrameNet corpus, and show that the aggregated crowd annotations achieve an F1 score greater than 0.67 as compared to expert linguists. We highlight cases where the crowd annotation was correct even though the expert is in disagreement, arguing for the need to have multiple annotators per sentence.  Most importantly, we examine cases in which crowd workers could not agree, and demonstrate that these cases exhibit ambiguity, either in the sentence, frame, or the task itself, and argue that collapsing such cases to a single, discrete truth value (i.e. correct or incorrect) is inappropriate, creating arbitrary targets for machine learning.
+FrameNet is a computational linguistics resource composed of semantic frames, high-level concepts that represent the meanings of words. In this chapter, we present an approach to gather frame disambiguation annotations in sentences using a crowdsourcing approach with multiple workers per sentence to capture inter-annotator \emph{disagreement}. We perform an experiment over a set of 433 sentences annotated with frames from the FrameNet corpus, and show that the aggregated crowd annotations achieve an F1 score greater than 0.67 as compared to expert linguists. We highlight cases where the crowd annotation was correct even though the expert is in disagreement, arguing for the need to have multiple annotators per sentence.  Most importantly, we examine cases in which crowd workers could not agree, and demonstrate that these cases exhibit ambiguity, either in the sentence, frame, or the task itself, and argue that collapsing such cases to a single, discrete truth value (i.e. correct or incorrect) is inappropriate, creating arbitrary targets for machine learning.
 
 This chapter was published as \textit{Capturing Ambiguity in Crowdsourcing Frame Disambiguation} in the AAAI Conference on Human Computation and Crowdsourcing and was co-authored by Lora Aroyo and Chris Welty~\cite{DBLP:conf/hcomp/DumitracheAW18}.
 
@@ -19,9 +19,9 @@ FrameNet is a computational linguistics resource based on the frame semantics th
 
 Since many words have multiple possible meanings, the task of obtaining these annotations is called \emph{frame disambiguation}, similarly to word-sense disambiguation.  It is a complex task that typically is performed by linguistic experts, subjected to strict annotation guidelines and quality control~\cite{baker2012framenet}. As such, this task typically does not scale sufficiently in order to meet the annotation requirements of modern machine learning methods. Moreover, the annotation is typically performed by only one expert, which makes it impossible to capture any diversity of perspectives.  
 
-There have been a number of attempts at using crowdsourcing for frame disambiguation in sentences, such as those by \citet{Hong:2011:GCR:2018966.2018970} and \citet{chang2015scaling}, offering a creative way to deal with the complexity of the annotation task. This paper addresses the considerable problem of \emph{ambiguity}  in frame annotation, which we show to be a prominent feature in frame semantics.  We adapt the CrowdTruth framework, which encourages using multiple crowd annotators to perform the same work, and processes the disagreement between them to signal low quality workers, sentences, and frames.
+There have been a number of attempts at using crowdsourcing for frame disambiguation in sentences, such as those by \citet{Hong:2011:GCR:2018966.2018970} and \citet{chang2015scaling}, offering a creative way to deal with the complexity of the annotation task. This chapter addresses the considerable problem of \emph{ambiguity}  in frame annotation, which we show to be a prominent feature in frame semantics.  We adapt the CrowdTruth framework, which encourages using multiple crowd annotators to perform the same work, and processes the disagreement between them to signal low quality workers, sentences, and frames.
 
-This paper presents the following contributions:
+This chapter presents the following contributions:
 
 \begin{enumerate}
 
@@ -81,7 +81,7 @@ The dataset used in this experiment consists of sentence-word pairs from the Fra
 
 The restriction on the maximum number of frames was done so as not to overwhelm the crowd with too many choices. However, annotating words that have more than 20 frames can easily be adapted for our template, by fragmenting the candidate frame list into several parts and running the task multiple times. Also, having just one frame per word means that the crowdsourcing task becomes one of validation, not disambiguation, so the restriction on the minimum number of frames was put in place.
 
-For simplicity, we refer to the sentence-word pairs as sentences in the rest of the paper. This dataset, as well as the crowdsourcing results and aggregated metrics are available online~\cite{anca_dumitrache_2018_1472345}.
+For simplicity, we refer to the sentence-word pairs as sentences in the rest of the chapter. This dataset, as well as the crowdsourcing results and aggregated metrics are available online~\cite{anca_dumitrache_2018_1472345}.
 
 \subsection{Task Template}
 
@@ -134,16 +134,16 @@ To aggregate the results of the crowd, while also capturing inter-annotator disa
 & & \multirow{2}{*}{$purpose^{(*)}$} & \multirow{2}{*}{0.288} \\
 & & & \\ \hline
 
-\multirow{2}{*}{S2} & \multirow{2}{8cm}{The major \textit{changes} were not to daily tasks and routines , but to the political power base.} & $cause\_change$ & 0.804 \\  \cline{3-4}
-& & $undergo\_change^{(*)}$ & 0.305 \\ \hline
+\multirow{2}{*}{S2} & \multirow{2}{8cm}{The major \textit{changes} were not to daily tasks and routines , but to the political power base.} & $cause\ change$ & 0.804 \\  \cline{3-4}
+& & $undergo\ change^{(*)}$ & 0.305 \\ \hline
 
-\multirow{2}{*}{S3} & \multirow{2}{8cm}{This \textit{investigation} has been stymied stopped, obstructions thrown up every step of the way.} & $criminal\_investigation$ & 0.898 \\  \cline{3-4}
+\multirow{2}{*}{S3} & \multirow{2}{8cm}{This \textit{investigation} has been stymied stopped, obstructions thrown up every step of the way.} & $criminal\ investigation$ & 0.898 \\  \cline{3-4}
 & & $scrutiny^{(*)}$ & 0.377 \\ \hline
 
-\multirow{2}{*}{S4} & \multirow{2}{8cm}{Does supersizing \textit{cause} obesity?} & $cause\_to\_start$ & 0.804 \\  \cline{3-4}
+\multirow{2}{*}{S4} & \multirow{2}{8cm}{Does supersizing \textit{cause} obesity?} & $cause\ to\ start$ & 0.804 \\  \cline{3-4}
 & & $causation^{(*)}$ & 0.608 \\ \hline
 
-\multirow{4}{*}{S5} & \multirow{4}{8cm}{The loud, raucous Jamaican English dialect and the \textit{waving} hands reflect the joy with which social relations are conducted here.} & \multirow{2}{*}{$body\_movement$} & \multirow{2}{*}{0.861} \\
+\multirow{4}{*}{S5} & \multirow{4}{8cm}{The loud, raucous Jamaican English dialect and the \textit{waving} hands reflect the joy with which social relations are conducted here.} & \multirow{2}{*}{$body\ movement$} & \multirow{2}{*}{0.861} \\
 & & & \\ \cline{3-4}
 & & \multirow{2}{*}{$gesture^{(*)}$} & \multirow{2}{*}{0.463} \\
 & & & \\ \hline
@@ -168,7 +168,7 @@ At the best FSS threshold, the accuracy scores are comparable to those presented
 
 \begin{table}[tb!]
 \centering
-\caption{Different FSS values for the frames $removing$ (P1, P2, P3), $means$ (P4, P5, P6), $attempt\_suasion$ (P7, P8, P9). The targeted word appears in italics font in the sentence. The frame picked by the expert is marked with $^{(*)}$.}
+\caption{Different FSS values for the frames $removing$ (P1, P2, P3), $means$ (P4, P5, P6), $attempt\ suasion$ (P7, P8, P9). The targeted word appears in italics font in the sentence. The frame picked by the expert is marked with $^{(*)}$.}
 \label{tab:fss_ex}
 
 \scalebox{0.8}{
@@ -178,24 +178,24 @@ At the best FSS threshold, the accuracy scores are comparable to those presented
 
 \multirow{5}{*}{P1} & \multirow{5}{5.5cm}{Egypt has provided no evidence demonstrating the \textit{elimination} of its biological warfare ability, which has existed since at least 1972.} & \multirow{5}{*}{0.841} & & \\
 & & & $removing^{(*)}$ & 0.938 \\ \cline{4-5}
-& & & $cause\_change$ & 0.175 \\ \cline{4-5}
+& & & $cause\ change$ & 0.175 \\ \cline{4-5}
 & & & $event$ & 0.032 \\
 & & & &  \\ \hline
 
-\multirow{4}{*}{P2} & \multirow{4}{5.5cm}{First, he forbade seeking the aid of infidels when the Syrian Mujahiddin asked Saddam Hussein to \textit{overthrow} the regime of Hafiz Al-Assad in Syria.} & \multirow{4}{*}{0.669} & $change\_of\_leadership^{(*)}$ & 0.847 \\  \cline{4-5}
+\multirow{4}{*}{P2} & \multirow{4}{5.5cm}{First, he forbade seeking the aid of infidels when the Syrian Mujahiddin asked Saddam Hussein to \textit{overthrow} the regime of Hafiz Al-Assad in Syria.} & \multirow{4}{*}{0.669} & $change\ of\ leadership^{(*)}$ & 0.847 \\  \cline{4-5}
 & & & $removing$ & 0.539 \\ \cline{4-5}
-& & & $eventive\_cognizer\_affecting$ & 0.087 \\ \cline{4-5}
+& & & $eventive\ cognizer\ affecting$ & 0.087 \\ \cline{4-5}
 & & & $people$ & 0.005 \\ \hline
 
 \multirow{5}{*}{P3} & \multirow{5}{5.5cm}{Their influence helped draw a line in the desert sand between legitimate operations and mob casinos, where illegal \textit{skimming} of profits was rampant.} & \multirow{5}{*}{0.366} & $removing^{(*)}$ & 0.532 \\ \cline{4-5}
 & & & $theft$ & 0.494 \\ \cline{4-5}
-& & & $committing\_crime$ & 0.459 \\ \cline{4-5}
+& & & $committing\ crime$ & 0.459 \\ \cline{4-5}
 & & & $misdeed$ & 0.431 \\ \cline{4-5}
-& & & $cause\_change$ & 0.273 \\ \toprule
+& & & $cause\ change$ & 0.273 \\ \toprule
 
 \multirow{4}{*}{P4} & \multirow{4}{5.5cm}{The above mentioned protection \textit{procedures} are only for observation purposes, while patrols check the fences, the barriers, and the towers.} & \multirow{4}{*}{0.786} & \multirow{2}{*}{$means^{(*)}$} & \multirow{2}{*}{0.889} \\
 & & & &  \\ \cline{4-5}
-& & & \multirow{2}{*}{$being\_employed$} & \multirow{2}{*}{0.11} \\
+& & & \multirow{2}{*}{$being\ employed$} & \multirow{2}{*}{0.11} \\
 & & & & \\ \hline
 
 \multirow{4}{*}{P5} & \multirow{4}{5.5cm}{We've expanded Goodwill's proven \textit{methods} to towns and neighborhoods where they are needed most.} & \multirow{4}{*}{0.364} & $means^{(*)}$ & 0.601 \\ \cline{4-5}
@@ -205,22 +205,22 @@ At the best FSS threshold, the accuracy scores are comparable to those presented
 
 \multirow{4}{*}{P6} & \multirow{4}{5.5cm}{The latest \textit{approach} is perhaps the best of the post-mob era : the comprehensive resort.} & \multirow{4}{*}{0.208} & $means^{(*)}$ & 0.457 \\ \cline{4-5}
 & & & $conduct$ & 0.225 \\ \cline{4-5}
-& & & $path\_traveled$ & 0.159 \\ \cline{4-5}
+& & & $path\ traveled$ & 0.159 \\ \cline{4-5}
 & & & $communication$ & 0.121 \\ \toprule
 
 \multirow{6}{*}{P7} & \multirow{6}{5.5cm}{Prime Minister Ariel Sharon of Israel \textit{urged} President Bush to step up pressure on Iran to give up all elements of its nuclear program.} & \multirow{6}{*}{0.528} & & \\
-& & & $attempt\_suasion^{(*)}$ & 0.81 \\ \cline{4-5}
+& & & $attempt\ suasion^{(*)}$ & 0.81 \\ \cline{4-5}
 & & & $request$ & 0.387 \\ \cline{4-5}
 & & & $communication$ & 0.337 \\ \cline{4-5}
-& & & $cause\_to\_start$ & 0.115 \\
+& & & $cause\ to\ start$ & 0.115 \\
 & & & & \\ \hline
 
-\multirow{4}{*}{P8} & \multirow{4}{5.5cm}{The security team should \textit{urge} everyone to take precautions and guard their homes tightly.} & \multirow{4}{*}{0.358} & $attempt\_suasion^{(*)}$ & 0.605 \\ \cline{4-5}
+\multirow{4}{*}{P8} & \multirow{4}{5.5cm}{The security team should \textit{urge} everyone to take precautions and guard their homes tightly.} & \multirow{4}{*}{0.358} & $attempt\ suasion^{(*)}$ & 0.605 \\ \cline{4-5}
 & & & $request$ & 0.321 \\ \cline{4-5}
-& & & $cause\_to\_start$ & 0.256 \\ \cline{4-5}
+& & & $cause\ to\ start$ & 0.256 \\ \cline{4-5}
 & & & $communication$ & 0.213 \\ \hline
 
-\multirow{4}{*}{P9} & \multirow{4}{5.5cm}{The security team should publish a periodic bulletin and distribute to all residents, \textit{advising} them how to safely store gaz and logs.} & \multirow{4}{*}{0.386} & $attempt\_suasion^{(*)}$ & 0.576 \\ \cline{4-5}
+\multirow{4}{*}{P9} & \multirow{4}{5.5cm}{The security team should publish a periodic bulletin and distribute to all residents, \textit{advising} them how to safely store gaz and logs.} & \multirow{4}{*}{0.386} & $attempt\ suasion^{(*)}$ & 0.576 \\ \cline{4-5}
 & & & $communication$ & 0.567 \\ \cline{4-5}
 & & & $expertise$ & 0.167 \\ \cline{4-5}
 & & & $request$ & 0.156 \\ %\hline
@@ -237,7 +237,7 @@ While the majority of expert choices have high FSS scores, there are some except
 
 \item The \textit{information in the sentence is incomplete} to identify the correct frame. $S3$ does not express whether the investigation is criminal in nature, although that is a possible interpretation. This represents a limitation in the design of the crowdsourcing task -- in some versions of the expert task, annotators had the full context of the document available when performing the annotations. This could be fixed or reduced by providing the sentence before and after, without overloading the workers.
 
-\item The crowd offers a \textit{legitimate alternative interpretation} of what the correct frame should be. In $S5$ the crowd picks the more general frame $body\_movement$ for \textit{waving}, while in $S4$ and $S6$, the crowd picks more specific interpretations than the expert ($cause\_to\_start$ for the \textit{obesity} effect instead of the broader sense of $causation$ in $S4$, and $heralding$ instead of $omen$ for the word \textit{heralding} in $S6$). $S7$ shows an example where the expert made a mistake, as $filling$ refers to the action of covering an area with something, whereas $adorning$ refers to the passive act of being covered.
+\item The crowd offers a \textit{legitimate alternative interpretation} of what the correct frame should be. In $S5$ the crowd picks the more general frame $body\ movement$ for \textit{waving}, while in $S4$ and $S6$, the crowd picks more specific interpretations than the expert ($cause\ to\ start$ for the \textit{obesity} effect instead of the broader sense of $causation$ in $S4$, and $heralding$ instead of $omen$ for the word \textit{heralding} in $S6$). $S7$ shows an example where the expert made a mistake, as $filling$ refers to the action of covering an area with something, whereas $adorning$ refers to the passive act of being covered.
 
 \end{enumerate}
 
@@ -247,7 +247,7 @@ The cases where the experts and crowd disagree exemplify how difficult frame dis
 
 \begin{itemize}
 
-\item $removing$: $P1$ is an unambiguous expression of the frame, as reflected by the high agreement score. In $P2$, the top crowd frame as well as the expert choice frame $change\_of\_leadership$ refers to overthrowing the government, and $removing$ can be read as a generalization of this sense (i.e. removing the government by overthrowing it) -- $removing$ is a valid interpretation, but less specific, and the lower FSS seems justified. $P3$ is an even more ambiguous case -- it is not clear whether the word \textit{skimming} refers to generally $committing\_crime$, or to the more specific crime of $theft$, and $removing$ is a generalization for the sense of $theft$, however skimming here is a common metaphor, and not the actual act of skimming. We claim the rank ordering of uses of the \textit{removing} frame here is sensible, moreover it is far more useful to capture this information than require a single discrete truth value - the third case is simply not as clear a usage of the frame as the first.  There is a certain arbitrariness to determining which of these is "truly removing" and which is not.
+\item $removing$: $P1$ is an unambiguous expression of the frame, as reflected by the high agreement score. In $P2$, the top crowd frame as well as the expert choice frame $change\ of\ leadership$ refers to overthrowing the government, and $removing$ can be read as a generalization of this sense (i.e. removing the government by overthrowing it) -- $removing$ is a valid interpretation, but less specific, and the lower FSS seems justified. $P3$ is an even more ambiguous case -- it is not clear whether the word \textit{skimming} refers to generally $committing\ crime$, or to the more specific crime of $theft$, and $removing$ is a generalization for the sense of $theft$, however skimming here is a common metaphor, and not the actual act of skimming. We claim the rank ordering of uses of the \textit{removing} frame here is sensible, moreover it is far more useful to capture this information than require a single discrete truth value - the third case is simply not as clear a usage of the frame as the first.  There is a certain arbitrariness to determining which of these is "truly removing" and which is not.
 
 
 
@@ -281,35 +281,35 @@ The cases where the experts and crowd disagree exemplify how difficult frame dis
 & & & & \\  \cline{4-5}
 & & & \multirow{2}{*}{$manufacturing$} & \multirow{2}{*}{0.183} \\ 
 & & & & \\ \cline{4-5}
-%& & & $cause\_to\_start$ & 0.156 \\
-%& & & $coming\_up\_with$ & 0.069 \\
-& & & \multirow{2}{*}{$create\_physical\_artwork$} & \multirow{2}{*}{0.056} \\
+%& & & $cause\ to\ start$ & 0.156 \\
+%& & & $coming\ up\ with$ & 0.069 \\
+& & & \multirow{2}{*}{$create\ physical\ artwork$} & \multirow{2}{*}{0.056} \\
 & & & & \\ \hline
 
 \multirow{6}{*}{Q2} & \multirow{6}{6cm}{Passageways for cars and pedestrians should be designated 4- Road bumps: Six successive bumps should be \textit{constructed} at 500 meters from the location.} & \multirow{6}{*}{0.542} & \multirow{2}{*}{$building^{(*)}$} & \multirow{2}{*}{0.768} \\
 & & & & \\ \cline{4-5}
 & & & \multirow{2}{*}{$manufacturing$} & \multirow{2}{*}{0.326} \\ 
 & & & & \\  \cline{4-5}
-& & & \multirow{2}{*}{$create\_physical\_artwork$} & \multirow{2}{*}{0.089} \\
+& & & \multirow{2}{*}{$create\ physical\ artwork$} & \multirow{2}{*}{0.089} \\
 & & & & \\ \hline
-% & & & $cause\_change$ & 0.082 \\ 
-% & & & $cause\_to\_start$ & 0.082 \\ \hline
+% & & & $cause\ change$ & 0.082 \\ 
+% & & & $cause\ to\ start$ & 0.082 \\ \hline
 
 \multirow{4}{*}{Q3} & \multirow{4}{6cm}{\textit{Constructed} in wood, brick, stone, ceramic, and bronze, this is a work of extravagant beauty, uniting many ancient art forms.} & \multirow{4}{*}{0.351} & $building^{(*)}$ & 0.515 \\ \cline{4-5}
-& & & $create\_physical\_artwork$ & 0.335 \\ \cline{4-5}
+& & & $create\ physical\ artwork$ & 0.335 \\ \cline{4-5}
 & & & $manufacturing$ & 0.237 \\
 & & & & \\ \toprule
-%& & & $cause\_to\_start$ & 0.072 \\ 
+%& & & $cause\ to\ start$ & 0.072 \\ 
 %& & & $opinion$ & 0.004 \\ \toprule
 
 \multirow{4}{*}{Q4} & \multirow{4}{6cm}{U.S. Congressman Tony Hall arrived here Sunday evening, \textit{becoming} the first U.S. lawmaker to visit Iraq since the 1991 Gulf War.} & \multirow{4}{*}{0.901} & $becoming^{(*)}$ & 0.995 \\ \cline{4-5}
-& & & $cause\_change$ & 0.24 \\ \cline{4-5}
-& & & $undergo\_change$ & 0.212 \\
+& & & $cause\ change$ & 0.24 \\ \cline{4-5}
+& & & $undergo\ change$ & 0.212 \\
 & & & & \\ \hline
 
 \multirow{4}{*}{Q5} & \multirow{4}{6cm}{Cheung Chau \textit{becomes} the center of Hong Kong life once a year, usually in May , during the Bun Festival, a folklore extravaganza.} & \multirow{4}{*}{0.562} & $becoming^{(*)}$ & 0.783 \\ \cline{4-5}
-& & & $undergo\_change$ & 0.783 \\  \cline{4-5}
-& & & $cause\_change$ & 0.402 \\
+& & & $undergo\ change$ & 0.783 \\  \cline{4-5}
+& & & $cause\ change$ & 0.402 \\
 & & & & \\ \toprule
 
 \multirow{2}{*}{Q6} & \multirow{2}{6cm}{Are there any \textit{efforts} to bring back small investors?} & \multirow{2}{*}{0.811} & $attempt^{(*)}$ & 0.926 \\ \cline{4-5}
@@ -327,7 +327,7 @@ The cases where the experts and crowd disagree exemplify how difficult frame dis
 
 \item $means$: This frame refers to the means used by an agent to achieve a purpose. While $P4$ offers an unambiguous expression of the frame, in $P5$ the means with which to achieve a goal becomes confused with the expertise and knowledge required to achieve it. In $P6$ the goal is not mentioned, therefore creating confusion about the purpose of the \textit{approach}, and whether it might refer to a way of communicating or behaving.  Again, we claim this rank ordering is more informative than requiring a discrete judgment on each case.
 
-\item $attempt\_suasion$: This frame refers to a speaker attempting to influence the addressee to act. Sentences $P7$ to $P9$ express various degrees of persuasion, from obviously to weakly expressed. In $P7$, it is clear that the attempt at persuasion is an event that has occurred (\textit{Sharon [...] urged}). $P8$ expresses an obligation at an attempt to persuade (\textit{should urge}), whereas in $P9$ the persuasion is weaker, merely \textit{advice}.
+\item $attempt\ suasion$: This frame refers to a speaker attempting to influence the addressee to act. Sentences $P7$ to $P9$ express various degrees of persuasion, from obviously to weakly expressed. In $P7$, it is clear that the attempt at persuasion is an event that has occurred (\textit{Sharon [...] urged}). $P8$ expresses an obligation at an attempt to persuade (\textit{should urge}), whereas in $P9$ the persuasion is weaker, merely \textit{advice}.
 
 
 \end{itemize}
@@ -381,9 +381,9 @@ In Table~\ref{tab:sqs}, we show some examples of how SQS captures the clarity fo
 
 \begin{itemize}
 
-\item Sentences $Q1$, $Q2$ and $Q3$ all contain the word \textit{construct}, with different degrees of clarity. When the object being constructed is a building (i.e. the \textit{Temple} in $Q1$), there is no ambiguity in selecting the $building$ frame, but when the object is a \textit{road bump} ($Q2$), the sense of the building $frame$ becomes difficult to separate from $manufacturing$. In $Q3$, the object of the construction is not expressed, but the construction materials imply a precious object, therefore $building$, $manufacturing$ and $create\_physical\_artwork$ are all possible interpretations. Sentences 
+\item Sentences $Q1$, $Q2$ and $Q3$ all contain the word \textit{construct}, with different degrees of clarity. When the object being constructed is a building (i.e. the \textit{Temple} in $Q1$), there is no ambiguity in selecting the $building$ frame, but when the object is a \textit{road bump} ($Q2$), the sense of the building $frame$ becomes difficult to separate from $manufacturing$. In $Q3$, the object of the construction is not expressed, but the construction materials imply a precious object, therefore $building$, $manufacturing$ and $create\ physical\ artwork$ are all possible interpretations. Sentences 
 
-\item $Q4$ and $Q5$ illustrate the variation in clarity for the word \textit{become}. While in $Q4$, the sense $becoming$ is the unambiguous choice, in $Q5$ it is difficult to choose between the frames $becoming$ and $undergo\_change$ (it is arguable that \textit{Cheung Chau} needs to undergo some form of change in order to become a center).
+\item $Q4$ and $Q5$ illustrate the variation in clarity for the word \textit{become}. While in $Q4$, the sense $becoming$ is the unambiguous choice, in $Q5$ it is difficult to choose between the frames $becoming$ and $undergo\ change$ (it is arguable that \textit{Cheung Chau} needs to undergo some form of change in order to become a center).
 
 \item $Q6$ and $Q7$ both deal with the word \textit{effort}. In $Q7$, however, the \textit{conscious} qualifier for the word \textit{effort}, as well as the goal to \textit{develop}, implies a sustained, long-term action that can be understood as either an $attempt$ or a $commitment$ to achieve a goal. In contrast, $Q6$ expresses a short-term, concrete action (to \textit{bring}), which more closely fits the sense of the frame $attempt$.
 
@@ -395,16 +395,16 @@ As the examples above indicate, one possible cause for sentence ambiguity is mis
 
 Another reason for sentence ambiguity is frames that overlap in meaning (e.g. in $Q5$ and $Q7$). While providing more context could help with this, it is often the case that even the definitions of the frames are very close. The FQS metric is a useful indicator for these case.
 
-Table~\ref{tab:fqs} shows varying FQS values for different frames, from very clear to ambiguous. The frame $subjective\_influence$, with an FQS of 0.366, has a low score compared to the others. From looking at the sentences, we observed that the crowd had difficulty distinguishing between this frame and $objective\_influence$. The difference between these two frames is very small -- $subjective\_influence$ means a general, vague type of influence, whose effect cannot be measured, whereas $objective\_influence$ refers to a more concrete type of influence. However, as we see from the example sentences in Table~\ref{tab:fqs}, these cases can be very difficult to separate in natural language (e.g. in $F13$ is \textit{cultural influence} subjective or objective?).
+Table~\ref{tab:fqs} shows varying FQS values for different frames, from very clear to ambiguous. The frame $subjective\ influence$, with an FQS of 0.366, has a low score compared to the others. From looking at the sentences, we observed that the crowd had difficulty distinguishing between this frame and $objective\ influence$. The difference between these two frames is very small -- $subjective\ influence$ means a general, vague type of influence, whose effect cannot be measured, whereas $objective\ influence$ refers to a more concrete type of influence. However, as we see from the example sentences in Table~\ref{tab:fqs}, these cases can be very difficult to separate in natural language (e.g. in $F13$ is \textit{cultural influence} subjective or objective?).
 
-Another feature we observed was the correlation of FQS with how abstract the sense of the frame is. Frames with high FQS, such as $killing$ and $food$, tend to refer to concrete events or objects. These frames can still appear in ambiguous contexts (e.g. in $F5$, it is not clear whether \textit{herbs} classify as a type of $food$), but overall these frames refer to specific and particular senses that are unambiguous. As the value of the FQS metric goes down, the frames become more abstract. $assistance$ and $purpose$ both have example sentences where they are expressed unambiguously ($F6$ and $F9$), but their definitions are more abstract, and therefore have more room for interpretation. For instance, providing benefits (in $F7$) or expertise (in $F8$) can be regarded as a type of help, or $assistance$, even though the expert picked the more literal sense of the frame $supply$ for both of these cases. Likewise the frame $purpose$ can be understood in $F10$ as the purpose of a design (the expert picked the more literal $coming\_up\_with$), or in $F11$ as the goal of the desire/will (the expert picked $desiring$). $undergo\_change$, the frame with the lowest FQS in Table~\ref{tab:fqs} has a very broad meaning, and is a generalization of other more specific frames: $change\_position\_on\_a\_scale$ in $F16$, and $thriving$ in $F17$.
+Another feature we observed was the correlation of FQS with how abstract the sense of the frame is. Frames with high FQS, such as $killing$ and $food$, tend to refer to concrete events or objects. These frames can still appear in ambiguous contexts (e.g. in $F5$, it is not clear whether \textit{herbs} classify as a type of $food$), but overall these frames refer to specific and particular senses that are unambiguous. As the value of the FQS metric goes down, the frames become more abstract. $assistance$ and $purpose$ both have example sentences where they are expressed unambiguously ($F6$ and $F9$), but their definitions are more abstract, and therefore have more room for interpretation. For instance, providing benefits (in $F7$) or expertise (in $F8$) can be regarded as a type of help, or $assistance$, even though the expert picked the more literal sense of the frame $supply$ for both of these cases. Likewise the frame $purpose$ can be understood in $F10$ as the purpose of a design (the expert picked the more literal $coming\ up\ with$), or in $F11$ as the goal of the desire/will (the expert picked $desiring$). $undergo\ change$, the frame with the lowest FQS in Table~\ref{tab:fqs} has a very broad meaning, and is a generalization of other more specific frames: $change\ position\ on\ a\ scale$ in $F16$, and $thriving$ in $F17$.
 
 As we have seen from these examples, ambiguity in frames is connected to ambiguity in sentences. Frames with abstract or overlapping definitions are likely to appear in ambiguous sentences, and missing context from sentences is likely to result in more ambiguous scores for the frames. While workers misunderstanding the task is also a confounding factor that adds to the noise in the data, it is clear that there are many instances where inter-annotator disagreement is legitimately a by-product of ambiguity. This is an issue with the FrameNet dataset, as it does not allow for expressing the various degrees with which a sense applies to a word in a sentence, and instead relies on binary labels (i.e. the frame is expressed or not). This results in a loss of information that could impact the various natural language processing and machine learning applications that make use of this corpus, as it sets false targets for optimization -- i.e. it seems unfair to expect a model to differentiate between highly ambiguous examples, when even human annotators are having such difficulty with them.
 
 
 \section{Conclusion}
 
-In this paper, we present an approach to crowdsource frame disambiguation annotations in sentences. We adapted an existing method, CrowdTruth~\cite{aroyo2014threesides}, that uses multiple workers per sentence, in order to capture and interpret inter-annotator \emph{disagreement} as an indication of ambiguity. We modified CrowdTruth metrics in order to capture frame-sentence agreement (FSS), sentence quality (SQS) and frame quality (FQS). We performed an experiment over a set of 433 sentences annotated with frames from FrameNet corpus, and showed that the aggregated crowd annotations achieve an F1 score greater than 0.67 compared to expert linguists, and an accuracy that is comparable to the state of the art~\cite{Hong:2011:GCR:2018966.2018970}. It is our intention to scale out the task on new data to provide an ambiguity-enhanced dataset for experimentation.
+In this chapter, we present an approach to crowdsource frame disambiguation annotations in sentences. We adapted an existing method, CrowdTruth~\cite{aroyo2014threesides}, that uses multiple workers per sentence, in order to capture and interpret inter-annotator \emph{disagreement} as an indication of ambiguity. We modified CrowdTruth metrics in order to capture frame-sentence agreement (FSS), sentence quality (SQS) and frame quality (FQS). We performed an experiment over a set of 433 sentences annotated with frames from FrameNet corpus, and showed that the aggregated crowd annotations achieve an F1 score greater than 0.67 compared to expert linguists, and an accuracy that is comparable to the state of the art~\cite{Hong:2011:GCR:2018966.2018970}. It is our intention to scale out the task on new data to provide an ambiguity-enhanced dataset for experimentation.
 
 We showed cases where the crowd annotation is correct even though the expert is in disagreement, arguing for the need to have multiple annotators per sentence. Most importantly, we examined the cases in which crowd workers could not agree. We found that disagreement is caused by one or more of the following: workers misunderstanding the task, missing context from the sentences, frames with overlapping or abstract definitions. The results show a clear link between inter-annotator disagreement and ambiguity, either in the sentence, frame, or the task itself. We argue that collapsing such cases to a single, discrete truth value (i.e. correct or incorrect) is inappropriate, creating brittle, incomplete datasets, and therefore arbitrary targets for machine learning.  We further argued that ranking examples by a score is informative, and that the crowd offers alternate interpretations that are often sensible.
 

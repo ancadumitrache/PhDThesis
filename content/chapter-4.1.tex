@@ -54,13 +54,13 @@ To evaluate the relation extraction model on CrowdTruth data with discrete AKBC 
 \label{fig:fp_rate}
 \end{figure}
 
-Using the SRS as a ground truth at a 0.5 threshold, Fig.~\ref{fig:fp_rate} shows the correctness of the DS labels on the dev set.  There is \textit{considerable variation in DS data quality across relations}. The $origin$ and $place\_of\_death$ relations scored particularly badly, with more than 90\% false positives. With such a high error rate in some relations, it is arguable that any classifier could learn anything meaningful, regardless of algorithm or quantity of data.
+Using the SRS as a ground truth at a 0.5 threshold, Fig.~\ref{fig:fp_rate} shows the correctness of the DS labels on the dev set.  There is \textit{considerable variation in DS data quality across relations}. The $origin$ and $place\ of\ death$ relations scored particularly badly, with more than 90\% false positives. With such a high error rate in some relations, it is arguable that any classifier could learn anything meaningful, regardless of algorithm or quantity of data.
 
-Manual error analysis on the dev set showed that many sentences contain a $Person$ - $Location$ pair, where freebase specified both that the person resided in and died at that location. This makes intuitive sense, people tend to die in the places they live.  In most of these cases, the sentence expressed only the $places\_of\_residence$ relation, leading to the false positives. The $origin$ relation data suffers from the same problem.  Table~\ref{tab:ds_fp_ex} in the Appendix~\ref{sec:appendix4.1} shows several examples of these sentences. This led us to consider a heuristic solution to this problem as a headroom study as well as a statistical solution. Both are discussed in Section 5.
+Manual error analysis on the dev set showed that many sentences contain a $Person$ - $Location$ pair, where freebase specified both that the person resided in and died at that location. This makes intuitive sense, people tend to die in the places they live.  In most of these cases, the sentence expressed only the $places\ of\ residence$ relation, leading to the false positives. The $origin$ relation data suffers from the same problem.  Table~\ref{tab:ds_fp_ex} in the Appendix~\ref{sec:appendix4.1} shows several examples of these sentences. This led us to consider a heuristic solution to this problem as a headroom study as well as a statistical solution. Both are discussed in Section 5.
 
 \begin{table}[htb!]
 \centering
-\caption{RCP for relation subset: $place\_of\_birth$ (PoB), $origin$ (O), $places\_of\_residence$ (PoR), $place\_of\_death$ (PoD), $founded\_organization$ (FO), $employee\_or\_member$ (EoM), $top\_employee\_or\_member$ (TEoM). The scores show the causal power $RCP(R_i, R_j)$ of relations $R_i$ in the rows, over the relations $R_j$ in the columns. Significant changes between crowd annotation based causal power and distant supervision are in bold.}
+\caption{RCP for relation subset: $place\ of\ birth$ (PoB), $origin$ (O), $places\ of\ residence$ (PoR), $place\ of\ death$ (PoD), $founded\ organization$ (FO), $employee\ or\ member$ (EoM), $top\ employee\ or\ member$ (TEoM). The scores show the causal power $RCP(R_i, R_j)$ of relations $R_i$ in the rows, over the relations $R_j$ in the columns. Significant changes between crowd annotation based causal power and distant supervision are in bold.}
 \label{tab:rcp}
 \begin{subfigure}{\textwidth}
 	\caption{Crowd-based RCP}
@@ -101,13 +101,13 @@ Manual error analysis on the dev set showed that many sentences contain a $Perso
 \end{subfigure}
 \end{table}
 
-The results of the macro RCP analysis for six of the relations we analyzed (Tab.\ref{tab:rcp}) shows that the $place\_of\_birth$ relation has a high causal power (0.64) over $origin$, meaning that when $place\_of\_birth$ is annotated in a sentence, $origin$ is also likely to appear, with the inverse causal power at 0.88.  This high co-causality seems to indicate a confusion between the two relations. Note also that these two relations have significant differences in causal power in the DS-based data. In contrast, $place\_of\_death$ has a high causal power over $places\_of\_residence$ in the DS data (0.45), reflecting the high error rate of $place\_of\_death$ caused by the overlap in the KB with $places\_of\_residence$.
+The results of the macro RCP analysis for six of the relations we analyzed (Tab.\ref{tab:rcp}) shows that the $place\ of\ birth$ relation has a high causal power (0.64) over $origin$, meaning that when $place\ of\ birth$ is annotated in a sentence, $origin$ is also likely to appear, with the inverse causal power at 0.88.  This high co-causality seems to indicate a confusion between the two relations. Note also that these two relations have significant differences in causal power in the DS-based data. In contrast, $place\ of\ death$ has a high causal power over $places\ of\ residence$ in the DS data (0.45), reflecting the high error rate of $place\ of\ death$ caused by the overlap in the KB with $places\ of\ residence$.
 
-In the crowd data we see a much higher co-causality for \\ $employee\_or\_member$ and $top\_employee\_or\_member$, with only a slight preference in the data for what we expect to be the ``correct'' causal direction (that $top\_employee\_or\_member$ causes $employee\_or\_member$), but in the DS-based analysis, the incorrect interpretation drops a lot. In manual error analysis we observed that these are properties of the data set, which talk about more famous people who tend to be leaders and founders, not ``regular'' employees.  Table~\ref{tab:ds_fn_ex} in the Appendix shows several examples sentences with false negative DS labels due to missing causality.
+In the crowd data we see a much higher co-causality for \\ $employee\ or\ member$ and $top\ employee\ or\ member$, with only a slight preference in the data for what we expect to be the ``correct'' causal direction (that $top\ employee\ or\ member$ causes $employee\ or\ member$), but in the DS-based analysis, the incorrect interpretation drops a lot. In manual error analysis we observed that these are properties of the data set, which talk about more famous people who tend to be leaders and founders, not ``regular'' employees.  Table~\ref{tab:ds_fn_ex} in the Appendix shows several examples sentences with false negative DS labels due to missing causality.
 
 All told, the differences (in bold in Tab.\ref{tab:rcp}) between the crowd and DS-based causal power accounts for some of the classification errors in our trained system, and we expect them to be a significant cause of error in systems that try to learn cross-relation signals from DS data alone.
 
-Among the non-symmetric causal pairs we see that \\ $top\_employee\_or\_member$ causes $founded\_organization$, \\ $employee\_or\_member$ causes $founded\_org$, and $top\_employee\_or\_member$ causes $founded\_org$.  These again appear to be properties of the data set.
+Among the non-symmetric causal pairs we see that \\ $top\ employee\ or\ member$ causes $founded\ organization$, $employee\ or\ member$ causes $founded\ org$, and $top\ employee\ or\ member$ causes $founded\ org$.  These again appear to be properties of the data set.
 
 
 \section{Enhancing Distant Supervision with CrowdTruth}
@@ -117,11 +117,11 @@ We expect that the metrics from CrowdTruth annotation can be used to systematica
 
 \item \textbf{DS:} The baseline to which the other experiments are compared. The per-relation training labels are binary based on the results of DS.
 
-\item \textbf{DS merged:} Based on the results of the causality analysis, the training set is augmented to reflect the highest cross-relation signals.  We merge relations with symmetric RCP ($origin$ and $place\_of\_birth$), and add the implied relation in the case of asymmetric RCP ($employee\_or\_member$  and $top\_employee\_or\_member$). To merge, the \textbf{DS} baseline data is updated so that the symmetric relations always co-occur, and adding caused relation whenever the caused relation appears. This approach shows a huge improvement across the board over the baseline, with the overall highest P and F.
+\item \textbf{DS merged:} Based on the results of the causality analysis, the training set is augmented to reflect the highest cross-relation signals.  We merge relations with symmetric RCP ($origin$ and $place\ of\ birth$), and add the implied relation in the case of asymmetric RCP ($employee\ or\ member$  and $top\ employee\ or\ member$). To merge, the \textbf{DS} baseline data is updated so that the symmetric relations always co-occur, and adding caused relation whenever the caused relation appears. This approach shows a huge improvement across the board over the baseline, with the overall highest P and F.
 
-\item \textbf{DS\_RCP:} Instead of manually identifying merged relations, the training data is augmented by using the RCP scores. When a relation $i$ has a positive \textbf{DS} label for a given sentence, the labels of all other relations $j \neq i$ are updated by adding the macro RCP that $i$ has over $j$. The maximum value for the label is clipped at 1, to keep scores in the $[0,1]$ interval. The training labels in this set have continuous values, as opposed to the binary values in the previous two sets. The formula for updating the training label for relation $j$ in sentence $s$ is: $ DS\_RCP(s, j) = max[1, DS(s, j) + \sum_{i \neq j} RCP(i,j) \cdot DS(s,i) ],$ where $DS(s,i)$ is the DS label of relation $i$ in sentence $s$.  This method was comparable in precision to the baseline, but scored a huge win in recall.  The recall increase makes sense, though we have yet to investigate or explain the lack of increase in precision.
+\item \textbf{DS\ RCP:} Instead of manually identifying merged relations, the training data is augmented by using the RCP scores. When a relation $i$ has a positive \textbf{DS} label for a given sentence, the labels of all other relations $j \neq i$ are updated by adding the macro RCP that $i$ has over $j$. The maximum value for the label is clipped at 1, to keep scores in the $[0,1]$ interval. The training labels in this set have continuous values, as opposed to the binary values in the previous two sets. The formula for updating the training label for relation $j$ in sentence $s$ is: $ DS\ RCP(s, j) = max[1, DS(s, j) + \sum_{i \neq j} RCP(i,j) \cdot DS(s,i) ],$ where $DS(s,i)$ is the DS label of relation $i$ in sentence $s$.  This method was comparable in precision to the baseline, but scored a huge win in recall.  The recall increase makes sense, though we have yet to investigate or explain the lack of increase in precision.
 
-\item \textbf{DS\_FP:} Our analysis showed that the $place\_of\_death$ relation was a large source of false positives in the DS data, because most of the positives were actually expressing $places\_of\_residence$.  In every sentence in the DS training set that had a 1 for $place\_of\_death$, we updated the score by subtracting its false positive ratio, which was used in the loss function as described above.  This did not impact the results over the baseline, mainly because there were not many $place\_of\_death$ relations in the DS data nor the test set, and any improvement did not impact the overall result.  We are confident that more systematic treatment of false positive rates will improve performance.
+\item \textbf{DS\ FP:} Our analysis showed that the $place\ of\ death$ relation was a large source of false positives in the DS data, because most of the positives were actually expressing $places\ of\ residence$.  In every sentence in the DS training set that had a 1 for $place\ of\ death$, we updated the score by subtracting its false positive ratio, which was used in the loss function as described above.  This did not impact the results over the baseline, mainly because there were not many $place\ of\ death$ relations in the DS data nor the test set, and any improvement did not impact the overall result.  We are confident that more systematic treatment of false positive rates will improve performance.
 
 \end{enumerate}
 
@@ -135,8 +135,8 @@ We expect that the metrics from CrowdTruth annotation can be used to systematica
 & \textsc{Precision} & \textsc{Recall} &\textsc{F1 score} \\ \toprule
 \textsc{DS} & 0.19 & 0.22 & 0.2 \\
 \textsc{DS merged} & \textbf{0.43} & 0.33 & \textbf{0.37}  \\
-\textsc{DS\_RCP} & 0.19 & \textbf{0.48} & 0.27 \\
-\textsc{DS\_FP} & 0.21 & 0.22 & 0.21  \\ % \hline
+\textsc{DS\ RCP} & 0.19 & \textbf{0.48} & 0.27 \\
+\textsc{DS\ FP} & 0.21 & 0.22 & 0.21  \\ % \hline
 \bottomrule
 \end{tabular}
 }
@@ -153,7 +153,7 @@ We are currently considering experiments that take advantage of another aspect o
 
 \begin{table}[bht!]
 \centering
-\caption{Example sentences with false positive $place\_of\_death$ and $origin$ DS labels due to multiple relations in the KB over $Person$ - $Location$ term types.}
+\caption{Example sentences with false positive $place\ of\ death$ and $origin$ DS labels due to multiple relations in the KB over $Person$ - $Location$ term types.}
 \label{tab:ds_fp_ex}
 \scalebox{0.8}{
 \bgroup
@@ -162,24 +162,24 @@ We are currently considering experiments that take advantage of another aspect o
 \toprule
 \textsc{Sentence} & \textsc{Relation} & \textsc{Crowd SRS} & \textsc{DS label} \\ \toprule
 
-\multirow{4}{5cm}{After growing up on Cat Island, \textbf{Tony McKay} moved to \textbf{New York City} at age 17 to study architecture.} & \multirow{2}{*}{$place\_of\_death$} & \multirow{2}{*}{0.004} & \multirow{2}{*}{1} \\
+\multirow{4}{5cm}{After growing up on Cat Island, \textbf{Tony McKay} moved to \textbf{New York City} at age 17 to study architecture.} & \multirow{2}{*}{$place\ of\ death$} & \multirow{2}{*}{0.004} & \multirow{2}{*}{1} \\
 & & & \\ \cline{2-4}
-& \multirow{2}{*}{$places\_of\_residence$} & \multirow{2}{*}{0.995} & \multirow{2}{*}{1} \\
+& \multirow{2}{*}{$places\ of\ residence$} & \multirow{2}{*}{0.995} & \multirow{2}{*}{1} \\
 & & & \\ \hline
 
-\multirow{4}{5cm}{The film is based very loosely on the lives of \textbf{Wolfgang Amadeus Mozart} and Antonio Salieri, two composers who lived in \textbf{Vienna, Austria}.} & \multirow{2}{*}{$place\_of\_death$} & \multirow{2}{*}{0.074} & \multirow{2}{*}{1} \\
+\multirow{4}{5cm}{The film is based very loosely on the lives of \textbf{Wolfgang Amadeus Mozart} and Antonio Salieri, two composers who lived in \textbf{Vienna, Austria}.} & \multirow{2}{*}{$place\ of\ death$} & \multirow{2}{*}{0.074} & \multirow{2}{*}{1} \\
 & & & \\ \cline{2-4}
-& \multirow{2}{*}{$places\_of\_residence$} & \multirow{2}{*}{0.865} & \multirow{2}{*}{1} \\
+& \multirow{2}{*}{$places\ of\ residence$} & \multirow{2}{*}{0.865} & \multirow{2}{*}{1} \\
 & & & \\ \hline
 
 \multirow{4}{5cm}{Marku Ribas is the side more Black music of this group and was \textbf{Bob Marley}'s friend in the 1970s, \textbf{Jamaica}, where he lived.} & \multirow{2}{*}{$origin$} & \multirow{2}{*}{0} & \multirow{2}{*}{1} \\ 
 & & & \\ \cline{2-4}
-& \multirow{2}{*}{$places\_of\_residence$} & \multirow{2}{*}{0.87} & \multirow{2}{*}{1} \\
+& \multirow{2}{*}{$places\ of\ residence$} & \multirow{2}{*}{0.87} & \multirow{2}{*}{1} \\
 & & & \\ \hline
 
 \multirow{4}{5cm}{\textbf{Osama bin Laden} had moved from \textbf{Saudi Arabia} to Sudan during the 1990-91 Gulf War.} & \multirow{2}{*}{$origin$} & \multirow{2}{*}{0.3} & \multirow{2}{*}{1} \\
 & & & \\ \cline{2-4}
-& \multirow{2}{*}{$places\_of\_residence$} & \multirow{2}{*}{0.74} & \multirow{2}{*}{1} \\
+& \multirow{2}{*}{$places\ of\ residence$} & \multirow{2}{*}{0.74} & \multirow{2}{*}{1} \\
 & & & \\ \bottomrule
  
 \end{tabular}
@@ -189,7 +189,7 @@ We are currently considering experiments that take advantage of another aspect o
 
 \begin{table}[thb!]
 \centering
-\caption{Example sentences with false negative $employee\_or\_member$ and $origin$ DS labels due to missing causal connections.}
+\caption{Example sentences with false negative $employee\ or\ member$ and $origin$ DS labels due to missing causal connections.}
 \label{tab:ds_fn_ex}
 \scalebox{0.8}{
 \bgroup
@@ -198,24 +198,24 @@ We are currently considering experiments that take advantage of another aspect o
 \toprule
 \textsc{Sentence} & \textsc{Relation} & \textsc{Crowd SRS} & \textsc{DS label} \\ \toprule
 
-\multirow{4}{5cm}{China on Monday officially appointed \textbf{Donald Tsang} as \textbf{Hong Kong}'s chief executive for a second term.} & \multirow{2}{*}{$employee\_or\_member$} & \multirow{2}{*}{0.623} & \multirow{2}{*}{0} \\
+\multirow{4}{5cm}{China on Monday officially appointed \textbf{Donald Tsang} as \textbf{Hong Kong}'s chief executive for a second term.} & \multirow{2}{*}{$employee\ or\ member$} & \multirow{2}{*}{0.623} & \multirow{2}{*}{0} \\
 & & & \\ \cline{2-4}
-& \multirow{2}{*}{$top\_employee\_or\_member$} & \multirow{2}{*}{0.753} & \multirow{2}{*}{1} \\
+& \multirow{2}{*}{$top\ employee\ or\ member$} & \multirow{2}{*}{0.753} & \multirow{2}{*}{1} \\
 & & & \\ \hline
 
-\multirow{4}{5cm}{More than 3,000 taxi drivers blocked \textbf{Rome}'s historic centre Wednesday to protest extra licences given by mayor \textbf{Walter Veltroni}.} & \multirow{2}{*}{$employee\_or\_member$} & \multirow{2}{*}{0.529} & \multirow{2}{*}{0} \\
+\multirow{4}{5cm}{More than 3,000 taxi drivers blocked \textbf{Rome}'s historic centre Wednesday to protest extra licences given by mayor \textbf{Walter Veltroni}.} & \multirow{2}{*}{$employee\ or\ member$} & \multirow{2}{*}{0.529} & \multirow{2}{*}{0} \\
 & & & \\ \cline{2-4}
-& \multirow{2}{*}{$top\_employee\_or\_member$} & \multirow{2}{*}{0.841} & \multirow{2}{*}{1} \\
+& \multirow{2}{*}{$top\ employee\ or\ member$} & \multirow{2}{*}{0.841} & \multirow{2}{*}{1} \\
 & & & \\ \hline
 
 \multirow{4}{5cm}{Early years \textbf{Joey Harrington} was born and raised in \textbf{Portland, Oregon}, where he has resided his entire life.} & \multirow{2}{*}{$origin$} & \multirow{2}{*}{0.645} & \multirow{2}{*}{0} \\
 & & & \\ \cline{2-4}
-& \multirow{2}{*}{$place\_of\_birth$} & \multirow{2}{*}{0.867} & \multirow{2}{*}{1} \\
+& \multirow{2}{*}{$place\ of\ birth$} & \multirow{2}{*}{0.867} & \multirow{2}{*}{1} \\
 & & & \\ \hline
 
 \multirow{4}{5cm}{\textbf{Nelli Zhiganshina} (born March 31, 1987 in \textbf{Moscow}, Russia) is a Russian ice dancer who currently represents Germany.} & \multirow{2}{*}{$origin$} & \multirow{2}{*}{0.555} & \multirow{2}{*}{0} \\
 & & & \\ \cline{2-4}
-& \multirow{2}{*}{$place\_of\_birth$} & \multirow{2}{*}{0.791} & \multirow{2}{*}{1} \\
+& \multirow{2}{*}{$place\ of\ birth$} & \multirow{2}{*}{0.791} & \multirow{2}{*}{1} \\
 & & & \\ %\hline
 \bottomrule
  
