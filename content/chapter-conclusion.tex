@@ -17,15 +17,15 @@ Have patience with everything that remains unsolved in your heart. \\
 
 \section{Research Questions Revisited}
 
-\textbf{RQ1:} \textit{How does disagreement-aware crowdsourcing compare with the expert annotator baseline?}
+\textbf{RQ1:} \textit{Does allowing disagreement in crowdsourcing ground truth yield the same quality as asking domain experts?}
 
 In this work, we used CrowdTruth to build a gold standard of 3,984 sentences for medical relation extraction, focusing on the $cause$ and $treat$ relations, and used the crowd data to train a classification model. We have shown that, with the processing of ambiguity, the crowd performs just as well as medical experts in terms of the quality and efficacy of annotations, while being cheaper and more readily available. In addition, our results show that, when the model reaches maximum performance after training, the crowd also performs better than distant supervision. Finally, we introduced and validated new weighted measures for precision, recall, and F-measure, that account for ambiguity in both human and machine performance on this task. These results encourage us to continue our experiments by replicating this methodology for an increasing set of relations in the medical domain.
 
-\textbf{RQ2:} \textit{Is disagreement in crowdsourcing a useful property to capture? What is gained when aggregating crowdsourcing data with disagreement-aware metrics, as opposed to metrics that discard disagreement?}
+\textbf{RQ2:} \textit{How does allowing disagreement in diverse crowdsourcing tasks influence the quality of the data?}
 
 In this chapter we presented an empirically derived methodology for efficiently gathering of human annotation by aggregating crowdsourcing data with CrowdTruth metrics, which harness the inter-annotator disagreement. We applied this methodology over a set of diverse crowdsourcing tasks: closed tasks (\textit{Medical Relation Extraction}, \textit{Twitter Event Identification}), and open-ended tasks (\textit{News Event Extraction} and \textit{Sound Interpretation}).  Our results showed that the ambiguity-aware CrowdTruth approach allows us to collect richer data, which enables reasoning about the ambiguity of the content being annotated. This is intrinsically relevant to the Semantic Web community, i.e. to identify the semantics of ambiguity across all modalities, e.g. text, images, videos and sounds. Our results also showed that, in all the tasks we considered, such ambiguity-aware quality scores provide better ground truth data than the traditional majority vote. Moreover, we have shown that CrowdTruth annotations have at least the same quality, even better in the case of \textit{Sound Interpretation}, as expert annotations.  Finally, we showed that, contrary to the common crowdsourcing practice of employing a small number of annotators, adding more crowd workers actually can lead to significantly better annotation quality.
 
-\textbf{RQ3:} \textit{How can natural language processing models learn from disagreement - aware crowdsourcing data?}
+\textbf{RQ3:} \textit{Can we improve the performance of natural language processing models by using disagreement-aware ground truth data?}
 
 There is considerable headroom in cross-relation signals, and a more robust approach holds promise to eliminate manual analysis, and work as part of an overall pipeline that includes partial crowd data. We have shown a very significant variation in the false positive rate in distant supervision data, and it seems extremely likely that this can be exploited to improve training.
 
@@ -33,7 +33,7 @@ This chapter explores the problem of propagating human annotation signals in dis
 
 Unlike \citet{sterckx2016knowledge} who employ experts to label the dependency path representation of sentences, our method uses the general crowd to annotate the actual sentence text, and is thus easier to scale and not dependent on methods for extracting dependency paths, so it can be more easily adapted to other languages and domains.  Also, since the semantic label propagation is applied to the data before training is completed, this method can easily be reused to correct train data for any model, regardless of the features used in learning.  In our future work, we plan to use this method to correct training data for state-of-the-art models in relation classification, but also relation extraction and knowledge-base population.
 
-\textbf{RQ4:} \textit{Can disagreement in crowd annotations be used to capture the ambiguity inherent in natural language?}
+\textbf{RQ4:} \textit{Is inter-annotator disagreement an accurate indicator for ambiguity in natural language?}
 
 In this chapter, we present an approach to crowdsource frame disambiguation annotations in sentences. We adapted an existing method, CrowdTruth~\cite{aroyo2014threesides}, that uses multiple workers per sentence, in order to capture and interpret inter-annotator \emph{disagreement} as an indication of ambiguity. We modified CrowdTruth metrics in order to capture frame-sentence agreement (FSS), sentence quality (SQS) and frame quality (FQS). We performed an experiment over a set of 433 sentences annotated with frames from FrameNet corpus, and showed that the aggregated crowd annotations achieve an F1 score greater than 0.67 compared to expert linguists, and an accuracy that is comparable to the state of the art~\cite{Hong:2011:GCR:2018966.2018970}. It is our intention to scale out the task on new data to provide an ambiguity-enhanced dataset for experimentation.
 
@@ -41,6 +41,16 @@ We showed cases where the crowd annotation is correct even though the expert is 
 
 
 \section{Future Directions}
+
+\subsection{Bottlenecks in the Pipeline}
+
+..
+
+\subsection{Shortcomings in the Experiments}
+
+..
+
+
 
 \subsection{The Cost of Ambiguity}
 
@@ -51,6 +61,7 @@ an incremental approach to crowdsourcing
 
 it's difficult to learn from ambiguity because it's mostly outliers
 
-\subsection{one more....}
+\subsection{Beyond NLP/RelEx/Frames}
 
 ..
+

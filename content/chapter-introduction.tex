@@ -3,8 +3,6 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-%\epigraph{All that we see or seem \\ Is but a dream within a dream}{Edgar Allan Poe}{}
-
 \begin{chapquote}{Antoine de Saint-Exupéry, \textsc{The Little Prince}}
 Language is the source of misunderstandings.
 \end{chapquote}
@@ -28,60 +26,18 @@ This thesis describes a project within the context of CrowdTruth~\cite{inel2013}
 
 %We propose a methodology to crowdsource a series of semantic annotation tasks (relation extraction, sentiment analysis), with the purpose of demonstrating that disagreement can be a task and domain-independent indicator of semantic ambiguity.
 
+% what is different in this thesis
 
-\section{Crowdsourcing with CrowdTruth}
+% why is this relevant
 
-To address the challenge of capturing an interpreting disagreement in crowdsourced annotations, we have proposed the \textbf{CrowdTruth methodology}~\cite{aroyo2012harnessing,aroyo2013crowd}. The goal of this methodology is to correct the myths of human annotation proposed by~\citet{aroyo2015truth}:
+% what is the problem that I'm solving - don't fear disagreement
 
-\begin{itemize}
-
-    % Disagreement is a useful signal
-    % Multiple annotators are better
-    % Annotation guidelines should be short and to the point
-    % A continuous notion of truth
-
-    \item \textit{Myth \#1: Disagreement is bad -} This myth holds that, whenever inter-annotator disagreement occurs, it is the fault of the annotators. Therefore disagreement should be eliminated at all cost. In contrast, CrowdTruth proposes the idea that disagreement can also be caused by ambiguity in the annotation task. Specifically for the case of natural language, ambiguity is an inherent property of text. CrowdTruth proposes that capturing disagreement is a method to capture this ambiguity.
-    
-    \item \textit{Myth \#2: One is enough -} Following from the previous myth, if inter-annotator disagreement can be an important indicator, then having a single worker perform the annotations means missing out on the signal the disagreement can send. CrowdTruth proposes using multiple workers for the same annotation task, in order to collect all possible disagreement that can occur.
-    
-    \item \textit{Myth \#3: Experts are better -} While traditional annotation tasks ask a single domain expert to give their input, CrowdTruth proposes expanding this singular perspective with that of crowd workers. That is not to say that the experts are not necessary, or that the crowd is better suited at understanding an annotation task, just that often the perspective of the crowd is necessary in order to get a more accurate overview.
-    
-    \item \textit{Myth \#4: One truth -} This myth holds that, for each annotation task, there is only one possible truth to how it should be done. Instead of forcing annotations into binary labels that are either positive or negative, CrowdTruth proposes that the truth exists on a scale, and is expressed with various degrees of clarity.
-    
-    \item \textit{Myth \#5: All examples are equal -} If the truth value of a label is expressed on a scale, then it follows that there exists some variability in how clear a label is expressed in different examples. For instance, for the task of text labeling, some texts might express the desired label more clearly than others. The CrowdTruth methodology attempts to capture the degree of clarity of each example in the annotation task through the use of dedicated metrics, thus quantifying the fact that not all examples are equal in how well they express a label.
-    
-    \item \textit{Myth \#6: Detailed guidelines help -} Typical annotation practice which provides detailed annotation guidelines to workers, which result in brittle overly-specific interpretations of the annotations. In contrast, the CrowdTruth methodology employs simple annotation guidelines that allow for disagreement over the interpretation of annotations.
-    
-\end{itemize}
-
-The \textbf{CrowdTruth quality metrics}~\cite{aroyo2014threesides} are designed to capture the level of agreement associated with each component in the crowdsourcing system: workers, task annotations, and input media units. To address the myths of annotations discussed previously, the metrics measure quality on a scale -- e.g. instead of attributing binary labels to workers in order to determine whether or not they are spammers, we calculate a quality score that informs us the degree to which the worker is reliable. The main CrowdTuth quality metrics are:
-
-\begin{itemize}
-    \item \textit{Media Unit Quality Score (UQS)} -- the overall worker agreement over one media unit;
-    \item \textit{Worker Quality Score (WQS)} -- the overall agreement of one crowd worker with the other workers that annotated the same media units, calculated as a product of 2 other metrics:
-    \begin{itemize}
-        \item \textit{Worker-Worker Agreement (WWA)} -- the pairwise agreement between a given worker and all other workers, across all media units they annotated in common;
-        \item \textit{Worker-Media Unit Agreement (WUA)} -- the similarity between the annotations of a worker and the aggregated annotations of the rest of the workers;
-    \end{itemize}
-    \item \textit{Annotation Quality Score (AQS)} -- the agreement over an annotation in all media units that it appears;
-    \item \textit{Media Unit - Annotation Score (UAS)} -- the degree of clarity with which an annotation is expressed in a media unit.
-\end{itemize}
-
-In order to compute the CrowdTruth quality metrics, we need to formalize crowd annotations into a \textit{vector space representation}. For every input media unit, the annotations of each worker form a binary \textit{worker vector}, where the annotations selected are equal to `1', and the rest to `0'. The \textit{media unit vector} is the sum of all worker vectors for the given media unit. The first version of the CrowdTruth methodology~\cite{inel2014crowdtruth} calculates the metrics using cosine similarity over the vector representations of the crowd annotations.
-
-Version 2.0 of the CrowdTruth methodology~\cite{dumitrache2018crowdtruth} is explicitly modeled on the triangle of disagreement (Figure~\ref{fig:triangle_of_disagr}). Based on the triangle of reference \cite{knowlton1966definition}, it links together media units, workers, and annotations. The triangle model expresses how ambiguity in any of the corners disseminates and influences the other components of the triangle. The propagation of ambiguity in the triangle system is made explicit through making the quality metrics mutually dependent. For example, the quality of a worker is weighted by the quality of the media units the worker has annotated, and the quality of the annotations in the task -- this is because we expect an unclear sentence or an ambiguous annotation scheme would cause more disagreement between workers.
-
-\begin{figure}[!htb]
- 	\centering
- 		\includegraphics[width=0.5\linewidth]{img/triangle.png}
- 	\caption{Triangle of Disagreement}
- 	\label{fig:triangle_of_disagr}
- \end{figure}
-
-in this thesis we apply CrowdTruth to a variety of NLP tasks and see what is the role of disagreement
+% rationale: break constraints of typical NLP GT collection + prove disagreement is necessary
 
 
 \section{Background}
+
+.....
 
 \subsection{Crowd Data Quality}
 
@@ -122,7 +78,7 @@ Our work is part of a continuous effort in exploring the causes of inter-annotat
 The overall goal of this thesis is to investigate the role of inter-annotator disagreement in crowdsourcing ground truth for natural language processing, as collected using CrowdTruth methodology and metrics. The main research goal is addressed by answering the following research questions:
 
 \begin{itemize}
-    \item \textbf{RQ1:} \textit{How does disagreement-aware crowdsourcing compare with the expert annotator baseline?}
+    \item \textbf{RQ1:} \textit{Does allowing disagreement in crowdsourcing ground truth yield the same quality as asking domain experts?}
     
     Chapter~\ref{chap:med-rel-ex} explores this question for the task of medical relation extraction. In the medical domain it is typically assumed that expert annotators are required to get the best quality ground truth. This work shows that, by capturing the inter-annotator disagreement with the CrowdTruth method, medical relation classifiers trained on crowd annotations perform the same as those trained on expert annotations. Furthermore, classifiers trained on crowd annotations perform better than those trained with automatically-labeled data. Using the crowd also reduces the cost (monetary and in time required to find annotators) for collecting the data. This chapter is based on the following publication:
     
@@ -130,7 +86,7 @@ The overall goal of this thesis is to investigate the role of inter-annotator di
         \item Dumitrache, Anca, Lora Aroyo, and Chris Welty. ``Crowdsourcing ground truth for medical relation extraction.'' \textit{ACM Transactions on Interactive Intelligent Systems (TiiS)} 8.2 (2018): 12.~\cite{DBLP:journals/corr/DumitracheAW17}
     \end{itemize}
 
-    \item \textbf{RQ2:} \textit{Is disagreement in crowdsourcing a useful property to capture? What is gained when aggregating crowdsourcing data with disagreement-aware metrics, as opposed to metrics that discard disagreement?}
+    \item \textbf{RQ2:} \textit{How does allowing disagreement in diverse crowdsourcing tasks influence the quality of the data?}
     
     Chapter~\ref{chap:maj-vote} compares the performance of CrowdTruth metrics and majority vote, a consensus - enforcing metric, over a diverse set of crowdsourcing tasks. We show that applying the CrowdTruth methodology we collect richer data that allows us to reason about ambiguity of content. Furthermore, an increased number of crowd workers leads to growth and stabilization in the quality of annotations, going against the usual practice of employing a small number of annotators. This chapter is based on the following publication:
     
@@ -138,7 +94,7 @@ The overall goal of this thesis is to investigate the role of inter-annotator di
         \item Dumitrache, Anca, et al. ``Empirical methodology for crowdsourcing ground truth.'' \textit{Semantic Web Journal (in publication)}. 2018.~\cite{dumitracheempirical}
     \end{itemize}
 
-    \item \textbf{RQ3:} \textit{How can natural language processing models learn from disagreement - aware crowdsourcing data?}
+    \item \textbf{RQ3:} \textit{Can we improve the performance of natural language processing models by using disagreement-aware ground truth data?}
     
     In Chapter~\ref{chap:od-rel-ex} we discuss how CrowdTruth data can be used to better models for relation classification for sentences. We build on work from Chapter~\ref{chap:med-rel-ex}, where we have shown that training models on on crowd annotations gives better results than training with data automatically-labeled with distant supervision~\cite{mintz2009distant}. However, crowd data is expensive to collect. Chapter~\ref{chap:od-rel-ex} describes how to correct a large corpus of training data for relation classification, using a relatively small crowdsourced corpus, using two different methods: (1) by manually propagating the false positive and cross-relation signals identified with the help of the crowd, and (2) by adapting the semantic label propagation method~\cite{sterckx2016knowledge} to work with CrowdTruth data. This chapter is based on the following publications:
     
@@ -148,7 +104,7 @@ The overall goal of this thesis is to investigate the role of inter-annotator di
         \item Dumitrache, Anca, Lora Aroyo, and Chris Welty. ``Crowdsourcing semantic label propagation in relation classification.'' \textit{Proceedings of the First Workshop on Fact Extraction and VERification (FEVER) at EMNLP}. 2018.~\cite{dumitrache2018crowdsourcing}
     \end{itemize}
 
-    \item \textbf{RQ4:} \textit{Can disagreement in crowd annotations be used to capture the ambiguity inherent in natural language?}
+    \item \textbf{RQ4:} \textit{Is inter-annotator disagreement an accurate indicator for ambiguity in natural language?}
     
     In Chapter~\ref{chap:frames}, we explore this question as applied to the task of disambiguating semantic frames (i.e. high-level concepts that represent the meanings of words). Similarly to Chapter~\ref{chap:med-rel-ex}, we show that the crowd achieves comparative quality with domain experts. A qualitative evaluation of cases when crowd and expert disagree shows that inter-annotator disagreement is an indicator of ambiguity in both frames and sentences. We demonstrate that the cases in which the crowd workers could not agree exhibit ambiguity, either in the sentence, frame, or the task itself, arguing that collapsing such cases to a single, discrete truth value (i.e. correct or incorrect) is inappropriate, creating arbitrary targets for machine learning. This chapter is based on the following publication:
     
@@ -158,3 +114,58 @@ The overall goal of this thesis is to investigate the role of inter-annotator di
 \end{itemize}
 
 In addition to addressing these research question, another contribution of this thesis is a collection of ground truth datasets for the tasks of medical relation extraction~\cite{anca_dumitrache_2016_50676}, open domain relation extraction~\cite{crowdODrelexdata2016}, and semantic frame disambiguation~\cite{anca_dumitrache_2018_1472345}. These datasets have been collected with crowdsourcing and processed with the CrowdTruth methodology. The disagreement-aware metrics have allowed us to label the data with continuous truth labels for sentences, relations, semantic frames and workers, allowing us to capture the ambiguity inherent in these tasks.
+
+% add appendix with all data sources & Github code
+
+
+
+% \section{Crowdsourcing with CrowdTruth}
+
+% To address the challenge of capturing an interpreting disagreement in crowdsourced annotations, we have proposed the \textbf{CrowdTruth methodology}~\cite{aroyo2012harnessing,aroyo2013crowd}. The goal of this methodology is to correct the myths of human annotation proposed by~\citet{aroyo2015truth}:
+
+% \begin{itemize}
+
+%     % Disagreement is a useful signal
+%     % Multiple annotators are better
+%     % Annotation guidelines should be short and to the point
+%     % A continuous notion of truth
+
+%     \item \textit{Myth \#1: Disagreement is bad -} This myth holds that, whenever inter-annotator disagreement occurs, it is the fault of the annotators. Therefore disagreement should be eliminated at all cost. In contrast, CrowdTruth proposes the idea that disagreement can also be caused by ambiguity in the annotation task. Specifically for the case of natural language, ambiguity is an inherent property of text. CrowdTruth proposes that capturing disagreement is a method to capture this ambiguity.
+    
+%     \item \textit{Myth \#2: One is enough -} Following from the previous myth, if inter-annotator disagreement can be an important indicator, then having a single worker perform the annotations means missing out on the signal the disagreement can send. CrowdTruth proposes using multiple workers for the same annotation task, in order to collect all possible disagreement that can occur.
+    
+%     \item \textit{Myth \#3: Experts are better -} While traditional annotation tasks ask a single domain expert to give their input, CrowdTruth proposes expanding this singular perspective with that of crowd workers. That is not to say that the experts are not necessary, or that the crowd is better suited at understanding an annotation task, just that often the perspective of the crowd is necessary in order to get a more accurate overview.
+    
+%     \item \textit{Myth \#4: One truth -} This myth holds that, for each annotation task, there is only one possible truth to how it should be done. Instead of forcing annotations into binary labels that are either positive or negative, CrowdTruth proposes that the truth exists on a scale, and is expressed with various degrees of clarity.
+    
+%     \item \textit{Myth \#5: All examples are equal -} If the truth value of a label is expressed on a scale, then it follows that there exists some variability in how clear a label is expressed in different examples. For instance, for the task of text labeling, some texts might express the desired label more clearly than others. The CrowdTruth methodology attempts to capture the degree of clarity of each example in the annotation task through the use of dedicated metrics, thus quantifying the fact that not all examples are equal in how well they express a label.
+    
+%     \item \textit{Myth \#6: Detailed guidelines help -} Typical annotation practice which provides detailed annotation guidelines to workers, which result in brittle overly-specific interpretations of the annotations. In contrast, the CrowdTruth methodology employs simple annotation guidelines that allow for disagreement over the interpretation of annotations.
+    
+% \end{itemize}
+
+% The \textbf{CrowdTruth quality metrics}~\cite{aroyo2014threesides} are designed to capture the level of agreement associated with each component in the crowdsourcing system: workers, task annotations, and input media units. To address the myths of annotations discussed previously, the metrics measure quality on a scale -- e.g. instead of attributing binary labels to workers in order to determine whether or not they are spammers, we calculate a quality score that informs us the degree to which the worker is reliable. The main CrowdTuth quality metrics are:
+
+% \begin{itemize}
+%     \item \textit{Media Unit Quality Score (UQS)} -- the overall worker agreement over one media unit;
+%     \item \textit{Worker Quality Score (WQS)} -- the overall agreement of one crowd worker with the other workers that annotated the same media units, calculated as a product of 2 other metrics:
+%     \begin{itemize}
+%         \item \textit{Worker-Worker Agreement (WWA)} -- the pairwise agreement between a given worker and all other workers, across all media units they annotated in common;
+%         \item \textit{Worker-Media Unit Agreement (WUA)} -- the similarity between the annotations of a worker and the aggregated annotations of the rest of the workers;
+%     \end{itemize}
+%     \item \textit{Annotation Quality Score (AQS)} -- the agreement over an annotation in all media units that it appears;
+%     \item \textit{Media Unit - Annotation Score (UAS)} -- the degree of clarity with which an annotation is expressed in a media unit.
+% \end{itemize}
+
+% In order to compute the CrowdTruth quality metrics, we need to formalize crowd annotations into a \textit{vector space representation}. For every input media unit, the annotations of each worker form a binary \textit{worker vector}, where the annotations selected are equal to `1', and the rest to `0'. The \textit{media unit vector} is the sum of all worker vectors for the given media unit. The first version of the CrowdTruth methodology~\cite{inel2014crowdtruth} calculates the metrics using cosine similarity over the vector representations of the crowd annotations.
+
+% Version 2.0 of the CrowdTruth methodology~\cite{dumitrache2018crowdtruth} is explicitly modeled on the triangle of disagreement (Figure~\ref{fig:triangle_of_disagr}). Based on the triangle of reference \cite{knowlton1966definition}, it links together media units, workers, and annotations. The triangle model expresses how ambiguity in any of the corners disseminates and influences the other components of the triangle. The propagation of ambiguity in the triangle system is made explicit through making the quality metrics mutually dependent. For example, the quality of a worker is weighted by the quality of the media units the worker has annotated, and the quality of the annotations in the task -- this is because we expect an unclear sentence or an ambiguous annotation scheme would cause more disagreement between workers.
+
+% \begin{figure}[!htb]
+%  	\centering
+%  		\includegraphics[width=0.5\linewidth]{img/triangle.png}
+%  	\caption{Triangle of Disagreement}
+%  	\label{fig:triangle_of_disagr}
+%  \end{figure}
+
+% in this thesis we apply CrowdTruth to a variety of NLP tasks and see what is the role of disagreement
