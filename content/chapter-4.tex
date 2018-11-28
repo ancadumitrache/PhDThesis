@@ -102,7 +102,7 @@ In this section, we discuss the results of our experiments on improving the perf
 \label{fig:fp_rate}
 \end{figure}
 
-Using the $srs$ as a ground truth at a 0.5 threshold, Fig.~\ref{fig:fp_rate} shows the correctness of the DS labels on the initial dev set of 1,025 sentence. There is \textit{considerable variation in DS data quality across relations}. The $origin$ and $place\ of\ death$ relations scored particularly badly, with more than 90\% false positives. With such a high error rate in some relations, it is arguable that any classifier could learn anything meaningful, regardless of algorithm or quantity of data.
+Using the $srs$ as a ground truth at a 0.5 threshold, Figure~\ref{fig:fp_rate} shows the correctness of the DS labels on the initial dev set of 1,025 sentence. There is \textit{considerable variation in DS data quality across relations}. The $origin$ and $place\ of\ death$ relations scored particularly badly, with more than 90\% false positives. With such a high error rate in some relations, it is arguable that any classifier could learn anything meaningful, regardless of algorithm or quantity of data.
 
 Manual error analysis on the initial dev set showed that many sentences contain a $Person$ - $Location$ pair, where freebase specified both that the person resided in and died at that location. This makes intuitive sense, people tend to die in the places they live.  In most of these cases, the sentence expressed only the $places\ of\ residence$ relation, leading to the false positives. The $origin$ relation data suffers from the same problem.  Table~\ref{tab:ds_fp_ex} in the Appendix~\ref{sec:appendix4.1} shows several examples of these sentences. This led us to consider a heuristic solution to this problem as a headroom study as well as a statistical solution. Both are discussed in Section 5.
 
@@ -149,7 +149,7 @@ Manual error analysis on the initial dev set showed that many sentences contain 
 \end{subfigure}
 \end{table}
 
-The results of the macro RCP analysis for six of the relations we analyzed (Tab.\ref{tab:rcp}) shows that the $place\ of\ birth$ relation has a high causal power (0.64) over $origin$, meaning that when $place\ of\ birth$ is annotated in a sentence, $origin$ is also likely to appear, with the inverse causal power at 0.88.  This high co-causality seems to indicate a confusion between the two relations. Note also that these two relations have significant differences in causal power in the DS-based data. In contrast, $place\ of\ death$ has a high causal power over $places\ of\ residence$ in the DS data (0.45), reflecting the high error rate of $place\ of\ death$ caused by the overlap in the KB with $places\ of\ residence$.
+The results of the macro RCP analysis for six of the relations we analyzed (Table \ref{tab:rcp}) shows that the $place\ of\ birth$ relation has a high causal power (0.64) over $origin$, meaning that when $place\ of\ birth$ is annotated in a sentence, $origin$ is also likely to appear, with the inverse causal power at 0.88.  This high co-causality seems to indicate a confusion between the two relations. Note also that these two relations have significant differences in causal power in the DS-based data. In contrast, $place\ of\ death$ has a high causal power over $places\ of\ residence$ in the DS data (0.45), reflecting the high error rate of $place\ of\ death$ caused by the overlap in the KB with $places\ of\ residence$.
 
 In the crowd data we see a much higher co-causality for \\ $employee\ or\ member$ and $top\ employee\ or\ member$, with only a slight preference in the data for what we expect to be the ``correct'' causal direction (that $top\ employee\ or\ member$ causes $employee\ or\ member$), but in the DS-based analysis, the incorrect interpretation drops a lot. In manual error analysis we observed that these are properties of the data set, which talk about more famous people who tend to be leaders and founders, not ``regular'' employees.  Table~\ref{tab:ds_fn_ex} in the Appendix shows several examples sentences with false negative DS labels due to missing causality.
 
@@ -158,7 +158,7 @@ Among the non-symmetric causal pairs we see that \\ $top\ employee\ or\ member$ 
 
 \subsection{Relation-Based Correction Experiment}
 
-We expect that the metrics from CrowdTruth annotation can be used to systematically enhance DS data at scale, without requiring the crowd to annotate the entire set.  As a preliminary headroom exercise, we trained three models to test a few simple heuristic characterizations of our analysis, and compared them to a baseline trained purely on DS data. In each model, we changed only the training set (using the methods described below). Each model was trained for 20,000 iterations, after the point of stabilization for the train loss. We used the data in our initial held-out test set as an evaluation target, again processing the continuous SRS scores with a threshold of 0.5 to yield discrete truth values for calculating P, R, and F. To evaluate the relation classification model on CrowdTruth data with discrete metrics, we set a comparable threshold of 0.5 on the model confidence score, separating between negative and positive labels. Results are shown in Tab.~\ref{tab:cnn_res}.
+We expect that the metrics from CrowdTruth annotation can be used to systematically enhance DS data at scale, without requiring the crowd to annotate the entire set.  As a preliminary headroom exercise, we trained three models to test a few simple heuristic characterizations of our analysis, and compared them to a baseline trained purely on DS data. In each model, we changed only the training set (using the methods described below). Each model was trained for 20,000 iterations, after the point of stabilization for the train loss. We used the data in our initial held-out test set as an evaluation target, again processing the continuous SRS scores with a threshold of 0.5 to yield discrete truth values for calculating P, R, and F. To evaluate the relation classification model on CrowdTruth data with discrete metrics, we set a comparable threshold of 0.5 on the model confidence score, separating between negative and positive labels. Results are shown in Table ~\ref{tab:cnn_res}.
 
 \begin{enumerate}
 
@@ -171,8 +171,6 @@ We expect that the metrics from CrowdTruth annotation can be used to systematica
 \item \textbf{DS\ FP:} Our analysis showed that the $place\ of\ death$ relation was a large source of false positives in the DS data, because most of the positives were actually expressing $places\ of\ residence$.  In every sentence in the DS training set that had a 1 for $place\ of\ death$, we updated the score by subtracting its false positive ratio, which was used in the loss function as described above.  This did not impact the results over the baseline, mainly because there were not many $place\ of\ death$ relations in the DS data nor the test set, and any improvement did not impact the overall result.  We are confident that more systematic treatment of false positive rates will improve performance.
 
 \end{enumerate}
-
-The differences (in bold in Tab.\ref{tab:rcp}) between the crowd and DS-based causal power accounts for some of the classification errors in our trained system, and we expect them to be a significant cause of error in systems that try to learn cross-relation signals from DS data alone.
 
 \begin{table}[htb!]
 \caption{Precision \& Recall at 20,000 training steps.}
@@ -190,6 +188,8 @@ The differences (in bold in Tab.\ref{tab:rcp}) between the crowd and DS-based ca
 \end{tabular}
 }
 \end{table}
+
+The differences (in bold in Table \ref{tab:rcp}) between the crowd and DS-based causal power accounts for some of the classification errors in our trained system, and we expect them to be a significant cause of error in systems that try to learn cross-relation signals from DS data alone.
 
 The preliminary results are not overwhelming, but highly indicative.  There is considerable headroom in cross-relation signals, and a more robust approach holds promise to eliminate manual analysis, and work as part of an overall pipeline that includes partial crowd data.
 
