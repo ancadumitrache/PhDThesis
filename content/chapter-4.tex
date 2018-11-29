@@ -1,13 +1,11 @@
-\chapter{Learning Relation Extraction from the Crowd}
+\chapter{Learning Relation Classification from the Crowd}
 \label{chap:od-rel-ex}
 
 \begin{chapquote}{Ludwig Wittgenstein, \textsc{Tractatus Logico-Philosophicus}}
 It is not humanly possible to gather immediately from it what the logic of language is. Language disguises thought.
 \end{chapquote}
 
-Distant supervision (DS) is a well-established method for relation extraction from text, based on the assumption that when a knowledge-base contains a relation between a term pair, then sentences that contain that pair are likely to express the relation. In this chapter, we use the results of a crowdsourcing relation extraction task to identify two problems with DS data quality: the widely varying degree of false positives across different relations, and the observed causal connection between relations that are not considered by the DS method. The crowdsourcing data aggregation is performed using ambiguity-aware CrowdTruth metrics, that are used to capture and interpret inter-annotator disagreement. We also present preliminary results of using the crowd to enhance DS training data for a relation classification model, without requiring the crowd to annotate the entire set. 
-
-Distant supervision is a popular method for performing relation extraction from text that is known to produce noisy labels.  Most progress in relation extraction and classification has been made with crowdsourced corrections to distant-supervised labels, and there is evidence that indicates still more would be better. In this chapter, we explore the problem of propagating human annotation signals gathered for open-domain relation classification through the CrowdTruth methodology for crowdsourcing, that captures ambiguity in annotations by measuring inter-annotator disagreement. Our approach propagates annotations to sentences that are similar in a low dimensional embedding space, expanding the number of labels by two orders of magnitude.  Our experiments show significant improvement in a sentence-level multi-class relation classifier.
+Distant supervision (DS) is a well-established method for relation extraction from text, based on the assumption that when a knowledge-base contains a relation between a term pair, then sentences that contain that pair are likely to express the relation. In this chapter, we use the results of a crowdsourcing relation extraction task to identify two problems with DS data quality: the widely varying degree of false positives across different relations, and the observed causal connection between relations that are not considered by the DS method. The crowdsourcing data aggregation is performed using ambiguity-aware CrowdTruth metrics, that are used to capture and interpret inter-annotator disagreement. We also explore the problem of propagating human annotation signals gathered for open-domain relation classification through the CrowdTruth methodology for crowdsourcing. We present preliminary results of using the crowd to enhance DS training data for a relation classification model, without requiring the crowd to annotate the entire set. Finally, we present a method that propagates crowd annotations to sentences that are similar in a low dimensional embedding space, expanding the number of labels by two orders of magnitude. Our experiments show significant improvement in a sentence-level multi-class relation classifier.
 
 This chapter is based on the following publications:
 
@@ -20,8 +18,6 @@ This chapter is based on the following publications:
 \end{itemize}
 
 \section{Introduction}
-
-%%% 4.1
 
 Distant supervision (DS)~\cite{mintz2009distant,Welty:2010:LSR} is a well-established semi-supervised method for performing relation extraction from text. It is based on the assumption that, when a knowledge-base contains a relation between a pair of terms, then any sentence that contains that pair is likely to express the relation. This approach can generate false positives, as not every mention of a term pair in a sentence means a relation is also expressed~\cite{DBLP:conf/ijcai/FengGQLL17}. Furthermore, dependencies between the semantics of the relations such as causality or contradiction are also not considered by the DS methodology. It is often assumed that these disadvantages are compensated for by the scale of the data a DS method can produce, or can be largely overcome with crowdsourced human annotation~\cite{angeli2014combining,liu2016effective}.  
 
@@ -48,10 +44,10 @@ The label propagation method was introduced by \citet{xiaojin2002learning}, whil
 For the \textit{relation-based correction experiment}, we asked the crowd annotate 2,500 sentences from the NIST TAC-KBP 2013 English Slotfilling data that were annotated with DS. For the \textit{semantic label propagation experiment}, we augmented this dataset by another 2,050 sentences picked at random from the corpus of~\citet{angeli2014combining}. For both datasets, we collected annotations for 16 popular relations from the open domain that occur between terms of types $Person$, $Organization$ and $Location$, as shown in in Figure~\ref{fig:template},\footnote{The $alternate\ names$ relation appears twice in the list, once referring to alternate names of persons, and the other referring to organizations.}. The resulting corpus also contains candidate term pairs and DS seed relations for each sentence. As some relations are more general than others, the relation frequency in the corpus is slightly unequal -- e.g. $places\ of\ residence$ is more likely to be in a sentence when $place\ of\ birth$ and $place\ of\ death$ occur, but not the opposite.
 
 \begin{figure}[htb!]
-\centering
-\includegraphics[width=\textwidth]{img/odrelex.png}
 \caption{Fragment of the crowdsourcing task template.}
 \label{fig:template}
+\centering
+\includegraphics[width=\textwidth]{img/odrelex.png}
 \end{figure}
 
 We ran a multiple-choice crowdsourcing task (Figure~\ref{fig:template}), asking {\em 15 workers to annotate each sentence} with the appropriate relations, or choose the option $none$ if none of the relations presented apply. Workers were encouraged to select all relations that apply. Each worker was paid \$0.05 per sentence. The task was run on the Figure Eight\footnote{\url{https://www.figure-eight.com/}} and Amazon Mechanical Turk\footnote{\url{https://www.mturk.com/}} crowdsourcing platforms. The data is available online~\cite{crowdODrelexdata2016}.
@@ -86,20 +82,22 @@ The relation classification model employed is based on~\citet{nguyen2015relation
 
 We have adapted this model to be both multi-class and multi-label -- we use a sigmoid cross-entropy loss function instead of softmax cross-entropy, and the final layer is normalized with the sigmoid function instead of softmax -- in order to make it possible for more than one relation to hold between two terms in one sentence. The loss function is computed using continuous labels instead of binary positive/negative labels, in order to accommodate the use of the $srs$ in training. The features of the model are the word2vec embeddings of the words in the sentences, together with the position embeddings of the two terms that express the relation. The word embeddings are initialized with 300-dimensional word2vec vectors pre-trained on the Google News corpus\footnote{\url{https://code.google.com/archive/p/word2vec/}}. Both the position and word embeddings are nonstatic and become optimized during training of the model. The values of the other hyper-parameters are the same as those reported by \citet{nguyen2015relation}. The model was implemented in Tensorflow~\cite{abadi2016tensorflow}, and trained in a distributed manner on the DAS-5 cluster~\cite{bal2016medium}.
 
+% We use this model to perform two experiments: (1) a preliminary experiment with \textit{relation-based correction} of the DS data, that shows the potential of disagreement-aware crowdsourcing to correct DS data at scale, without requiring the crowd to annotate the entire set, and (2) an experiment with \textit{semantic label propagation} that shows a robust way of propagating the information in a small crowdsourced corpus to the scale needed for training relation classification models.
+
 
 \section{Results and Discussion}
 
-In this section, we discuss the results of our experiments on improving the performance of relation classification models with CrowdTruth. First, we evaluate DS data quality using crowdsourced data as ground truth. Next, we present experimental results for two methods to enhance DS training data for relation classification: a preliminary experiment performing relation-based correction, and an experiment in label propagation.
+In this section, we discuss the results of our experiments on improving the performance of relation classification models with CrowdTruth. First, we evaluate DS data quality using crowdsourced data as ground truth. Next, we present experimental results for two methods to enhance DS training data for relation classification: (1) a preliminary experiment with \textit{relation-based correction} of the DS data, that shows the potential of disagreement-aware crowdsourcing to correct DS data at scale, without requiring the crowd to annotate the entire set, and (2) an experiment with \textit{semantic label propagation} that shows a robust way of propagating the information in a small crowdsourced corpus to the scale needed for training relation classification models.
 
 
 \subsection{Evaluating DS with CrowdTruth}
 \label{sec:ds-eval}
 
 \begin{figure}[htb!]
-\centering
-\includegraphics[width=0.75\textwidth]{img/fp_ratio.png}
 \caption{DS ratio of false positive over all positive labels, using the crowd as ground truth.}
 \label{fig:fp_rate}
+\centering
+\includegraphics[width=0.75\textwidth]{img/fp_ratio.png}
 \end{figure}
 
 Using the $srs$ as a ground truth at a 0.5 threshold, Figure~\ref{fig:fp_rate} shows the correctness of the DS labels on the initial dev set of 1,025 sentence. There is \textit{considerable variation in DS data quality across relations}. The $origin$ and $place\ of\ death$ relations scored particularly badly, with more than 90\% false positives. With such a high error rate in some relations, it is arguable that any classifier could learn anything meaningful, regardless of algorithm or quantity of data.
@@ -166,9 +164,9 @@ We expect that the metrics from CrowdTruth annotation can be used to systematica
 
 \item \textbf{DS merged:} Based on the results of the causality analysis, the training set is augmented to reflect the highest cross-relation signals.  We merge relations with symmetric RCP ($origin$ and $place\ of\ birth$), and add the implied relation in the case of asymmetric RCP ($employee\ or\ member$  and $top\ employee\ or\ member$). To merge, the \textbf{DS} baseline data is updated so that the symmetric relations always co-occur, and adding caused relation whenever the caused relation appears. This approach shows a huge improvement across the board over the baseline, with the overall highest P and F.
 
-\item \textbf{DS\ RCP:} Instead of manually identifying merged relations, the training data is augmented by using the RCP scores. When a relation $i$ has a positive \textbf{DS} label for a given sentence, the labels of all other relations $j \neq i$ are updated by adding the macro RCP that $i$ has over $j$. The maximum value for the label is clipped at 1, to keep scores in the $[0,1]$ interval. The training labels in this set have continuous values, as opposed to the binary values in the previous two sets. The formula for updating the training label for relation $j$ in sentence $s$ is: $ DS\ RCP(s, j) = max[1, DS(s, j) + \sum_{i \neq j} RCP(i,j) \cdot DS(s,i) ],$ where $DS(s,i)$ is the DS label of relation $i$ in sentence $s$.  This method was comparable in precision to the baseline, but scored a huge win in recall.  The recall increase makes sense, though we have yet to investigate or explain the lack of increase in precision.
+\item \textbf{DS\_RCP:} Instead of manually identifying merged relations, the training data is augmented by using the RCP scores. When a relation $i$ has a positive \textbf{DS} label for a given sentence, the labels of all other relations $j \neq i$ are updated by adding the macro RCP that $i$ has over $j$. The maximum value for the label is clipped at 1, to keep scores in the $[0,1]$ interval. The training labels in this set have continuous values, as opposed to the binary values in the previous two sets. The formula for updating the training label for relation $j$ in sentence $s$ is: $ DS\ RCP(s, j) = max[1, DS(s, j) + \sum_{i \neq j} RCP(i,j) \cdot DS(s,i) ],$ where $DS(s,i)$ is the DS label of relation $i$ in sentence $s$.  This method was comparable in precision to the baseline, but scored a huge win in recall.  The recall increase makes sense, though we have yet to investigate or explain the lack of increase in precision.
 
-\item \textbf{DS\ FP:} Our analysis showed that the $place\ of\ death$ relation was a large source of false positives in the DS data, because most of the positives were actually expressing $places\ of\ residence$.  In every sentence in the DS training set that had a 1 for $place\ of\ death$, we updated the score by subtracting its false positive ratio, which was used in the loss function as described above.  This did not impact the results over the baseline, mainly because there were not many $place\ of\ death$ relations in the DS data nor the test set, and any improvement did not impact the overall result.  We are confident that more systematic treatment of false positive rates will improve performance.
+\item \textbf{DS\_FP:} Our analysis showed that the $place\ of\ death$ relation was a large source of false positives in the DS data, because most of the positives were actually expressing $places\ of\ residence$.  In every sentence in the DS training set that had a 1 for $place\ of\ death$, we updated the score by subtracting its false positive ratio, which was used in the loss function as described above.  This did not impact the results over the baseline, mainly because there were not many $place\ of\ death$ relations in the DS data nor the test set, and any improvement did not impact the overall result.  We are confident that more systematic treatment of false positive rates will improve performance.
 
 \end{enumerate}
 
@@ -182,8 +180,8 @@ We expect that the metrics from CrowdTruth annotation can be used to systematica
 & \textsc{Precision} & \textsc{Recall} &\textsc{F1 score} \\ \toprule
 \textsc{DS} & 0.19 & 0.22 & 0.2 \\
 \textsc{DS merged} & \textbf{0.43} & 0.33 & \textbf{0.37}  \\
-\textsc{DS\ RCP} & 0.19 & \textbf{0.48} & 0.27 \\
-\textsc{DS\ FP} & 0.21 & 0.22 & 0.21  \\ % \hline
+\textsc{DS\_RCP} & 0.19 & \textbf{0.48} & 0.27 \\
+\textsc{DS\_FP} & 0.21 & 0.22 & 0.21  \\ % \hline
 \bottomrule
 \end{tabular}
 }
@@ -191,14 +189,14 @@ We expect that the metrics from CrowdTruth annotation can be used to systematica
 
 The differences (in bold in Table \ref{tab:rcp}) between the crowd and DS-based causal power accounts for some of the classification errors in our trained system, and we expect them to be a significant cause of error in systems that try to learn cross-relation signals from DS data alone.
 
-The preliminary results are not overwhelming, but highly indicative.  There is considerable headroom in cross-relation signals, and a more robust approach holds promise to eliminate manual analysis, and work as part of an overall pipeline that includes partial crowd data.
+The preliminary results are not overwhelming, but highly indicative. There is considerable headroom in cross-relation signals, and a more robust approach holds promise to eliminate manual analysis, and work as part of an overall pipeline that includes partial crowd data.
 
 
 \subsection{Label Propagation Experiment}
 
-... make connection with previous section
+Building on the results from the previous section on, we studied \textit{label propagation} as a more robust method of using a small crowdsourced corpus to augment a DS dataset larger by several orders of magnitude. As opposed to relation-based correction methods, label propagation takes into account the information contained in the sentences themselves, providing a more fine-grained method to correct errors in DS.
 
-For the \textit{label propagation experiment}, we split the full 4,100 crowd sentences into a dev and a test set of equal size, and trained three models to compare with the baseline on the held-out test set. Each model is trained for 25,000 iterations, after the point of stabilization for the train loss. The models were trained by the following datasets:
+For this experiment, we split the full 4,100 crowd sentences into a dev and a test set of equal size, and trained three models to compare with the baseline on the held-out test set. Each model is trained for 25,000 iterations, after the point of stabilization for the train loss. The models were trained by the following datasets:
 
 \begin{enumerate}
 \item \textbf{DS:} The baseline of 235,000 sentences annotated by DS.
@@ -210,6 +208,7 @@ To evaluate the performance of the label propagation method, we calculate the mi
 
 \begin{figure}[tbh!]
 \centering
+\caption{Label propagation evaluation results.}
 \begin{subfigure}{.5\textwidth}
 \caption{Precision / Recall curve, calculated for each sentence-relation pair.}
 \label{fig:pr}
@@ -236,26 +235,18 @@ The success of the \textbf{DS + W2V CT} comes in part because the method relabel
 
 \section{Conclusion}
 
-%%% 4.1
+This chapter explores the problem of improving the performance of open-domain relation classification models with disagreement-aware ground truth data, by propagating human annotation signals in distant supervision training data. We have shown a very significant variation in the false positive rate in distant supervision data, and it seems extremely likely that this can be exploited to improve training. We also presented experimental results for two methods to enhance DS training data for relation classification: (1) a preliminary experiment with \textit{relation-based correction} of the DS data, that shows the potential of disagreement-aware crowdsourcing to correct DS data at scale, without requiring the crowd to annotate the entire set, and (2) an experiment with \textit{semantic label propagation} that shows a robust way of propagating the information in a small crowdsourced corpus to the scale needed for training relation classification models.
 
-We have shown a very significant variation in the false positive rate in distant supervision data, and it seems extremely likely that this can be exploited to improve training.
+Our version of the label propagation approach passes on the information in human annotations to sentences that are similar in a low dimensional embedding space, using a small crowdsourced dataset of 2,050 sentences to correct training data labeled with distant supervision.  We present experimental results from training a relation classifier, where our method shows significant improvement over the DS baseline, as well as just adding the labeled examples to the train set. Unlike \citet{sterckx2016knowledge} who employ experts to label the dependency path representation of sentences, our method uses the general crowd to annotate the actual sentence text, and is thus easier to scale and not dependent on methods for extracting dependency paths, so it can be more easily adapted to other languages and domains.  Also, since the semantic label propagation is applied to the data before training is completed, this method can easily be reused to correct train data for any model, regardless of the features used in learning.
 
-We are currently considering experiments that take advantage of another aspect of our CrowdTruth method: the identification of ambiguity in sentences where workers do not agree on the outcome.  We believe a more continuous truth measure as opposed to the rather arbitrary discrete measure will be productive. Finally, we are particularly excited about the possibility of using our approach in conjunction with logical reasoning approaches such as those reported in \cite{demeester2016regularizing}.  In this case, we are looking at more informed data that reflects human understanding and properties of the data set, to discover candidate relation pairs for investigating rules.
+In future work, we plan to use the label propagation method to correct training data for state-of-the-art models in relation classification, but also relation extraction and knowledge-base population. We also plan to explore different ways of collecting and aggregating data from the crowd. CrowdTruth~\cite{dumitrache2017false} proposes capturing ambiguity through inter-annotator disagreement, which necessitates multiple annotators per sentence, while \citet{liu2016effective} propose increasing the number of labeled examples added to the training set by using one high quality worker per sentence. We will compare the two methods to determine whether quality or quantity of data are more useful for semantic label propagation. To achieve this, we will investigate whether disagreement-based metrics such as sentence and relation quality can also be propagated through the training data. We believe a more continuous truth measure as opposed to the rather arbitrary discrete measure will be productive for this evaluation. Finally, we are particularly excited about the possibility of using our approach in conjunction with logical reasoning approaches such as those reported in \cite{demeester2016regularizing}.  In this case, we are looking at more informed data that reflects human understanding and properties of the data set, to discover candidate relation pairs for investigating rules. 
 
-%%% 4.2
-
-This chapter explores the problem of propagating human annotation signals in distant supervision data for open-domain relation classification.  Our approach propagates human annotations to sentences that are similar in a low dimensional embedding space, using a small crowdsourced dataset of 2,050 sentences to correct training data labeled with distant supervision.  We present experimental results from training a relation classifier, where our method shows significant improvement over the DS baseline, as well as just adding the labeled examples to the train set.
-
-Unlike \citet{sterckx2016knowledge} who employ experts to label the dependency path representation of sentences, our method uses the general crowd to annotate the actual sentence text, and is thus easier to scale and not dependent on methods for extracting dependency paths, so it can be more easily adapted to other languages and domains.  Also, since the semantic label propagation is applied to the data before training is completed, this method can easily be reused to correct train data for any model, regardless of the features used in learning.  In our future work, we plan to use this method to correct training data for state-of-the-art models in relation classification, but also relation extraction and knowledge-base population.
-
-We also plan to explore different ways of collecting and aggregating data from the crowd. CrowdTruth~\cite{dumitrache2017false} proposes capturing ambiguity through inter-annotator disagreement, which necessitates multiple annotators per sentence, while \citet{liu2016effective} propose increasing the number of labeled examples added to the training set by using one high quality worker per sentence. We will compare the two methods to determine whether quality or quantity of data are more useful for semantic label propagation. To achieve this, we will investigate whether disagreement-based metrics such as sentence and relation quality can also be propagated through the training data.
-
-
+\newpage
 
 \section*{Appendix}
 \label{sec:appendix4.1}
 
-\begin{table}[bht!]
+\begin{table}[htb!]
 \centering
 \caption{Example sentences with false positive $place\ of\ death$ and $origin$ DS labels due to multiple relations in the KB over $Person$ - $Location$ term types.}
 \label{tab:ds_fp_ex}
@@ -291,7 +282,7 @@ We also plan to explore different ways of collecting and aggregating data from t
 }
 \end{table}
 
-\begin{table}[thb!]
+\begin{table}[htb!]
 \centering
 \caption{Example sentences with false negative $employee\ or\ member$ and $origin$ DS labels due to missing causal connections.}
 \label{tab:ds_fn_ex}

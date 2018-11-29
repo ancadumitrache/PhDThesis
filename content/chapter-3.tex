@@ -1,9 +1,14 @@
-\chapter{Beyond Majority Vote}
+\chapter{Data Quality from Disagreement}
 \label{chap:maj-vote}
 
 \begin{chapquote}{Mark Twain, \textsc{Notebook, 1904}}
 Whenever you find yourself on the side of the majority, it is time to reform (or pause and reflect).
 \end{chapquote}
+
+% \begin{chapquote}{Bertrand Russell, \textsc{The Philosophy of Logical Atomism}}
+% Everything is vague to a degree you do not realize till you have tried to make it precise, and everything precise is so remote from everything that we normally think, that you cannot for a moment suppose that is what we really mean when we say what we think.
+% \end{chapquote}
+
 
 The process of gathering ground truth data through human annotation is a major bottleneck in the use of information extraction methods for populating the Semantic Web. Crowdsourcing-based approaches are gaining popularity in the attempt to solve the issues related to volume of data and lack of annotators. Typically these practices use inter-annotator agreement as a measure of quality. However, in many domains, such as event detection, there is ambiguity in the data, as well as a multitude of perspectives of the information examples. We present an empirically derived methodology for efficiently gathering of ground truth data in a diverse set of use cases covering a variety of domains and annotation tasks. Central to our approach is the use of CrowdTruth metrics that capture inter-annotator disagreement. We show that measuring disagreement is essential for acquiring a high quality ground truth. We achieve this by comparing the quality of the data aggregated with CrowdTruth metrics with majority vote, over a set of diverse crowdsourcing tasks: Medical Relation Extraction, Twitter Event Identification, News Event Extraction and Sound Interpretation. We also show that an increased number of crowd workers leads to growth and stabilization in the quality of annotations, going against the usual practice of employing a small number of annotators.
 

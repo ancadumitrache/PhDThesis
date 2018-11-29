@@ -1,13 +1,18 @@
-\chapter{Ambiguity in Crowdsourcing Frame Disambiguation}
+\chapter{Finding Ambiguity from Disagreement}
 \label{chap:frames}
 
 %\begin{chapquote}{Douglas Adams, \textsc{The Hitchhiker's Guide to the Galaxy}}
 %We demand rigidly defined areas of doubt and uncertainty!
 %\end{chapquote}
 
-\begin{chapquote}{Friedrich Nietzsche, \textsc{Notebooks (Summer 1886 – Fall 1887)}}
-Against that positivism [\ldots] saying ``there are only facts,'' I should say: no, it is precisely facts that do not exist, only interpretations.
+% \begin{chapquote}{Friedrich Nietzsche, \textsc{Notebooks (Summer 1886 – Fall 1887)}}
+% Against that positivism which stops before phenomena saying ``there are only facts,'' I should say: no, it is precisely facts that do not exist, only interpretations.
+% \end{chapquote}
+
+\begin{chapquote}{Bertrand Russell, \textsc{The Philosophy of Logical Atomism}}
+Everything is vague to a degree you do not realize till you have tried to make it precise, and everything precise is so remote from everything that we normally think, that you cannot for a moment suppose that is what we really mean when we say what we think.
 \end{chapquote}
+
 
 FrameNet is a computational linguistics resource composed of semantic frames, high-level concepts that represent the meanings of words. In this chapter, we present an approach to gather frame disambiguation annotations in sentences using a crowdsourcing approach with multiple workers per sentence to capture inter-annotator \emph{disagreement}. We perform an experiment over a set of 433 sentences annotated with frames from the FrameNet corpus, and show that the aggregated crowd annotations achieve an F1 score greater than 0.67 as compared to expert linguists. We highlight cases where the crowd annotation was correct even though the expert is in disagreement, arguing for the need to have multiple annotators per sentence.  Most importantly, we examine cases in which crowd workers could not agree, and demonstrate that these cases exhibit ambiguity, either in the sentence, frame, or the task itself, and argue that collapsing such cases to a single, discrete truth value (i.e. correct or incorrect) is inappropriate, creating arbitrary targets for machine learning.
 
