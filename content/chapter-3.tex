@@ -87,8 +87,6 @@ In the annotation vector, each answer option is a boolean value, showing whether
 Three core \textbf{worker metrics} are defined to differentiate between low-quality and high-quality workers. \emph{Worker-Worker Agreement} ($wwa$) measures the pairwise agreement between two workers across all media units they annotated in common - indicating how close a worker performs compared to workers solving the same task. \emph{Worker-Media Unit Agreement} ($wma$) measures the similarity between the annotations of a worker and the aggregated annotations of the rest of the workers. The average of this metric across all the media units solved gives a measure of how much a worker disagrees with the crowd in the context of all media units. \emph{Average annotations per media unit} ($na$) measures for each worker the total number of annotations they chose per media unit, averaged across all media units they annotated. Since in many tasks workers can choose all the possible annotations, a low quality worker can appear to agree more with the rest of the workers by repeatedly choosing multiple annotations, thus increasing the chance of overlap.
 
 \begin{table}
-	\caption {Consider an open-ended sound annotation task where 10 workers have to describe a given sound with keywords. The media unit for this task is a sound, the annotation set contains all the keywords workers provide for a sound. The table shows the media unit metrics, as well as the majority vote score for the media unit.}
-    \label{tab:example_annotation}
     \scalebox{0.85}{
 	\begin{tabular}{rccccc}
     \toprule
@@ -98,6 +96,8 @@ Three core \textbf{worker metrics} are defined to differentiate between low-qual
     \textsc{majority vote} &  0 & 0 & 1 & 0 & 0 \\ \bottomrule
     \end{tabular}
     }
+	\caption {Consider an open-ended sound annotation task where 10 workers have to describe a given sound with keywords. The media unit for this task is a sound, the annotation set contains all the keywords workers provide for a sound. The table shows the media unit metrics, as well as the majority vote score for the media unit.}
+    \label{tab:example_annotation}
 \end{table}
 
 Two \textbf{media unit metrics} are defined to assess the quality of each unit. In this chapter, we focus on the \emph{Media Unit-Annotation Score} -- the core CrowdTruth metric, used to measure the clarity with which the media unit expresses a given annotation. This metric is computed for each media unit and each possible annotation as the cosine between the media unit vector and the unit vector for each possible annotation.  This metric is used in evaluating the quality of the CrowdTruth annotations.
@@ -115,7 +115,6 @@ In \emph{open-ended tasks} we apply the same approach. However, we need to ackno
 Based on the specificity of each task, closed or open-ended, the effort required to pick different annotations might vary. For instance, when no good annotation exists in the media unit, the time to complete the annotation is considerably reduced. This can bias the workers towards selecting the option that requires the least work. In order to prevent this, we introduce \textit{in-task effort consistency checks}. Such annotations do not count towards building the ground truth, and are used to reduce the bias from picking the quickest option. For instance, when stating that no annotation is possible in the media unit, the workers also have to write an explanation in a text box for why no annotation were provided.
 
 \begin{table}[!htp]
-	\caption {Crowdsourcing Task Details}
 	\scalebox{0.8}{
 	\begin{tabular}{rccl}
     \toprule
@@ -144,6 +143,8 @@ Based on the specificity of each task, closed or open-ended, the effort required
     \bottomrule
     \end{tabular}
     }
+    
+	\caption {Crowdsourcing Task Details}
     \label{tab:crowd_data}
 \end{table}
 
@@ -163,7 +164,6 @@ These tasks were picked from diverse domains (medical, sound, open), to aid in t
 
 \begin{figure}[!tb]
 \centering
-\caption{Templates of the Crowdsourcing Tasks}
 \label{fig:taskdesigns}
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/relex}
@@ -185,13 +185,13 @@ These tasks were picked from diverse domains (medical, sound, open), to aid in t
 \caption{News Event Extraction}
 \label{fig:screenshot_news}
 \end{subfigure}
+\caption{Templates of the Crowdsourcing Tasks}
 \end{figure}
 
 
 Tables \ref{tab:crowd_data} and \ref{tab:crowd_tasks} present an overview of the crowdsourcing tasks, as well as the datasets used. The results of the crowdsourcing tasks were processed with the use of CrowdTruth metrics (Sec.~\ref{subsec:metrics}), and we removed consistently low quality workers based on the spam removal procedure (Sec~\ref{subsec:spam_removal}). The tasks were implemented and ran on Figure Eight\footnote{\url{https://figure-eight.com/}} (formerly known as CrowdFlower). The templates are available on the CrowdTruth platform\footnote{tasks marked with $*$: \url{https://github.com/CrowdTruth/CrowdTruth/wiki/Templates}}.
 
 \begin{table}[!htp]
-	\caption {Crowdsourcing Task Data}
 	\scalebox{0.8}{
 	\begin{tabular}{r c c c c c}
     \toprule
@@ -205,6 +205,7 @@ Tables \ref{tab:crowd_data} and \ref{tab:crowd_tasks} present an overview of the
     \bottomrule
     \end{tabular}
     }
+	\caption{Crowdsourcing Task Data}
     \label{tab:crowd_tasks}
 \end{table}
 
@@ -264,7 +265,6 @@ For the datasets that contain expert annotation, we calculated the thresholds wh
 
 \begin{figure}[!b]
 \centering
-\caption{CrowdTruth F1 scores for all crowdsourcing tasks.}
 \label{fig:f1_mv}
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/medical_mv.png}
@@ -278,6 +278,7 @@ For the datasets that contain expert annotation, we calculated the thresholds wh
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/sounds_mv_2.png}
 \end{subfigure}
+\caption{CrowdTruth F1 scores for all crowdsourcing tasks.}
 \end{figure}
 
 We collected expert annotations for the \textit{Medical Relation Extraction} data by employing medical students. Each sentence was annotated by exactly one person. The annotation task consisted of deciding whether or not the UMLS seed relation discovered by distant supervision is present in the sentence for the two selected terms.
@@ -295,9 +296,7 @@ We begin by evaluating \textbf{how the majority vote method compares with CrowdT
 
 \begin{table}[!tb]
 \centering
-\caption {CrowdTruth evaluation results; the \textbf{Threshold} column shows the highest F1 media unit-annotation score threshold for each task, for which the evaluation was done.}
 \scalebox{0.8}{
-\label{tab:f1_mv}
 \begin{tabular}{lrccccl}
 \toprule
 \textsc{Task} & \textsc{Dataset} & \textsc{Precision} & \textsc{Recall} & \textsc{F1 score} & \textsc{Accuracy} &  \textsc{Threshold} \\ \toprule
@@ -323,11 +322,11 @@ We begin by evaluating \textbf{how the majority vote method compares with CrowdT
 \bottomrule
 \end{tabular}
 }
+\caption {CrowdTruth evaluation results; the \textbf{Threshold} column shows the highest F1 media unit-annotation score threshold for each task, for which the evaluation was done.}
+\label{tab:f1_mv}
 \end{table}
 
 \begin{table}
-\caption{$p$-values for McNemar's test of statistical significance in the CrowdTruth classification, compared with the others.}
-\label{tab:stat_sig}
 \centering
 \scalebox{0.8}{
 \begin{tabular}{rccc}
@@ -340,6 +339,8 @@ Sound Interpretation & $< 2.2 \times 10^{-16}$ & $< 2.2 \times 10^{-16}$ & $< 2.
 \bottomrule
 \end{tabular}
 }
+\caption{$p$-values for McNemar's test of statistical significance in the CrowdTruth classification, compared with the others.}
+\label{tab:stat_sig}
 \end{table}
 
 Across all four tasks, the CrowdTruth method performs better than both majority vote and the single annotator dataset.  While majority vote unsurprisingly performs the best on precision, as a consequence of its lower rate of positive labels, CrowdTruth consistently scores the best for both recall, F1 score and accuracy.  These differences in classification are statistically significant, as shown in Table~\ref{tab:stat_sig} -- this was calculated using McNemar's test~\cite{mcnemar1947note} over paired nominal data.
@@ -348,8 +349,6 @@ The evaluation of CrowdTruth compared with the expert is more nuanced. For the \
 
 \begin{figure}[!tb]
 \centering
-\caption{The effect of the number of workers per unit on the F1 score, calculated at the best media unit-annotation score threshold (Table~\ref{tab:f1_mv}). For every point, the F1 is calculated with at most the given number of workers. The number of units used in the calculation of the F1 is shown in the y-axis on the right.}
-\label{fig:f1_workers}
 \centering
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/medical_workf1_2.png}
@@ -363,6 +362,8 @@ The evaluation of CrowdTruth compared with the expert is more nuanced. For the \
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/sounds_workf1_2.png}
 \end{subfigure}
+\caption{The effect of the number of workers per unit on the F1 score, calculated at the best media unit-annotation score threshold (Table~\ref{tab:f1_mv}). For every point, the F1 is calculated with at most the given number of workers. The number of units used in the calculation of the F1 is shown in the y-axis on the right.}
+\label{fig:f1_workers}
 \end{figure}
 
 The second evaluation shows the \textbf{influence of the number of workers on the quality of the CrowdTruth data}.  Figure~\ref{fig:f1_workers} shows the CrowdTruth F1 score in relation to the number of workers.  Given one task, the number of workers per unit varies because of spam removal, so the F1 score was calculated using at most the number of workers at every point in the graph. The number of units annotated with the given number of workers is also shown in the graph.
@@ -373,8 +374,6 @@ Figure~\ref{fig:f1_workers} also shows that CrowdTruth performs better than majo
 
 \begin{figure}[!tbh]
 \centering
-\caption{CrowdTruth F1 score evaluation, using expert annotation as ground truth.}
-\label{fig:f1_exp}
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/exp_eval_relex.png}
 \end{subfigure}%
@@ -387,6 +386,8 @@ Figure~\ref{fig:f1_workers} also shows that CrowdTruth performs better than majo
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/exp_eval_sounds.png}
 \end{subfigure}
+\caption{CrowdTruth F1 score evaluation, using expert annotation as ground truth.}
+\label{fig:f1_exp}
 \end{figure}
 
 Finally, Figure~\ref{fig:f1_exp} shows an evaluation of CrowdTruth using only the expert annotations as ground truth (the \textit{Twitter Event Identification} task does not have experts, so it could not be evaluated). The F1 scores are lower than in the evaluation over the trusted judgments collection. For the \textit{Medical Relation Extraction Task}, majority vote performs essentially the same as CrowdTruth, whereas for the open-ended tasks, CrowdTruth still performs better. However, as we have shown in Appendix~\ref{sec:appendix}, the expert annotations contain errors and are sometimes incomplete, particularly in the case of open-ended tasks. The evaluation using expert ground truth was done to show that the trusted judgments set is not biased in favor of CrowdTruth.
@@ -458,8 +459,6 @@ We would like to thank Emiel van Miltenburg for assisting with the exploration o
 
 \begin{table}[!htb]
 \centering
-\caption {Example sentences from the \textit{Medical Relation Extraction} task where the expert judgment is different from the trusted judgment. The pair of terms that express the medical relation are shown in italic font in the media unit.}
-\label{tab:ex_relex}
 \scalebox{0.8}{
 \begin{tabular}{p{6cm}cccc}
 \toprule
@@ -484,12 +483,12 @@ The principal differences between these vaccines are the transmission of live va
 \bottomrule
 \end{tabular}
 }
+\caption {Example sentences from the \textit{Medical Relation Extraction} task where the expert judgment is different from the trusted judgment. The pair of terms that express the medical relation are shown in italic font in the media unit.}
+\label{tab:ex_relex}
 \end{table}
 
 \begin{table}[!hb]
 \centering
-\caption {Example sentences from the \textit{News Event Extraction} task where the expert judgment is different from the trusted judgment. The annotation is shown in italic font in the media unit.}
-\label{tab:ex_news}
 
 \scalebox{0.8}{
 \begin{tabular}{p{6cm}cccc}
@@ -513,13 +512,14 @@ The American hope is that someone from within Iraq perhaps from the army 's prof
 \bottomrule
 \end{tabular}
 }
+
+\caption {Example sentences from the \textit{News Event Extraction} task where the expert judgment is different from the trusted judgment. The annotation is shown in italic font in the media unit.}
+\label{tab:ex_news}
 \end{table}
 
 
 \begin{table}[!t]
 \centering
-\caption {Example sounds from the \textit{Sound Interpretation} task where the expert judgment is different from the trusted judgment.}
-\label{tab:ex_sounds}
 \scalebox{0.8}{
 \begin{tabular}{p{4cm}ccccc}
 \toprule
@@ -553,4 +553,7 @@ The American hope is that someone from within Iraq perhaps from the army 's prof
 \bottomrule
 \end{tabular}
 }
+
+\caption {Example sounds from the \textit{Sound Interpretation} task where the expert judgment is different from the trusted judgment.}
+\label{tab:ex_sounds}
 \end{table}
