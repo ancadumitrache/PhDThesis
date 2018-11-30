@@ -44,10 +44,10 @@ The label propagation method was introduced by \citet{xiaojin2002learning}, whil
 For the \textit{relation-based correction experiment}, we asked the crowd annotate 2,500 sentences from the NIST TAC-KBP 2013 English Slotfilling data that were annotated with DS. For the \textit{semantic label propagation experiment}, we augmented this dataset by another 2,050 sentences picked at random from the corpus of~\citet{angeli2014combining}. For both datasets, we collected annotations for 16 popular relations from the open domain that occur between terms of types $Person$, $Organization$ and $Location$, as shown in in Figure~\ref{fig:template},\footnote{The $alternate\ names$ relation appears twice in the list, once referring to alternate names of persons, and the other referring to organizations.}. The resulting corpus also contains candidate term pairs and DS seed relations for each sentence. As some relations are more general than others, the relation frequency in the corpus is slightly unequal -- e.g. $places\ of\ residence$ is more likely to be in a sentence when $place\ of\ birth$ and $place\ of\ death$ occur, but not the opposite.
 
 \begin{figure}[htb!]
-\caption{Fragment of the crowdsourcing task template.}
-\label{fig:template}
 \centering
 \includegraphics[width=\textwidth]{img/odrelex.png}
+\caption{Fragment of the crowdsourcing task template.}
+\label{fig:template}
 \end{figure}
 
 We ran a multiple-choice crowdsourcing task (Figure~\ref{fig:template}), asking {\em 15 workers to annotate each sentence} with the appropriate relations, or choose the option $none$ if none of the relations presented apply. Workers were encouraged to select all relations that apply. Each worker was paid \$0.05 per sentence. The task was run on the Figure Eight\footnote{\url{https://www.figure-eight.com/}} and Amazon Mechanical Turk\footnote{\url{https://www.mturk.com/}} crowdsourcing platforms. The data is available online~\cite{crowdODrelexdata2016}.
@@ -94,10 +94,10 @@ In this section, we discuss the results of our experiments on improving the perf
 \label{sec:ds-eval}
 
 \begin{figure}[htb!]
-\caption{DS ratio of false positive over all positive labels, using the crowd as ground truth.}
-\label{fig:fp_rate}
 \centering
 \includegraphics[width=0.75\textwidth]{img/fp_ratio.png}
+\caption{DS ratio of false positive over all positive labels, using the crowd as ground truth.}
+\label{fig:fp_rate}
 \end{figure}
 
 Using the $srs$ as a ground truth at a 0.5 threshold, Figure~\ref{fig:fp_rate} shows the correctness of the DS labels on the initial dev set of 1,025 sentence. There is \textit{considerable variation in DS data quality across relations}. The $origin$ and $place\ of\ death$ relations scored particularly badly, with more than 90\% false positives. With such a high error rate in some relations, it is arguable that any classifier could learn anything meaningful, regardless of algorithm or quantity of data.
@@ -106,11 +106,7 @@ Manual error analysis on the initial dev set showed that many sentences contain 
 
 \begin{table}[htb!]
 \centering
-\caption{RCP for relation subset: $place\ of\ birth$ (PoB), $origin$ (O), $places\ of\ residence$ (PoR), $place\ of\ death$ (PoD), $founded\ organization$ (FO), $employee\ or\ member$ (EoM), $top\ employee\ or\ member$ (TEoM). The scores show the causal power $RCP(R_i, R_j)$ of relations $R_i$ in the rows, over the relations $R_j$ in the columns. Significant changes between crowd annotation based causal power and distant supervision are in bold.}
-\label{tab:rcp}
 \begin{subfigure}{\textwidth}
-	\caption{Crowd-based RCP}
-    \label{tab:crowd_rcp}
     \centering
     \scalebox{0.8}{
     \begin{tabular}{rccccccc}
@@ -126,10 +122,10 @@ Manual error analysis on the initial dev set showed that many sentences contain 
      \bottomrule
     \end{tabular}
     }
+	\caption{Crowd-based RCP}
+    \label{tab:crowd_rcp}
 \end{subfigure}
 \begin{subfigure}{\textwidth}
-	\caption{DS-based RCP.}
-    \label{tab:ds_rcp}
     \centering
     \scalebox{0.8}{
     \begin{tabular}{rccccccc}
@@ -144,7 +140,11 @@ Manual error analysis on the initial dev set showed that many sentences contain 
      TEoM  & -0.16 & -0.1  & -0.17 & -0.12 & 0.34  & \textbf{0.24}  & 1 \\ \bottomrule
     \end{tabular}
     }
+	\caption{DS-based RCP.}
+    \label{tab:ds_rcp}
 \end{subfigure}
+\caption{RCP for relation subset: $place\ of\ birth$ (PoB), $origin$ (O), $places\ of\ residence$ (PoR), $place\ of\ death$ (PoD), $founded\ organization$ (FO), $employee\ or\ member$ (EoM), $top\ employee\ or\ member$ (TEoM). The scores show the causal power $RCP(R_i, R_j)$ of relations $R_i$ in the rows, over the relations $R_j$ in the columns. Significant changes between crowd annotation based causal power and distant supervision are in bold.}
+\label{tab:rcp}
 \end{table}
 
 The results of the macro RCP analysis for six of the relations we analyzed (Table \ref{tab:rcp}) shows that the $place\ of\ birth$ relation has a high causal power (0.64) over $origin$, meaning that when $place\ of\ birth$ is annotated in a sentence, $origin$ is also likely to appear, with the inverse causal power at 0.88.  This high co-causality seems to indicate a confusion between the two relations. Note also that these two relations have significant differences in causal power in the DS-based data. In contrast, $place\ of\ death$ has a high causal power over $places\ of\ residence$ in the DS data (0.45), reflecting the high error rate of $place\ of\ death$ caused by the overlap in the KB with $places\ of\ residence$.
@@ -171,8 +171,6 @@ We expect that the metrics from CrowdTruth annotation can be used to systematica
 \end{enumerate}
 
 \begin{table}[htb!]
-\caption{Precision \& Recall at 20,000 training steps.}
-\label{tab:cnn_res}
 \centering
 \scalebox{0.8}{
 \begin{tabular}{rccc}
@@ -185,6 +183,8 @@ We expect that the metrics from CrowdTruth annotation can be used to systematica
 \bottomrule
 \end{tabular}
 }
+\caption{Precision \& Recall at 20,000 training steps.}
+\label{tab:cnn_res}
 \end{table}
 
 The differences (in bold in Table \ref{tab:rcp}) between the crowd and DS-based causal power accounts for some of the classification errors in our trained system, and we expect them to be a significant cause of error in systems that try to learn cross-relation signals from DS data alone.
@@ -208,17 +208,17 @@ To evaluate the performance of the label propagation method, we calculate the mi
 
 \begin{figure}[tbh!]
 \centering
-\caption{Label propagation evaluation results.}
 \begin{subfigure}{.5\textwidth}
+\includegraphics[width=\linewidth]{img/pr.pdf}
 \caption{Precision / Recall curve, calculated for each sentence-relation pair.}
 \label{fig:pr}
-\includegraphics[width=\linewidth]{img/pr.pdf}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
+\includegraphics[width=\linewidth]{img/cos_sim.pdf}
 \caption{Distribution of sentence-level cosine similarity with test set values.}
 \label{fig:cos_sim}
-\includegraphics[width=\linewidth]{img/cos_sim.pdf}
 \end{subfigure}
+\caption{Label propagation evaluation results.}
 \end{figure}
 
 One reason for which the semantic label propagation method works better than simply adding the correctly labeled sentences to the train set is the high rate of incorrectly labeled examples in the DS training data, as discussed in Section~\ref{sec:ds-eval}. %Figure~\ref{fig:fp} shows that some relations, such as $origin$ and $places\ of\ residence$, have a ratio of over 0.8 false positive sentences, meaning that a vast majority of training examples are incorrectly labeled.
@@ -226,9 +226,9 @@ The success of the \textbf{DS + W2V CT} comes in part because the method relabel
 
 % \begin{figure}[hbt!]
 % \centering
+% \includegraphics[width=0.75\textwidth]{img/fp.png}
 % \caption{DS false positive ratio in combined crowd dev and test sets.}
 % \label{fig:fp}
-% \includegraphics[width=0.75\textwidth]{img/fp.png}
 % \end{figure}
 
 
@@ -248,8 +248,6 @@ In future work, we plan to use the label propagation method to correct training 
 
 \begin{table}[htb!]
 \centering
-\caption{Example sentences with false positive $place\ of\ death$ and $origin$ DS labels due to multiple relations in the KB over $Person$ - $Location$ term types.}
-\label{tab:ds_fp_ex}
 \scalebox{0.8}{
 \bgroup
 \def\arraystretch{1.5}
@@ -280,12 +278,12 @@ In future work, we plan to use the label propagation method to correct training 
 \end{tabular}
 \egroup
 }
+\caption{Example sentences with false positive $place\ of\ death$ and $origin$ DS labels due to multiple relations in the KB over $Person$ - $Location$ term types.}
+\label{tab:ds_fp_ex}
 \end{table}
 
 \begin{table}[htb!]
 \centering
-\caption{Example sentences with false negative $employee\ or\ member$ and $origin$ DS labels due to missing causal connections.}
-\label{tab:ds_fn_ex}
 \scalebox{0.8}{
 \bgroup
 \def\arraystretch{1.5}
@@ -317,4 +315,6 @@ In future work, we plan to use the label propagation method to correct training 
 \end{tabular}
 \egroup
 }
+\caption{Example sentences with false negative $employee\ or\ member$ and $origin$ DS labels due to missing causal connections.}
+\label{tab:ds_fn_ex}
 \end{table}

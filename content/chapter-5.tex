@@ -47,9 +47,9 @@ This work relates to the state of the art in two areas of research: (1) various 
 
 \begin{figure}[t!]
 \centering
+\includegraphics[width=\textwidth]{img/sent-frame.png}
 \caption{Fragment of the crowdsourcing task template.}
 \label{fig:ch5template}
-\includegraphics[width=\textwidth]{img/sent-frame.png}
 \end{figure}
 
 \subsection{Crowdsourcing FrameNet}
@@ -112,22 +112,21 @@ To aggregate the results of the crowd, while also capturing inter-annotator disa
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
-\caption{F1 score of crowd using expert \\ annotation as true positives}
-\label{fig:sent_f1}
 \includegraphics[width=\linewidth]{img/sent_f1_micro_macro.pdf}
+\caption{F1 score}
+\label{fig:sent_f1}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
-\caption{Accuracy of crowd annotations using expert annotation as correct}
-\label{fig:sent_acc}
 \includegraphics[width=\linewidth]{img/sent_acc_micro_macro.pdf}
+\caption{Accuracy}
+\label{fig:sent_acc}
 \end{subfigure}
+\caption{Crowd evaluation results, using expert annotation as correct.}
 \end{figure}
 
 \begin{table}[tb!]
 \centering
-\caption{Example sentence-word pairs where the top crowd frame choice is different than the expert. The targeted word appears in italics font in the sentence. The frame picked by the expert is marked with $^{(*)}$.}
-\label{tab:disagr}
 
 \scalebox{0.8}{
 \begin{tabular}{cp{8cm}cc}
@@ -161,6 +160,9 @@ To aggregate the results of the crowd, while also capturing inter-annotator disa
 \bottomrule
 \end{tabular}
 }
+
+\caption{Example sentence-word pairs where the top crowd frame choice is different than the expert. The targeted word appears in italics font in the sentence. The frame picked by the expert is marked with $^{(*)}$.}
+\label{tab:disagr}
 \end{table}
 
 These definitions are mutually dependent, e.g. the definition of SQS depends on the FQS and WQS, the intuition being that low quality workers should not make sentences look bad, and low quality sentences should not make workers look bad, etc.  The mutual dependence requires an iterative  dynamic programming approach, which converged in numerous applications in fewer than 8 iterations.
@@ -173,8 +175,6 @@ At the best FSS threshold, the accuracy scores are comparable to those presented
 
 \begin{table}[tb!]
 \centering
-\caption{Different FSS values for the frames $removing$ (P1, P2, P3), $means$ (P4, P5, P6), $attempt\ suasion$ (P7, P8, P9). The targeted word appears in italics font in the sentence. The frame picked by the expert is marked with $^{(*)}$.}
-\label{tab:fss_ex}
 
 \scalebox{0.8}{
 \begin{tabular}{cp{5.5cm}ccc}
@@ -232,6 +232,8 @@ At the best FSS threshold, the accuracy scores are comparable to those presented
 \bottomrule
 \end{tabular}
 }
+\caption{Different FSS values for the frames $removing$ (P1, P2, P3), $means$ (P4, P5, P6), $attempt\ suasion$ (P7, P8, P9). The targeted word appears in italics font in the sentence. The frame picked by the expert is marked with $^{(*)}$.}
+\label{tab:fss_ex}
 \end{table}
 
 While the majority of expert choices have high FSS scores, there are some exceptions. We observed 3 different causes for this disagreement, which are exemplified in Table~\ref{tab:disagr}:
@@ -260,22 +262,21 @@ The cases where the experts and crowd disagree exemplify how difficult frame dis
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
+\includegraphics[width=\linewidth]{img/sqs_f1.pdf}
 \caption{SQS in relation to F1 score (with \\ expert annotations as true positives), shows that in higher quality sentences, the crowd tends to agree with experts.}
 \label{fig:sqs_f1}
-\includegraphics[width=\linewidth]{img/sqs_f1.pdf}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
+\includegraphics[width=\linewidth]{img/fqs_f1.pdf}
 \caption{FQS in relation with F1 score (with expert annotations as true positives), shows that in higher quality frames, the crowd tends to agree with the experts.}
 \label{fig:fqs_f1}
-\includegraphics[width=\linewidth]{img/fqs_f1.pdf}
 \end{subfigure}
+\caption{SQS \& FQS evaluation.}
 \end{figure}
 
 \begin{table}[tbh!]
 \centering
-\caption{Sentence Quality Score Examples. The targeted word appears in italics font in the sentence. The frame picked by the expert is marked with $^{(*)}$.}
-\label{tab:sqs}
 
 \scalebox{0.8}{
 \begin{tabular}{cp{6cm}ccc}
@@ -328,6 +329,8 @@ The cases where the experts and crowd disagree exemplify how difficult frame dis
 
 \end{tabular}
 }
+\caption{Sentence Quality Score Examples. The targeted word appears in italics font in the sentence. The frame picked by the expert is marked with $^{(*)}$.}
+\label{tab:sqs}
 \end{table}
 
 \item $means$: This frame refers to the means used by an agent to achieve a purpose. While $P4$ offers an unambiguous expression of the frame, in $P5$ the means with which to achieve a goal becomes confused with the expertise and knowledge required to achieve it. In $P6$ the goal is not mentioned, therefore creating confusion about the purpose of the \textit{approach}, and whether it might refer to a way of communicating or behaving.  Again, we claim this rank ordering is more informative than requiring a discrete judgment on each case.
@@ -347,8 +350,6 @@ In Table~\ref{tab:sqs}, we show some examples of how SQS captures the clarity fo
 
 \begin{table}[tb!]
 \centering
-\caption{Frame Quality Score Examples. The targeted word appears in italics font in the sentence.}
-\label{tab:fqs}
 
 \scalebox{0.8}{
 \begin{tabular}{ccp{3.5cm}p{5.5cm}c}
@@ -382,6 +383,9 @@ In Table~\ref{tab:sqs}, we show some examples of how SQS captures the clarity fo
 
 \end{tabular}
 }
+
+\caption{Frame Quality Score Examples. The targeted word appears in italics font in the sentence.}
+\label{tab:fqs}
 \end{table}
 
 \begin{itemize}
