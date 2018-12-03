@@ -43,15 +43,6 @@ This chapter presents the following contributions:
 
 \section{Related Work}
 This work relates to the state of the art in two areas of research: (1) various crowdsourcing approaches for FrameNet related tasks, and (2) dealing with ambiguity and disagreement in crowdsourcing. Below we provide an overview of the research on which we base or inspire our approach. 
-
-
-\begin{figure}[t!]
-\centering
-\includegraphics[width=\textwidth]{img/sent-frame.png}
-\caption{Fragment of the crowdsourcing task template.}
-\label{fig:ch5template}
-\end{figure}
-
 \subsection{Crowdsourcing FrameNet}
 
 \citet{Hong:2011:GCR:2018966.2018970} first experimented with applying crowdsourcing for frame disambiguation, where the authors were able to achieve an accuracy of 0.982 as compared to the expert annotators. We replicate the performance of the crowd from this research in our experiments. Moreover, we also measure the inter-annotator disagreement which we show is a useful indicator of ambiguity in both sentences and frames. \citet{fossati2013outsourcing} extend the frame disambiguation task with identifying frame roles (roles are the elements of the semantic frame, e.g. participants in an event).
@@ -89,6 +80,15 @@ The restriction on the maximum number of frames was done so as not to overwhelm 
 For simplicity, we refer to the sentence-word pairs as sentences in the rest of the chapter. This dataset, as well as the crowdsourcing results and aggregated metrics are available online~\cite{anca_dumitrache_2018_1472345}.
 
 \subsection{Task Template}
+
+
+\begin{figure}[thb!]
+\centering
+\includegraphics[width=\textwidth]{img/sent-frame.png}
+\caption{Fragment of the crowdsourcing task template.}
+\label{fig:ch5template}
+\end{figure}
+
 
 The crowdsourcing task was run on the Amazon Mechanical Turk platform\footnote{\url{https://mturk.com/}}. The task template is shown in Figure~\ref{fig:ch5template}. The workers were given a sentence with the word highlighted, and then asked to perform the multiple choice task of selecting all frames that fit the sense of the highlighted word, or that none of the frames fit. The most challenging part of the frame disambiguation task design is making sure that the crowd can understand the meaning of the frame. For each frame, we show the definition, as well as a list of sentences exemplifying the usage of the frame. These example sentences can be accessed by the workers by clicking a button next to each frame, so that the workers do not become overwhelmed with the information on the task page. In order to make sure we capture diverse worker opinions, we increased the number of annotators per sentence from 10 (the number recommended by \citet{Hong:2011:GCR:2018966.2018970}), to 15. The cost of the task varied from \$0.08 per annotation at the start of the task, in order to attract a sizable pool of workers, to \$0.06 at the end, as workers became quicker at solving the task.
 
@@ -134,28 +134,28 @@ To aggregate the results of the crowd, while also capturing inter-annotator disa
 \textsc{\#} & \textsc{Sentence} & \textsc{Frame} & \textsc{FSS} \\ \toprule
 
 \multirow{4}{*}{S1} & \multirow{4}{8cm}{Shops \textit{aimed} at the tourist market are interspersed with the more workaday ironmongers.} & \multirow{2}{*}{$aiming$} & \multirow{2}{*}{0.808} \\
-& & & \\ \cline{3-4}
+& & & \\ %\cline{3-4}
 & & \multirow{2}{*}{$purpose^{(*)}$} & \multirow{2}{*}{0.288} \\
 & & & \\ \hline
 
-\multirow{2}{*}{S2} & \multirow{2}{8cm}{The major \textit{changes} were not to daily tasks and routines , but to the political power base.} & $cause\ change$ & 0.804 \\  \cline{3-4}
+\multirow{2}{*}{S2} & \multirow{2}{8cm}{The major \textit{changes} were not to daily tasks and routines , but to the political power base.} & $cause\ change$ & 0.804 \\  %\cline{3-4}
 & & $undergo\ change^{(*)}$ & 0.305 \\ \hline
 
-\multirow{2}{*}{S3} & \multirow{2}{8cm}{This \textit{investigation} has been stymied stopped, obstructions thrown up every step of the way.} & $criminal\ investigation$ & 0.898 \\  \cline{3-4}
+\multirow{2}{*}{S3} & \multirow{2}{8cm}{This \textit{investigation} has been stymied stopped, obstructions thrown up every step of the way.} & $criminal\ investigation$ & 0.898 \\  %\cline{3-4}
 & & $scrutiny^{(*)}$ & 0.377 \\ \hline
 
-\multirow{2}{*}{S4} & \multirow{2}{8cm}{Does supersizing \textit{cause} obesity?} & $cause\ to\ start$ & 0.804 \\  \cline{3-4}
+\multirow{2}{*}{S4} & \multirow{2}{8cm}{Does supersizing \textit{cause} obesity?} & $cause\ to\ start$ & 0.804 \\  %\cline{3-4}
 & & $causation^{(*)}$ & 0.608 \\ \hline
 
 \multirow{4}{*}{S5} & \multirow{4}{8cm}{The loud, raucous Jamaican English dialect and the \textit{waving} hands reflect the joy with which social relations are conducted here.} & \multirow{2}{*}{$body\ movement$} & \multirow{2}{*}{0.861} \\
-& & & \\ \cline{3-4}
+& & & \\ %\cline{3-4}
 & & \multirow{2}{*}{$gesture^{(*)}$} & \multirow{2}{*}{0.463} \\
 & & & \\ \hline
 
-\multirow{2}{*}{S6} & \multirow{2}{8cm}{The Intifada \textit{heralded} the rise of the Muslim fundamentalism.} & $heralding$ & 0.777 \\  \cline{3-4}
+\multirow{2}{*}{S6} & \multirow{2}{8cm}{The Intifada \textit{heralded} the rise of the Muslim fundamentalism.} & $heralding$ & 0.777 \\  %\cline{3-4}
 & & $omen^{(*)}$ & 0.227 \\ \hline
 
-\multirow{2}{*}{S7} & \multirow{2}{8cm}{Fish (heads discreetly \textit{wrapped} in paper) are still hung out to dry in the sun.} & $adorning$ & 0.31 \\  \cline{3-4}
+\multirow{2}{*}{S7} & \multirow{2}{8cm}{Fish (heads discreetly \textit{wrapped} in paper) are still hung out to dry in the sun.} & $adorning$ & 0.31 \\  %\cline{3-4}
 & & $filling^{(*)}$ & 0.278 \\ %\hline
 \bottomrule
 \end{tabular}
@@ -182,52 +182,52 @@ At the best FSS threshold, the accuracy scores are comparable to those presented
 \textsc{\#} & \textsc{Sentence} & \textsc{SQS} &  \textsc{Frame} & \textsc{FSS}  \\ \toprule
 
 \multirow{5}{*}{P1} & \multirow{5}{5.5cm}{Egypt has provided no evidence demonstrating the \textit{elimination} of its biological warfare ability, which has existed since at least 1972.} & \multirow{5}{*}{0.841} & & \\
-& & & $removing^{(*)}$ & 0.938 \\ \cline{4-5}
-& & & $cause\ change$ & 0.175 \\ \cline{4-5}
+& & & $removing^{(*)}$ & 0.938 \\ %%\cline{4-5}
+& & & $cause\ change$ & 0.175 \\ %%\cline{4-5}
 & & & $event$ & 0.032 \\
 & & & &  \\ \hline
 
-\multirow{4}{*}{P2} & \multirow{4}{5.5cm}{First, he forbade seeking the aid of infidels when the Syrian Mujahiddin asked Saddam Hussein to \textit{overthrow} the regime of Hafiz Al-Assad in Syria.} & \multirow{4}{*}{0.669} & $change\ of\ leadership^{(*)}$ & 0.847 \\  \cline{4-5}
-& & & $removing$ & 0.539 \\ \cline{4-5}
-& & & $eventive\ cognizer\ affecting$ & 0.087 \\ \cline{4-5}
+\multirow{4}{*}{P2} & \multirow{4}{5.5cm}{First, he forbade seeking the aid of infidels when the Syrian Mujahiddin asked Saddam Hussein to \textit{overthrow} the regime of Hafiz Al-Assad in Syria.} & \multirow{4}{*}{0.669} & $change\ of\ leadership^{(*)}$ & 0.847 \\  %\cline{4-5}
+& & & $removing$ & 0.539 \\ %\cline{4-5}
+& & & $eventive\ cognizer\ affecting$ & 0.087 \\ %\cline{4-5}
 & & & $people$ & 0.005 \\ \hline
 
-\multirow{5}{*}{P3} & \multirow{5}{5.5cm}{Their influence helped draw a line in the desert sand between legitimate operations and mob casinos, where illegal \textit{skimming} of profits was rampant.} & \multirow{5}{*}{0.366} & $removing^{(*)}$ & 0.532 \\ \cline{4-5}
-& & & $theft$ & 0.494 \\ \cline{4-5}
-& & & $committing\ crime$ & 0.459 \\ \cline{4-5}
-& & & $misdeed$ & 0.431 \\ \cline{4-5}
+\multirow{5}{*}{P3} & \multirow{5}{5.5cm}{Their influence helped draw a line in the desert sand between legitimate operations and mob casinos, where illegal \textit{skimming} of profits was rampant.} & \multirow{5}{*}{0.366} & $removing^{(*)}$ & 0.532 \\ %\cline{4-5}
+& & & $theft$ & 0.494 \\ %\cline{4-5}
+& & & $committing\ crime$ & 0.459 \\ %\cline{4-5}
+& & & $misdeed$ & 0.431 \\ %\cline{4-5}
 & & & $cause\ change$ & 0.273 \\ \toprule
 
 \multirow{4}{*}{P4} & \multirow{4}{5.5cm}{The above mentioned protection \textit{procedures} are only for observation purposes, while patrols check the fences, the barriers, and the towers.} & \multirow{4}{*}{0.786} & \multirow{2}{*}{$means^{(*)}$} & \multirow{2}{*}{0.889} \\
-& & & &  \\ \cline{4-5}
+& & & &  \\ %\cline{4-5}
 & & & \multirow{2}{*}{$being\ employed$} & \multirow{2}{*}{0.11} \\
 & & & & \\ \hline
 
-\multirow{4}{*}{P5} & \multirow{4}{5.5cm}{We've expanded Goodwill's proven \textit{methods} to towns and neighborhoods where they are needed most.} & \multirow{4}{*}{0.364} & $means^{(*)}$ & 0.601 \\ \cline{4-5}
-& & & $expertise$ & 0.342 \\ \cline{4-5}
-& & & $domain$ & 0.173 \\ \cline{4-5}
+\multirow{4}{*}{P5} & \multirow{4}{5.5cm}{We've expanded Goodwill's proven \textit{methods} to towns and neighborhoods where they are needed most.} & \multirow{4}{*}{0.364} & $means^{(*)}$ & 0.601 \\ %\cline{4-5}
+& & & $expertise$ & 0.342 \\ %\cline{4-5}
+& & & $domain$ & 0.173 \\ %\cline{4-5}
 & & & $fields$ & 0.131 \\ \hline
 
-\multirow{4}{*}{P6} & \multirow{4}{5.5cm}{The latest \textit{approach} is perhaps the best of the post-mob era : the comprehensive resort.} & \multirow{4}{*}{0.208} & $means^{(*)}$ & 0.457 \\ \cline{4-5}
-& & & $conduct$ & 0.225 \\ \cline{4-5}
-& & & $path\ traveled$ & 0.159 \\ \cline{4-5}
+\multirow{4}{*}{P6} & \multirow{4}{5.5cm}{The latest \textit{approach} is perhaps the best of the post-mob era : the comprehensive resort.} & \multirow{4}{*}{0.208} & $means^{(*)}$ & 0.457 \\ %\cline{4-5}
+& & & $conduct$ & 0.225 \\ %\cline{4-5}
+& & & $path\ traveled$ & 0.159 \\ %\cline{4-5}
 & & & $communication$ & 0.121 \\ \toprule
 
 \multirow{6}{*}{P7} & \multirow{6}{5.5cm}{Prime Minister Ariel Sharon of Israel \textit{urged} President Bush to step up pressure on Iran to give up all elements of its nuclear program.} & \multirow{6}{*}{0.528} & & \\
-& & & $attempt\ suasion^{(*)}$ & 0.81 \\ \cline{4-5}
-& & & $request$ & 0.387 \\ \cline{4-5}
-& & & $communication$ & 0.337 \\ \cline{4-5}
+& & & $attempt\ suasion^{(*)}$ & 0.81 \\ %\cline{4-5}
+& & & $request$ & 0.387 \\ %\cline{4-5}
+& & & $communication$ & 0.337 \\ %\cline{4-5}
 & & & $cause\ to\ start$ & 0.115 \\
 & & & & \\ \hline
 
-\multirow{4}{*}{P8} & \multirow{4}{5.5cm}{The security team should \textit{urge} everyone to take precautions and guard their homes tightly.} & \multirow{4}{*}{0.358} & $attempt\ suasion^{(*)}$ & 0.605 \\ \cline{4-5}
-& & & $request$ & 0.321 \\ \cline{4-5}
-& & & $cause\ to\ start$ & 0.256 \\ \cline{4-5}
+\multirow{4}{*}{P8} & \multirow{4}{5.5cm}{The security team should \textit{urge} everyone to take precautions and guard their homes tightly.} & \multirow{4}{*}{0.358} & $attempt\ suasion^{(*)}$ & 0.605 \\ %\cline{4-5}
+& & & $request$ & 0.321 \\ %\cline{4-5}
+& & & $cause\ to\ start$ & 0.256 \\ %\cline{4-5}
 & & & $communication$ & 0.213 \\ \hline
 
-\multirow{4}{*}{P9} & \multirow{4}{5.5cm}{The security team should publish a periodic bulletin and distribute to all residents, \textit{advising} them how to safely store gaz and logs.} & \multirow{4}{*}{0.386} & $attempt\ suasion^{(*)}$ & 0.576 \\ \cline{4-5}
-& & & $communication$ & 0.567 \\ \cline{4-5}
-& & & $expertise$ & 0.167 \\ \cline{4-5}
+\multirow{4}{*}{P9} & \multirow{4}{5.5cm}{The security team should publish a periodic bulletin and distribute to all residents, \textit{advising} them how to safely store gaz and logs.} & \multirow{4}{*}{0.386} & $attempt\ suasion^{(*)}$ & 0.576 \\ %\cline{4-5}
+& & & $communication$ & 0.567 \\ %\cline{4-5}
+& & & $expertise$ & 0.167 \\ %\cline{4-5}
 & & & $request$ & 0.156 \\ %\hline
 \bottomrule
 \end{tabular}
@@ -284,44 +284,44 @@ The cases where the experts and crowd disagree exemplify how difficult frame dis
 \textsc{\#} & \textsc{Sentence} & \textsc{SQS} &  \textsc{Frame} & \textsc{FSS}  \\ \toprule
 
 \multirow{6}{*}{Q1} & \multirow{6}{6cm}{Although David bought the land for the Temple and carefully assembled its building materials, he was deemed unworthy of \textit{constructing} the Temple.} & \multirow{6}{*}{0.711} & \multirow{2}{*}{$building^{(*)}$} & \multirow{2}{*}{0.925} \\
-& & & & \\  \cline{4-5}
+& & & & \\  %\cline{4-5}
 & & & \multirow{2}{*}{$manufacturing$} & \multirow{2}{*}{0.183} \\ 
-& & & & \\ \cline{4-5}
+& & & & \\ %\cline{4-5}
 %& & & $cause\ to\ start$ & 0.156 \\
 %& & & $coming\ up\ with$ & 0.069 \\
 & & & \multirow{2}{*}{$create\ physical\ artwork$} & \multirow{2}{*}{0.056} \\
 & & & & \\ \hline
 
 \multirow{6}{*}{Q2} & \multirow{6}{6cm}{Passageways for cars and pedestrians should be designated 4- Road bumps: Six successive bumps should be \textit{constructed} at 500 meters from the location.} & \multirow{6}{*}{0.542} & \multirow{2}{*}{$building^{(*)}$} & \multirow{2}{*}{0.768} \\
-& & & & \\ \cline{4-5}
+& & & & \\ %\cline{4-5}
 & & & \multirow{2}{*}{$manufacturing$} & \multirow{2}{*}{0.326} \\ 
-& & & & \\  \cline{4-5}
+& & & & \\  %\cline{4-5}
 & & & \multirow{2}{*}{$create\ physical\ artwork$} & \multirow{2}{*}{0.089} \\
 & & & & \\ \hline
 % & & & $cause\ change$ & 0.082 \\ 
 % & & & $cause\ to\ start$ & 0.082 \\ \hline
 
-\multirow{4}{*}{Q3} & \multirow{4}{6cm}{\textit{Constructed} in wood, brick, stone, ceramic, and bronze, this is a work of extravagant beauty, uniting many ancient art forms.} & \multirow{4}{*}{0.351} & $building^{(*)}$ & 0.515 \\ \cline{4-5}
-& & & $create\ physical\ artwork$ & 0.335 \\ \cline{4-5}
+\multirow{4}{*}{Q3} & \multirow{4}{6cm}{\textit{Constructed} in wood, brick, stone, ceramic, and bronze, this is a work of extravagant beauty, uniting many ancient art forms.} & \multirow{4}{*}{0.351} & $building^{(*)}$ & 0.515 \\ %\cline{4-5}
+& & & $create\ physical\ artwork$ & 0.335 \\ %\cline{4-5}
 & & & $manufacturing$ & 0.237 \\
 & & & & \\ \toprule
 %& & & $cause\ to\ start$ & 0.072 \\ 
 %& & & $opinion$ & 0.004 \\ \toprule
 
-\multirow{4}{*}{Q4} & \multirow{4}{6cm}{U.S. Congressman Tony Hall arrived here Sunday evening, \textit{becoming} the first U.S. lawmaker to visit Iraq since the 1991 Gulf War.} & \multirow{4}{*}{0.901} & $becoming^{(*)}$ & 0.995 \\ \cline{4-5}
-& & & $cause\ change$ & 0.24 \\ \cline{4-5}
+\multirow{4}{*}{Q4} & \multirow{4}{6cm}{U.S. Congressman Tony Hall arrived here Sunday evening, \textit{becoming} the first U.S. lawmaker to visit Iraq since the 1991 Gulf War.} & \multirow{4}{*}{0.901} & $becoming^{(*)}$ & 0.995 \\ %\cline{4-5}
+& & & $cause\ change$ & 0.24 \\ %\cline{4-5}
 & & & $undergo\ change$ & 0.212 \\
 & & & & \\ \hline
 
-\multirow{4}{*}{Q5} & \multirow{4}{6cm}{Cheung Chau \textit{becomes} the center of Hong Kong life once a year, usually in May , during the Bun Festival, a folklore extravaganza.} & \multirow{4}{*}{0.562} & $becoming^{(*)}$ & 0.783 \\ \cline{4-5}
-& & & $undergo\ change$ & 0.783 \\  \cline{4-5}
+\multirow{4}{*}{Q5} & \multirow{4}{6cm}{Cheung Chau \textit{becomes} the center of Hong Kong life once a year, usually in May , during the Bun Festival, a folklore extravaganza.} & \multirow{4}{*}{0.562} & $becoming^{(*)}$ & 0.783 \\ %\cline{4-5}
+& & & $undergo\ change$ & 0.783 \\  %\cline{4-5}
 & & & $cause\ change$ & 0.402 \\
 & & & & \\ \toprule
 
-\multirow{2}{*}{Q6} & \multirow{2}{6cm}{Are there any \textit{efforts} to bring back small investors?} & \multirow{2}{*}{0.811} & $attempt^{(*)}$ & 0.926 \\ \cline{4-5}
+\multirow{2}{*}{Q6} & \multirow{2}{6cm}{Are there any \textit{efforts} to bring back small investors?} & \multirow{2}{*}{0.811} & $attempt^{(*)}$ & 0.926 \\ %\cline{4-5}
 & & & $commitment$ & 0.178 \\ \hline
 
-\multirow{2}{*}{Q7} & \multirow{2}{6cm}{At AOL there was a conscious \textit{effort} to develop other ``characters,'' for lack of a better word.} & \multirow{2}{*}{0.588} &  $attempt^{(*)}$ & 0.739 \\ \cline{4-5}
+\multirow{2}{*}{Q7} & \multirow{2}{6cm}{At AOL there was a conscious \textit{effort} to develop other ``characters,'' for lack of a better word.} & \multirow{2}{*}{0.588} &  $attempt^{(*)}$ & 0.739 \\ %\cline{4-5}
 & & & $commitment$ & 0.468 \\
 & & & & \\ %\hline 
 \bottomrule
@@ -357,27 +357,27 @@ In Table~\ref{tab:sqs}, we show some examples of how SQS captures the clarity fo
 \textsc{Frame} & \textsc{FQS} & \textsc{Definition} & \textsc{Example Sentences} & \textsc{FSS} \\ \toprule
 
 
-\multirow{7}{*}{$killing$} & \multirow{7}{*}{0.954} & \multirow{7}{3.5cm}{A Killer or Cause causes the death of the Victim.} &  $F1$: Older kids left homeless after a recent murder-\textit{suicide} in Indianapolis claimed Mom and Dad. & 0.8 \\ \cline{4-5}
+\multirow{7}{*}{$killing$} & \multirow{7}{*}{0.954} & \multirow{7}{3.5cm}{A Killer or Cause causes the death of the Victim.} &  $F1$: Older kids left homeless after a recent murder-\textit{suicide} in Indianapolis claimed Mom and Dad. & 0.8 \\ %\cline{4-5}
 & & & $F2$: The incident at Mayak was the third \textit{shooting} in recent weeks involving nuclear weapons or facilities in Russia. & 0.75 \\ \hline
 
-\multirow{9}{*}{$food$ } & \multirow{9}{*}{0.838} & \multirow{9}{3.5cm}{Words referring to items of food.} & $F3$: Lamma Island is perfect for sitting back to watch \textit{bananas} grow. & 1.0 \\ \cline{4-5}
-& & & $F4$: Along with the usual \textit{chickens}, you will see for sale snakes, dogs, and sometimes monkeys - all highly prized delicacies . & 0.838 \\ \cline{4-5}
+\multirow{9}{*}{$food$ } & \multirow{9}{*}{0.838} & \multirow{9}{3.5cm}{Words referring to items of food.} & $F3$: Lamma Island is perfect for sitting back to watch \textit{bananas} grow. & 1.0 \\ %\cline{4-5}
+& & & $F4$: Along with the usual \textit{chickens}, you will see for sale snakes, dogs, and sometimes monkeys - all highly prized delicacies . & 0.838 \\ %\cline{4-5}
 & & & $F5$: You can browse among antiques, flowers, \textit{herbs}, and more. & 0.503 \\ \hline
 
-\multirow{7}{*}{$assistance$ } & \multirow{7}{*}{0.634 } & \multirow{7}{3.5cm}{A Helper benefits a Benefited party by enabling the culmination of a Goal of the Benefited party.} & $F6$: Your support \textit{helps} provide real solutions. & 0.955 \\  \cline{4-5}
-& & & $F7$: Unemployment \textit{provides} benefits that many entry-level jobs don't. & 0.467 \\  \cline{4-5}
+\multirow{7}{*}{$assistance$ } & \multirow{7}{*}{0.634 } & \multirow{7}{3.5cm}{A Helper benefits a Benefited party by enabling the culmination of a Goal of the Benefited party.} & $F6$: Your support \textit{helps} provide real solutions. & 0.955 \\  %\cline{4-5}
+& & & $F7$: Unemployment \textit{provides} benefits that many entry-level jobs don't. & 0.467 \\  %\cline{4-5}
 & & & $F8$: Your support of Goodwill will \textit{provide} job training. & 0.401 \\ \hline
 
-\multirow{8}{*}{$purpose$ } & \multirow{8}{*}{0.63 } & \multirow{8}{3.5cm}{An Agent wants to achieve a Goal. A Means is used to allow the Agent to achieve a Goal.} & $F9$: The \textit{objective} of having kiosks is they serve as communication points between the guards & 0.94 \\ \cline{4-5}
-& & & $F10$: They are antiviral drugs \textit{designed} to shorten the flu. & 0.476 \\  \cline{4-5}
+\multirow{8}{*}{$purpose$ } & \multirow{8}{*}{0.63 } & \multirow{8}{3.5cm}{An Agent wants to achieve a Goal. A Means is used to allow the Agent to achieve a Goal.} & $F9$: The \textit{objective} of having kiosks is they serve as communication points between the guards & 0.94 \\ %\cline{4-5}
+& & & $F10$: They are antiviral drugs \textit{designed} to shorten the flu. & 0.476 \\  %\cline{4-5}
 & & & $F11$: It seems that the city produced artists of this stature by accident, even against its \textit{will}. & 0.241 \\ \hline
 
-\multirow{7}{1cm}{$subjective$ $influence$} & \multirow{7}{*}{0.366} & \multirow{7}{3.5cm}{An Agent has influence on a Cognizer. The influence may be general, manifested in an Action as a consequence of the influence.} & $F12$: There have been changes, many of them due to economic progress, new construction, and other factors that \textit{influence} cities. & 0.54 \\ \cline{4-5}
-& & & $F13$: The Cycladic culture was \textit{influenced} by societies in the east. & 0.46 \\ \cline{4-5}
+\multirow{7}{1cm}{$subjective$ $influence$} & \multirow{7}{*}{0.366} & \multirow{7}{3.5cm}{An Agent has influence on a Cognizer. The influence may be general, manifested in an Action as a consequence of the influence.} & $F12$: There have been changes, many of them due to economic progress, new construction, and other factors that \textit{influence} cities. & 0.54 \\ %\cline{4-5}
+& & & $F13$: The Cycladic culture was \textit{influenced} by societies in the east. & 0.46 \\ %\cline{4-5}
 & & & $F14$: Their complaint: the system \textit{discourages} working. & 0.364 \\ \hline
 
-\multirow{8}{1cm}{$undergo$ $change$} & \multirow{8}{*}{0.313} & \multirow{8}{3.5cm}{An Entity changes, either in its category membership or in terms of the value of an Attribute.} & $F15$: The animosity between these two traditional enemies is beginning to \textit{diminish}. & 0.805 \\  \cline{4-5}
- & & & $F16$: The \textit{shift} in the image of Gates has been an interesting one for me to watch. & 0.351 \\ \cline{4-5}
+\multirow{8}{1cm}{$undergo$ $change$} & \multirow{8}{*}{0.313} & \multirow{8}{3.5cm}{An Entity changes, either in its category membership or in terms of the value of an Attribute.} & $F15$: The animosity between these two traditional enemies is beginning to \textit{diminish}. & 0.805 \\  %\cline{4-5}
+ & & & $F16$: The \textit{shift} in the image of Gates has been an interesting one for me to watch. & 0.351 \\ %\cline{4-5}
 & & & $F17$: The settlements of Thira and Akrotiri \textit{thrived} at this time. & 0.256 \\ %\hline
 \bottomrule
 
