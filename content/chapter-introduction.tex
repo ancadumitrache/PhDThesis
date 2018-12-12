@@ -57,7 +57,7 @@ Our research is part of this current trend of investigating the limitations of m
 
 
 \subsection{Natural Language Processing with the Crowd}
-% refer to the specific area of relation extraction
+% refer to the specific area of relation extraction + add frames
 
 Due to being both cheaper and more readily available than domain experts, crowdsourcing is used to collect ground truth for a variety of natural language processing tasks, across several domains: medical entity extraction~\cite{zhai2013web,Finin2010,van2012eu}, medical relation extraction~\cite{kilicoglu2011constructing,van2012eu}, open-domain relation extraction~\cite{kondreddi2014combining}, clustering and disambiguation~\cite{Lee2013}, ontology evaluation~\cite{noy2013mechanical}, web resource classification~\cite{castano2016human} and taxonomy creation~\cite{bragg2013crowdsourcing}. \citet{Snow2008} have shown that aggregating the answers of an increasing number of unskilled crowd workers with majority vote can lead to high quality natural language processing training data.
 
@@ -67,7 +67,9 @@ The approach in these works is to restrict disagreement between annotators by us
 
 
 \subsection{Capturing Ambiguity}
-% mention that this applies to multiple NLP tasks, as opposed to the other sections that are more about RelEx and FD
+% mention that this applies to multiple NLP tasks, as opposed to the other sections that are more about RelEx and Frame Dis
+% add a concluding paragraph - discuss the lack of unified theory of how to deal with that
+% types of ambiguity, sources of ambiguity, ways of dealing with it
 
 Our work is part of a continuous effort in exploring the causes of inter-annotator disagreement in crowdsourcing, that go beyond simply the variable quality of workers. In an experiment for crowdsourcing anaphora resolution, \citet{poesio2005reliability} found that inter-annotator disagreement is linked to ambiguity in the text, and that directly asking the annotators to identify the ambiguous annotations is not enough to identify all the implicitly ambiguous cases. In assessing the OAEI benchmark, \citet{cheatham2014conference} found that disagreement between annotators (both crowd and expert) is an indicator for inherent uncertainty in the domain knowledge, and that current benchmarks in ontology alignment and evaluation are not designed to model this uncertainty. \citet{plank-hovy-sogaard:2014:P14-2} found similar results for the task of crowdsourced part-of-speech tagging -- most inter-annotator disagreement was indicative of debatable cases in linguistic theory, rather than faulty annotation. \citet{Bayerl2011} also investigate the role of inter-annotator disagreement as a possible indicator of ambiguity inherent in natural language. \citet{lau2014measuring} propose a method for crowdsourcing ambiguity in the grammatical correctness of text by giving workers the possibility to pick various degrees of correctness, but inter-annotator disagreement is not discussed as a factor in measuring this ambiguity. \citet{Chang:2017:Revolt} found that ambiguous cases cannot simply be resolved by better annotation guidelines or through worker quality control. Across a series of textual annotation tasks, \citet{chang2016linguistic} found that the vast majority of annotators that disagree with the gold standard were correct in their assessment, either because the gold standard was faulty, or the task allowed for multiple correct answers. Beyond text, studies in the annotation of music similarity~\cite{doi:10.1080/09298215.2016.1200631}, time series~\cite{schaekermann2016,schaekermann2018resolvable}, and medical images~\cite{cheplygina2018crowd} have shown that disagreement between annotators can be an indicator for interesting properties of the data, such as ambiguity and uncertainty.
 
