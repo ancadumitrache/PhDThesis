@@ -48,7 +48,7 @@ We also showed cases where the crowd annotation is correct even though the exper
 The research presented in this thesis has several possible directions for future work. In addition to the limitations specific to the material in each chapter, we identify three overarching issues to be explored in the future work: (1) expanding the experimental work on capturing ground truth ambiguity beyond relation extraction and frame disambiguation, (2) optimizing for the cost of data collection, and (3) building natural language processing models that learn to recognize ambiguity.
 
 
-\subsection{Disagreement Beyond Relations and Frames}
+\subsection{Disagreement beyond Relations and Frames}
 
 %``Completeness proofs are notoriously difficult and are best avoided by any student who aims to finish his PhD on time.'' Judea Pearl in The Book of Why
 
@@ -71,6 +71,6 @@ Future work should compare CrowdTruth with other methods that optimize for cost 
 \subsection{Learning Ambiguity}
 
 In Chapter~\ref{chap:od-rel-ex}, we have shown how the performance of relation extraction models can be improved using disagreement-preserving crowd data, and in Chapter~\ref{chap:frames}, we discussed the link between inter-worker disagreement and ambiguity. The logical next step would be to incorporate ambiguity into the natural language processing models, and learn to predict it. 
-Loss functions in models can be modified to work with continuous scores that express confidence in a label. However, ambiguity is a slightly different feature of the text, one that refers to multiple possible interpretations, and not to poor quality labels. Therefore, it should be possible to use ambiguity and label confidence scores in combinations -- e.g. by having high confidence that an annotation is ambiguous.
+Loss functions in models can be modified to work with continuous scores that express confidence in a label. However, ambiguity is a slightly different feature of the text, one that refers to multiple possible interpretations, and not to poor quality labels. Therefore, it should be possible to use ambiguity and label confidence scores in combination -- e.g. by having high confidence that an annotation is ambiguous.
 
 Models that learn to predict ambiguity are difficult to implement, because ambiguity is usually an outlier in the data, and is thus difficult to generalize from. \citet{lebanoff2018automatic} have done promising work in this direction, by learning to predict vague words and sentences in privacy policies. Future work should explore how to generalize this method to the tasks discussed in this thesis (relation extraction and frame disambiguation), as well as other ambiguity-prone natural language processing tasks.
