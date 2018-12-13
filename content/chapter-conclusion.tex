@@ -30,8 +30,6 @@ In addition, our results show that, when the model reaches maximum performance a
 
 In Chapter~\ref{chap:maj-vote}, we studied the impact of inter-annotator disagreement on data quality for a set of diverse crowdsourcing tasks: closed tasks (\textit{Medical Relation Extraction}, \textit{Twitter Event Identification}), and open-ended tasks (\textit{News Event Extraction} and \textit{Sound Interpretation}). To do this, we employ an empirically derived methodology for efficiently gathering of human annotation by aggregating crowdsourcing data with CrowdTruth metrics, which harness the inter-annotator disagreement. Our results showed that preserving disagreement in the annotations allows us to collect richer data, which enables reasoning about the ambiguity of the content being annotated. In all the tasks we considered, ambiguity-aware quality scores provide better ground truth data than the traditional majority vote. Finally, we showed that, contrary to the common crowdsourcing practice of employing a small number of annotators, adding more crowd workers actually can lead to significantly better annotation quality. \\
 
-%This is intrinsically relevant to the Semantic Web community, i.e. to identify the semantics of ambiguity across all modalities, e.g. text, images, videos and sounds. Our results also showed that, in all the tasks we considered, such ambiguity-aware quality scores provide better ground truth data than the traditional majority vote. Moreover, we have shown that CrowdTruth annotations have at least the same quality, even better in the case of \textit{Sound Interpretation}, as expert annotations.  Finally, we showed that, contrary to the common crowdsourcing practice of employing a small number of annotators, adding more crowd workers actually can lead to significantly better annotation quality.
-
 
 \textbf{RQ3:} \textit{Can we improve the performance of natural language processing models by using disagreement-aware ground truth data?}
 
@@ -49,23 +47,26 @@ We also showed cases where the crowd annotation is correct even though the exper
 
 The research presented in this thesis has several possible directions for future work. In addition to the limitations specific to the material in each chapter, we identify three overarching issues to be explored in the future work: (1) expanding the experimental work on capturing ground truth ambiguity beyond relation extraction and frame disambiguation, (2) optimizing for the cost of data collection, and (3) building natural language processing models that learn to recognize ambiguity.
 
-\subsection{Beyond NLP/RelEx/Frames}
 
-``Completeness proofs are notoriously difficult and are best avoided by any student who aims to finish his PhD on time.'' Judea Pearl in The Book of Why
+\subsection{Disagreement Beyond Relations and Frames}
 
-compositionality of ambiguity
+%``Completeness proofs are notoriously difficult and are best avoided by any student who aims to finish his PhD on time.'' Judea Pearl in The Book of Why
 
-compare with more baselines
+To paraphrase Judea Pearl~\cite{pearl2018book}, proving completeness of a theory is notoriously difficult, and should be avoided if one wants to finish a PhD on time. This work does not claim completeness -- while we were able to successfully study the impact of disagreement on relation extraction and frame disambiguation, there are \textit{many more tasks and domains in natural language processing} that could be added to this analysis. Already, the CrowdTruth methodology for disagreement-preserving crowdsourcing has been applied to a variety of other tasks outside the scope of this thesis, such as named entity recognition~\cite{inel2017harnessing}, topical relevance of paragraphs~\cite{inel2018studying}, and textual description of videos~\cite{inel2018study}. Additionally, Section~\ref{sec:rel-work-ambig} discussed other ambiguity-prone tasks where our methodology for capturing and interpreting disagreement could be explored: anaphora resolution \cite{poesio2005reliability}, ontology alignment and evaluation~\cite{cheatham2014conference}, part-of-speech tagging~\cite{plank-hovy-sogaard:2014:P14-2}, and establishing grammatical correctness of text~\cite{lau2014measuring}.
+
+Another interesting future direction would be to explore the \textit{compositionality of ambiguity}, as it applies to more complex natural language processing tasks, such as text summarization, machine translation, and question answering. We expect that ambiguity at the low-level of the text (e.g. ambiguous relations) will propagate and influence the ambiguity of the entire text. However, the compositional nature of language could potentially complicate the way this propagation occurs -- for instance, it is concievable to have a text where every entity and relation is unambiguous, but when considering the whole text, ambiguity is present. This is frequently the case in legal texts~\cite{edelman1992legal}, which employ well-defined concepts but are usually open to multiple interpretations. A disagreement-based analysis of such texts could be used to identify the exact step in the language composition where ambiguity appears.
+
+Finally, while the CrowdTruth method of aggregating crowdsourcing results has shown promising results, it should be \textit{compared with more baselines that go beyond majority vote}. In Section~\ref{sec:rel-work-agg}, we have presented several alternative crowdsourcing aggregation metrics~\cite{welinder2010multidimensional,werling2015job,NIPS2009_3644,Bozzon:2013,Kittur2008,Ipeirotis:2010}, out of which the most promising appear to be the Bayesian methods~\cite{paun2018comparing} that model worker reliability in combination with task difficulty. Future work should explore how the CrowdTruth approach compares to these methods in terms of quality of the ground truth they produce. Furthermore, it would be important to investigate whether Bayesian methods are able to identify ambiguity in the input data and annotations like CrowdTruth is doing.
 
 
-\subsection{The Cost of Ambiguity}
+\subsection{The Cost of Disagreement}
 
 an incremental approach to crowdsourcing
 
 gated crowd~\cite{liu2016effective} vs. CrowdTruth
 
 
-\subsection{Learning Uncertainty}
+\subsection{Learning Ambiguity}
 
 it's difficult to learn from ambiguity because it's mostly outliers
 
