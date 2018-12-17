@@ -28,13 +28,18 @@ This thesis explores how the CrowdTruth methodology can be used to collect groun
 
 
 \section{Related Work}
+\label{sec:intro-rel-work}
 
-Crowdsourcing is a widely used method to collect natural language processing ground truth~\cite{Sabou:2012:CRO:2362456.2362479}. In this section, we explore background work on a number of important crowdsourcing issues: how to establish crowd data quality, how to aggregate multiple crowd annotations, how natural language processing models use crowd data in training and evaluation, and what the relation is between inter-worker disagreement and natural language ambiguity.
-% these are the topics of the thesis, and this is the related work
-% indicate the main venues of publication for this topic
-% are there any fields or subfields that we know that are relevant to this topic: HCOMP, HCOMP journal, CHI, EMNLP/ACL, NIPS, WebConf, TiiS, Semantic Web Journal, ISWC, ESWC
-% refer to the communities more specifically
-% how many papers were surveyed
+Crowdsourcing is a widely used method to collect natural language processing ground truth~\cite{Sabou:2012:CRO:2362456.2362479}. In this section, we explore background work on four important crowdsourcing issues: (1) how to establish crowd data quality, (2) how to aggregate multiple crowd annotations, (3) how natural language processing models use crowd data in training and evaluation, (4) and what the relation is between inter-worker disagreement and natural language ambiguity. These issues make up the backbone and the main topics that will be discussed in this thesis. The related work on these issues is composed of papers published in a wide variety of venues, across three main fields of artificial intelligence:   
+
+\begin{itemize}
+    \item \textit{human computation}, where the main venues are the Conference on Human Computation and Crowdsourcing (HCOMP), the Journal of Human Computation, the ACM Transactions on Interactive Intelligent Systems (TiiS) journal, and the Conference on Human Factors in Computing Systems (CHI);
+    
+    \item \textit{natural language processing}, and \textit{machine learning} more generally, where the main venues are the Annual Meeting of the Association for Computational Linguistics (ACL), the Conference on Empirical Methods in Natural Language Processing (EMNLP), the Annual Conference of the North American Chapter of the Association for Computational Linguistics (NAACL), and the Conference on Neural Information Processing Systems (NeurIPS);
+    
+    \item \textit{semantic web}, where the main venues are the International Semantic Web Conference (ISWC), the Extended Semantic Web Conference (ESWC), and the Semantic Web Journal.
+\end{itemize}
+
 
 \subsection{Crowd Data Quality}
 
@@ -58,19 +63,17 @@ Our research is part of this current trend of investigating the limitations of m
 
 
 \subsection{Natural Language Processing with the Crowd}
-% refer to the specific area of relation extraction + add frames
+% add frames
 
-Due to being both cheaper and more readily available than domain experts, crowdsourcing is used to collect ground truth for a variety of natural language processing tasks, across several domains: medical entity extraction~\cite{zhai2013web,Finin2010,van2012eu}, medical relation extraction~\cite{kilicoglu2011constructing,van2012eu}, open-domain relation extraction~\cite{kondreddi2014combining}, clustering and disambiguation~\cite{Lee2013}, ontology evaluation~\cite{noy2013mechanical}, web resource classification~\cite{castano2016human} and taxonomy creation~\cite{bragg2013crowdsourcing}. \citet{Snow2008} have shown that aggregating the answers of an increasing number of unskilled crowd workers with majority vote can lead to high quality natural language processing training data.
+Due to being both cheaper and more readily available than domain experts, crowdsourcing is used to collect training data for a variety of natural language processing tasks, across several domains: medical entity extraction~\cite{zhai2013web,Finin2010,van2012eu}, medical relation extraction~\cite{kilicoglu2011constructing,van2012eu}, open-domain relation extraction~\cite{kondreddi2014combining}, clustering and disambiguation~\cite{Lee2013}, ontology evaluation~\cite{noy2013mechanical}, web resource classification~\cite{castano2016human} and taxonomy creation~\cite{bragg2013crowdsourcing}. \citet{Snow2008} have shown that aggregating the answers of an increasing number of unskilled crowd workers with majority vote can lead to high quality natural language processing training data.
 
-Relation extraction from text is a task that usually requires large amounts of training data, meaning that completely crowdsourcing the ground truth is cost-prohibitive. However, active and semi-supervised methods can be used to scale-up the signal in labeled data to unlabeled examples. \citet{angeli2014combining} used an active learning approach to identify candidate sentences for crowd labeling that will most impact the performance of their relation extraction model. \citet{levy2017zero} have shown that a small crowdsourced dataset of questions about relations can be exploited to perform zero-shot learning. \citet{pershina2014infusion} used a small dataset of hand-labeled data to generate relation-specific guidelines that are used as additional features in the relation extraction.
+In this thesis, we focus on the training of one natural language processing task -- relation extraction from sentences. This task usually requires large amounts of training data, meaning that completely crowdsourcing the ground truth is cost-prohibitive. However, active and semi-supervised methods can be used to scale-up the signal in labeled data to unlabeled examples. \citet{angeli2014combining} used an active learning approach to identify candidate sentences for crowd labeling that will most impact the performance of their relation extraction model. \citet{levy2017zero} have shown that a small crowdsourced dataset of questions about relations can be exploited to perform zero-shot learning. \citet{pershina2014infusion} used a small dataset of hand-labeled data to generate relation-specific guidelines that are used as additional features in the relation extraction.
 
 The approach in these works is to restrict disagreement between annotators by using either of the following methods: restricting annotator guidelines, picking one answer that reflects some consensus usually through majority voting, or using a small number of annotators. In this thesis, we explore the question of whether crowdsourced data that preserves disagreement can be used as ground truth for the task of relation classification in sentences. We investigate whether inter-annotator disagreement in particular is a useful signal that the relation classification model can learn from, and whether our crowdsourcing method can be scaled-up through a semi-supervised learning approach.
 
 
 \subsection{Capturing Ambiguity}
 \label{sec:rel-work-ambig}
-% add a concluding paragraph - discuss the lack of unified theory of how to deal with that
-% types of ambiguity, sources of ambiguity, ways of dealing with it
 
 Our work is part of a continuous effort in exploring the link between inter-annotator disagreement and ambiguity of the input data, as applied to a variety of tasks and domains.
 
@@ -83,7 +86,7 @@ In an experiment for crowdsourcing anaphora resolution, \citet{poesio2005reliabi
 
 \section{Research Questions \& Contributions}
 
-The overall goal of this thesis is to investigate the role of inter-annotator disagreement in crowdsourcing ground truth for natural language processing, as collected using CrowdTruth methodology and metrics. The main research goal is addressed by answering the following research questions:
+Based on the issues we identified in Section~\ref{sec:intro-rel-work}, the overall goal of this thesis is to \textit{investigate the role of inter-annotator disagreement in crowdsourcing ground truth for natural language processing}, as collected using CrowdTruth methodology and metrics. The main research goal is addressed by answering the following research questions:
 
 \begin{itemize}
     \item \textbf{RQ1:} \textit{Does allowing disagreement in crowdsourcing ground truth yield the same quality as asking domain experts?}
