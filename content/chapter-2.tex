@@ -5,7 +5,9 @@
 One is always wrong; but with two, truth begins. One cannot prove his case, but two are already irrefutable.
 \end{chapquote}
 
-Cognitive computing systems require human labeled data for evaluation, and often for training. The standard practice used in gathering this data minimizes disagreement between annotators, and we have found this results in data that fails to account for the ambiguity inherent in language. We have proposed the CrowdTruth method for collecting ground truth through crowdsourcing, that reconsiders the role of people in machine learning based on the observation that disagreement between annotators provides a useful signal for phenomena such as ambiguity in the text. We report on using this method to build an annotated data set for medical relation extraction for the $cause$ and $treat$ relations, and how this data performed in a supervised training experiment. We demonstrate that by modeling ambiguity, labeled data gathered from crowd workers can (1) reach the level of quality of domain experts for this task while reducing the cost, and (2) provide better training data at scale than distant supervision. We further propose and validate new weighted measures for precision, recall, and F-measure, that account for ambiguity in both human and machine performance on this task.
+Natural language processing models require human labeled data for evaluation, and often for training. The standard practice used in gathering this data minimizes disagreement between annotators. This chapter investigates whether allowing disagreement in crowdsourcing ground truth can still yield quality of data comparable to that of experts, while accounting for the ambiguity inherent in language.
+
+We have proposed the CrowdTruth method for collecting ground truth through crowdsourcing, that reconsiders the role of people in machine learning based on the observation that disagreement between annotators provides a useful signal for phenomena such as ambiguity in the text. We report on using this method to build an annotated data set for medical relation extraction for the $cause$ and $treat$ relations, and how this data performed in a supervised training experiment. We demonstrate that by modeling ambiguity, labeled data gathered from crowd workers can (1) reach the level of quality of domain experts for this task while reducing the cost, and (2) provide better training data at scale than distant supervision. We further propose and validate new weighted measures for precision, recall, and F-measure, that account for ambiguity in both human and machine performance on this task.
 
 This chapter was published as \textit{Crowdsourcing Ground Truth for Medical Relation Extraction} in the ACM Transactions on Interactive Intelligent Systems, and was co-authored by Lora Aroyo and Chris Welty~\cite{DBLP:journals/corr/DumitracheAW17}.
 
@@ -26,9 +28,10 @@ Furthermore, the \textit{standard data labeling practice used in supervised mach
 
 Ambiguity in text also impacts automated processes for extracting ground truth.  Specifically, in the case of relation extraction from text, distant supervision~\cite{mintz2009distant,Welty:2010:LSR} is a well-established semi-supervised method that uses pairs of entities known to be related (e.g. from a knowledge base) to select sentences from a corpus that are used as positive training examples for the relations that relate the pairs. However, this approach is also prone to generating low quality training data, as not every mention of an entity pair in a sentence means a relation is also present. The problems are further compounded when dealing with ambiguous entities, or incompleteness in the knowledge base.
 
-To address these issues, we propose the {\em CrowdTruth} method for crowdsourcing training data for machine learning. We present an alternative approach for guiding supervised machine learning systems beyond the standard data labeling practice of a universal ground truth, by instead harnessing disagreement in crowd annotations to model the ambiguity inherent in text.  We claim that, even for complex annotation tasks such as relation extraction, lack of domain expertise of the crowd is compensated by collecting a large enough set of annotations.
 
-Previously, we studied medical relation extraction in a relatively small set of 90 sentences~\cite{aroyo2013measuring}, comparing the results from the crowd with that of two expert medical annotators. We found that disagreement within the crowd is consistent with expert inter-annotator disagreement. Furthermore, sentences that registered high disagreement tended to be vague or ambiguous when manually evaluated. In this chapter, we build on these results by training a classifier for medical relation extraction with CrowdTruth data, and evaluating its performance. The goal is to show that harnessing inter-annotator disagreement results in improved performance for relation extraction classifiers. Our contributions are the following:
+The goal of this chapter is to demonstrate that \textit{preserving inter-annotator disagreement results in high quality ground truth data}, that is comparable to that of domain experts, and can be used as training data for NLP models. To capture inter-worker disagreement, we have proposed the {\em CrowdTruth} method for crowdsourcing training data for machine learning. We present an alternative approach for guiding supervised machine learning systems beyond the standard data labeling practice of a universal ground truth, by instead harnessing disagreement in crowd annotations to model the ambiguity inherent in text.  We claim that, even for complex annotation tasks such as relation extraction, lack of domain expertise of the crowd is compensated by collecting a large enough set of annotations.
+
+Previously, we studied medical relation extraction in a relatively small set of 90 sentences~\cite{aroyo2013measuring}, comparing the results from the crowd with that of two expert medical annotators. We found that disagreement within the crowd is consistent with expert inter-annotator disagreement. Furthermore, sentences that registered high disagreement tended to be vague or ambiguous when manually evaluated. In this chapter, we build on these results by training a classifier for medical relation extraction with CrowdTruth data, and evaluating its performance. Our contributions are the following:
 
 \begin{enumerate}
 
@@ -66,7 +69,7 @@ In assessing the Ontology Alignment Evaluation Initiative (OAEI) benchmark, \cit
 
 \section{Experimental Setup}
 
-The goal of our experiments is to assess the quality of our disagreement-aware crowdsourced data in training a medical relation extraction model.  We use a binary classifier~\cite{P14-1078} that takes as input a set of sentences and two terms from the sentence, and returns a score reflecting the confidence of the model that a specific relation is expressed in the sentence between the terms.  This manifold learning classifier was one of the first to accept weighted scores for each training instance, although it still requires a discrete positive or negative label.  This property seemed to make it suitable for our experiments, as we expected the ambiguity of a sentence to impact its suitability as a training instance (in other words, we decreased the weight of training instances that exhibited ambiguity).  We investigate the performance of the classifier over two medical relations: $cause$ (between symptoms and disorders) and $treat$ (between drugs and disorders).
+The goal of our experiments is to assess the quality of our disagreement-aware crowdsourced data in training a medical relation extraction model.  We use a binary classifier~\cite{P14-1078} that takes as input a set of sentences and two terms from the sentence, and returns a score reflecting the confidence of the model that a specific relation is expressed in the sentence between the terms.  This manifold learning classifier was one of the first to accept weighted scores for each training instance, although it still requires a discrete positive or negative label. This property seemed to make it suitable for our experiments, as we expected the ambiguity of a sentence to impact its suitability as a training instance (in other words, we decreased the weight of training instances that exhibited ambiguity).  We investigate the performance of the classifier over two medical relations: $cause$ (between symptoms and disorders) and $treat$ (between drugs and disorders).
 
 The quality of the crowd data in training the classifier is evaluated in two parts: first by comparing it to the performance of an expert-trained classifier, and second with a classifier trained on distant supervision data.  The training is done separately for each relation, over the same set of sentences, with different relation existence labels for crowd, expert and baseline.
 
@@ -78,8 +81,6 @@ The dataset used in our experiments contains 3,984 medical sentences extracted f
 
 \begin{table}[hbt!]
 \begin{center}
-\caption{Set of medical relations.}
-\label{tab:relation_list}
 \scalebox{0.8}{
 %\bgroup
 %\def\arraystretch{1.5}
@@ -120,6 +121,8 @@ in which disease or disorder is observed &  leukemia is found in the circulatory
 \end{tabular}
 %\egroup
 }
+\caption{Set of medical relations.}
+\label{tab:relation_list}
 \end{center}
 \end{table}
 
@@ -154,14 +157,6 @@ The crowd output was processed with the use of CrowdTruth metrics -- a set of ge
 \newcolumntype{g}{>{\columncolor{aliceblue}}c}
 \begin{table}[htb!]
 
-\caption[CrowdTruth metrics examples]{Given two sentences, \textit{Sent.1} and \textit{Sent.2}, with term pairs in bold font, the table shows the transformation of the sentence vectors to sentence -- relation scores, and then to \textit{crowd} scores used for model training. The sentence-relation threshold for the train score is set at $0.5$ for these examples. \\
-
-\textit{Sent.1:} \textbf{Renal osteodystrophy} is a general complication of chronic renal failure and \textbf{end stage renal disease}.\\
-\textit{Sent.2:} If \textbf{TB} is a concern, a \textbf{PPD} is performed.
-}
-
-\label{tab:scores}
-
 \centering
 \scalebox{0.8}{
 %\begin{tabular}{r|cc|cc|cc|}
@@ -192,6 +187,14 @@ The crowd output was processed with the use of CrowdTruth metrics -- a set of ge
 \bottomrule
 \end{tabular}
 }
+
+\caption[CrowdTruth metrics examples]{Given two sentences, \textit{Sent.1} and \textit{Sent.2}, with term pairs in bold font, the table shows the transformation of the sentence vectors to sentence -- relation scores, and then to \textit{crowd} scores used for model training. The sentence-relation threshold for the train score is set at $0.5$ for these examples. \\
+
+\textit{Sent.1:} \textbf{Renal osteodystrophy} is a general complication of chronic renal failure and \textbf{end stage renal disease}.\\
+\textit{Sent.2:} If \textbf{TB} is a concern, a \textbf{PPD} is performed.
+}
+
+\label{tab:scores}
 \end{table}
 
 
@@ -244,38 +247,42 @@ We collect true and false positives and negatives in the standard way, such that
 
 \subsection{CrowdTruth vs. Medical Experts}
 
-In the first experiment, we compare the quality of the crowd with expert annotations over the sentences that have been also annotated by experts.  We start by comparing the crowd and expert labels to the adjudicated test labels on each sentence, without training a classifier, computing an F1 score that measures the {\em annotation quality} of each set, shown in Fig.\ref{fig:cause_ann_quality} \& \ref{fig:treat_ann_quality}. Since the baseline, expert, and single sets are binary decisions, they appear as horizontal lines, whereas the crowd annotations are shown at different sentence-relation score thresholds. For both relations, the crowd labels have the highest annotation quality F1 scores, 0.907 for the $cause$ relation, and 0.966 for $treat$. The expert data is close behind, with an F1 score of 0.844 for $cause$ and 0.912 for $treat$. To calculate the statistical significance of the results, we used McNemar's test~\cite{mcnemar1947note} over paired nominal data, by constructing a contingency table from the binary classification results (i.e. correct or incorrect classification) of paired datasets (e.g. crowd and expert). This difference between crowd and expert is not significant for $cause$ ($p > 0.5$, $\chi^2 = 0.034$), and significant for $treat$ ($p = 0.002$, $\chi^2 = 5.127$). The sentence -- relation score threshold for the best annotation quality F1 is also the threshold where the highest agreement between crowd and expert occurs (Fig.\ref{fig:cause_crowd_exp_agr} \& \ref{fig:treat_crowd_exp_agr}).
+In the first experiment, we compare the quality of the crowd with expert annotations over the sentences that have been also annotated by experts.  We start by comparing the crowd and expert labels to the adjudicated test labels on each sentence, without training a classifier, computing an F1 score that measures the {\em annotation quality} of each set, shown in Figure~\ref{fig:ann_quality}. Since the baseline, expert, and single sets are binary decisions, they appear as horizontal lines, whereas the crowd annotations are shown at different sentence-relation score thresholds. For both relations, the crowd labels have the highest annotation quality F1 scores, 0.907 for the $cause$ relation, and 0.966 for $treat$. The expert data is close behind, with an F1 score of 0.844 for $cause$ and 0.912 for $treat$. To calculate the statistical significance of the results, we used McNemar's test~\cite{mcnemar1947note} over paired nominal data, by constructing a contingency table from the binary classification results (i.e. correct or incorrect classification) of paired datasets (e.g. crowd and expert). This difference between crowd and expert is not significant for $cause$ ($p > 0.5$, $\chi^2 = 0.034$), and significant for $treat$ ($p = 0.002$, $\chi^2 = 5.127$). The sentence -- relation score threshold for the best annotation quality F1 is also the threshold where the highest agreement between crowd and expert occurs (Figure~\ref{fig:crowd_exp_agr}).
 
 \begin{figure}[htb!]
 \centering
 
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/cause_ann_quality.pdf}
-\caption{Annotation quality F1 scores \\ for the $cause$ relation.}
-\label{fig:cause_ann_quality}
+% \caption{$cause$ relation}
+% \label{fig:cause_ann_quality}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/treat_ann_quality.pdf}
-\caption{Annotation quality F1 scores \\ for the $treat$ relation.}
-\label{fig:treat_ann_quality}
+% \caption{$treat$ relation}
+% \label{fig:treat_ann_quality}
 \end{subfigure}
+\caption{Annotation quality F1 scores.}
+\label{fig:ann_quality}
 \end{figure}
 
 \begin{figure}[htb!]
 \centering
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/cause_expert_agr.pdf}
-\caption{Crowd \& expert agreement \\ for the $cause$ relation.}
-\label{fig:cause_crowd_exp_agr}
+% \caption{$cause$ relation.}
+% \label{fig:cause_crowd_exp_agr}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/treats_expert_agr.pdf}
-\caption{Crowd \& expert agreement \\ for the $treat$ relation.}
-\label{fig:treat_crowd_exp_agr}
+% \caption{$treat$ relation.}
+% \label{fig:treat_crowd_exp_agr}
 \end{subfigure}
+\caption{Crowd \& expert agreement.}
+\label{fig:crowd_exp_agr}
 \end{figure}
 
-Next we compare the quality of the crowd and expert annotations by training the relation extraction model using each dataset. For the $cause$ relation, the results of the evaluation (Fig.\ref{fig:cause_exp_f1}) show the best performance for the crowd-trained model when the sentence-relation threshold is 0.5. Trained with this data, the classifier model achieves an F1 score of 0.642, compared to the expert-trained model which reaches 0.638. The difference is statistically significant with $p = 0.016$ ($\chi^2 = 5.789$).
+Next we compare the quality of the crowd and expert annotations by training the relation extraction model using each dataset. For the $cause$ relation, the results of the evaluation (Fig.\ref{fig:exp_f1}) show the best performance for the crowd-trained model when the sentence-relation threshold is 0.5. Trained with this data, the classifier model achieves an F1 score of 0.642, compared to the expert-trained model which reaches 0.638. The difference is statistically significant with $p = 0.016$ ($\chi^2 = 5.789$).
 
 Tab.\ref{tab:statistic_exp} shows the full results of the evaluation, together with the results of the CrowdTruth weighted metrics (P', R', F1'). In all cases, the F1' score is greater than F1, indicating that ambiguous sentences have a strong impact on the performance of the classifier. Weighted P' and R' also have higher values in comparison with simple precision and recall.
 
@@ -283,20 +290,20 @@ Tab.\ref{tab:statistic_exp} shows the full results of the evaluation, together w
 \centering
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/cause_expert.pdf}
-\caption{Model testing F1 scores for \\ the $cause$ relation.}
-\label{fig:cause_exp_f1}
+% \caption{$cause$ relation.}
+% \label{fig:cause_exp_f1}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/treat_expert.pdf}
-\caption{Model testing F1 scores for \\ the $treat$ relation.}
-\label{fig:treats_exp_f1}
+% \caption{$treat$ relation.}
+% \label{fig:treats_exp_f1}
 \end{subfigure}
+\caption{Model testing F1 scores.}
+\label{fig:exp_f1}
 \end{figure}
 
 \begin{table}[htb!]
 \centering
-\caption{Model evaluation results over sentences with expert annotation. Crowd scores are shown at 0.5 negative/positive sentence-relation score threshold.}
-\label{tab:statistic_exp}
 \scalebox{0.8}{
 \begin{tabular}{rccccccc}
 
@@ -315,11 +322,13 @@ relation & \textit{baseline} & \cellcolor{aliceblue}0.767 & \cellcolor{aliceblue
 \bottomrule
 \end{tabular}
 }
+\caption{Model evaluation results over sentences with expert annotation. Crowd scores are shown at 0.5 negative/positive sentence-relation score threshold.}
+\label{tab:statistic_exp}
 \end{table}
 
-For the $treat$ relation, the results of the evaluation (Fig.\ref{fig:treats_exp_f1}) shows baseline as having the best performance, at an F1 score of 0.856. The crowd dataset, with an F1 score of 0.854, still out-performs the expert, scoring at 0.832.  These three scores are not, however, significantly different ($p > 0.5$, $ \chi^2 = 0.453 $), as there are so few actual pairwise differences (a consequence of the higher scores and the size of the dataset). 
+For the $treat$ relation, the results of the evaluation (Figure!\ref{fig:exp_f1}) shows baseline as having the best performance, at an F1 score of 0.856. The crowd dataset, with an F1 score of 0.854, still out-performs the expert, scoring at 0.832.  These three scores are not, however, significantly different ($p > 0.5$, $ \chi^2 = 0.453 $), as there are so few actual pairwise differences (a consequence of the higher scores and the size of the dataset). 
 
-For both $cause$ and $treat$ relations, the single annotator dataset performed the worst. It is also worth noting that the sentence -- relation score threshold for the best classifier performance (0.5 for both relations) is different from the threshold for best annotation quality, and highest agreement with expert (0.7 for $cause$ and 0.6 for $treat$, Fig.\ref{fig:cause_ann_quality} \& \ref{fig:treat_ann_quality}).
+For both $cause$ and $treat$ relations, the single annotator dataset performed the worst. It is also worth noting that the sentence -- relation score threshold for the best classifier performance (0.5 for both relations) is different from the threshold for best annotation quality, and highest agreement with expert (0.7 for $cause$ and 0.6 for $treat$, Figure~\ref{fig:ann_quality}).
 
 Finally, we checked whether the number of workers per task was sufficient to produce a stable sentence-relation score. We did this in two ways, first by measuring the cosine distance between the sentence vectors at each incremental number of workers (Fig.~\ref{fig:cos_sim_per_worker}), and second by measuring the annotation quality F1 score for $treat$ and $cause$, combined using the micro-averaged method (i.e. adding up the individual true positives, false positives etc.), against the number of workers annotating each sentence (Fig.~\ref{fig:ann_quality_f1}). For both plots, the workers were added in the order that they submitted their results on the crowdsourcing platform.  Based on these results, we decided to ensure that each sentence has been annotated by at least 10 workers after spam removal.  The plot of the mean cosine distance between sentence vectors before and after adding the latest worker shows that the sentence vector is stable at 10 workers. The annotation quality F1 score per total number of workers plot appears less stable in general, with a peak at 12 workers, and a subsequent drop due to sparse data -- only 149 sentences had 15 or more total workers. However, after 10 workers there are no significant increases in the annotation quality.  While it can be argued that both plots stabilize for a lower number of workers, we picked 10 as a threshold because it gives some room for improvement for sentences that might need more workers before getting a stable score, while still being economical.
 
@@ -332,9 +341,10 @@ Finally, we checked whether the number of workers per task was sufficient to pro
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/ann_quality_f1.pdf}
-\caption{Combined annotation quality F1 for $cause$ and $treat$ crowd, at their best pos./neg. thresholds (Fig.\ref{fig:cause_ann_quality}\&\ref{fig:treat_ann_quality}).}
+\caption{Combined annotation quality F1 for $cause$ and $treat$ crowd, at their best pos./neg. thresholds (Figure~\ref{fig:ann_quality}).}
 \label{fig:ann_quality_f1}
 \end{subfigure}
+\caption{Optimal number of workers analysis.}
 \end{figure}
 
 
@@ -346,20 +356,19 @@ Distant supervision is a widely used technique in NLP, because its obvious flaws
 \centering
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/cause_w.pdf}
-\caption{Learning curves for $cause$ \\ relation.}
+\caption{$cause$ relation}
 \label{fig:cause_3800}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \includegraphics[width=\linewidth]{img/treat_w.pdf}
-\caption{Learning curves for $treat$ \\ relation.}
+\caption{$treat$ relation}
 \label{fig:treat_3800}
 \end{subfigure}
+\caption{Learning curves.}
 \end{figure}
 
 \begin{table}[!htb]
 \centering
-\caption{Model evaluation results over 3,984 sentences. Crowd scores are shown at 0.5 sentence-relation score threshold.}
-\label{tab:statistic_bas}
 \scalebox{0.8}{
 \begin{tabular}{rccccccc}
 \toprule
@@ -371,6 +380,8 @@ relation & \textit{baseline} & \cellcolor{aliceblue}0.808 & \cellcolor{aliceblue
 \bottomrule
 \end{tabular}
 }
+\caption{Model evaluation results over 3,984 sentences. Crowd scores are shown at 0.5 sentence-relation score threshold.}
+\label{tab:statistic_bas}
 \end{table}
 
 For both relations, the crowd consistently performs better than the baseline. In the case of the $cause$ relation, crowd and baseline perform closer to each other, with an F1 score of 0.64 for crowd and 0.619 for baseline. This difference is significant with $ p = 0.001 $ and $\chi^2 = 10.028$. The gap in performance is even greater for accuracy, where the  crowd model scored at 0.773 and baseline at 0.705. The learning curves for the $cause$ relation (Fig.\ref{fig:cause_3800}) show both datasets achieve stable performance.
@@ -386,13 +397,13 @@ The gap in performance is also present in the weighted F1' metrics. As is the ca
 
 Our first goal was to demonstrate that, like the crowdsourced medical entity recognition work by \cite{zhai2013web}, the CrowdTruth approach of having multiple annotators with precise quality scores can be harnessed to create gold standard data with a quality that rivals annotated data created by medical experts.  Our results show this clearly, in fact with slight improvements, with a sizable dataset (975 sentences) on a problem (relation extraction) that {\em prima facie} seems to require more domain expertise (than entity recognition).
 
-The most interesting result of the first experiment is that the sentence-relation score threshold that gives the best F1 score is the same for both $cause$ (Fig.\ref{fig:cause_exp_f1}) and $treat$ (Fig.\ref{fig:treats_exp_f1}) relations, at a value of 0.5. This shows that ambiguous data is indeed valuable in training of clinical NLP models, and that being too strict with what constitutes a positive (or negative) training example produces flawed ground truth data. It is also worth noting that the single crowd annotator performs the worst for each of the relations. This could be further indication that the crowd can only achieve quality when accounting for the choices of multiple annotators, and further calls into question the standard practice of using only one annotator per example.
+The most interesting result of the first experiment is that the sentence-relation score threshold that gives the best F1 score is the same for both $cause$ and $treat$ relations (Figure~\ref{fig:exp_f1}), at a value of 0.5. This shows that ambiguous data is indeed valuable in training of clinical NLP models, and that being too strict with what constitutes a positive (or negative) training example produces flawed ground truth data. It is also worth noting that the single crowd annotator performs the worst for each of the relations. This could be further indication that the crowd can only achieve quality when accounting for the choices of multiple annotators, and further calls into question the standard practice of using only one annotator per example.
 
-A curious aspect of the results is that the sentence-relation score threshold that gives the highest annotation quality F1 score (i.e. F1 score calculated directly over the test data, without training the model), shown in Fig.\ref{fig:cause_ann_quality} \& \ref{fig:treat_ann_quality}, is different from the best threshold for classifier performance (Fig.\ref{fig:cause_exp_f1} \& \ref{fig:treats_exp_f1}). It is the lower threshold (equal to 0.5) that results in the best model. This is most likely due to the higher recall of the lower threshold, which exposes the classifier to more positive examples.  F-score is the harmonic mean between precision and recall, and does not necessarily represent the best trade-off between them, as this experiment shows for annotation quality.  Indeed F-score may not be the best trade-off between precision and recall for the classifier, either, but it is the most widely accepted and reported metric for relation extraction.  Note also that for both relations, the annotation quality at the 0.5 threshold is comparable or better than expert annotation quality.
+A curious aspect of the results is that the sentence-relation score threshold that gives the highest annotation quality F1 score (i.e. F1 score calculated directly over the test data, without training the model), shown in Figure~\ref{fig:ann_quality}, is different from the best threshold for classifier performance (Figure~\ref{fig:exp_f1}). It is the lower threshold (equal to 0.5) that results in the best model. This is most likely due to the higher recall of the lower threshold, which exposes the classifier to more positive examples.  F-score is the harmonic mean between precision and recall, and does not necessarily represent the best trade-off between them, as this experiment shows for annotation quality.  Indeed F-score may not be the best trade-off between precision and recall for the classifier, either, but it is the most widely accepted and reported metric for relation extraction.  Note also that for both relations, the annotation quality at the 0.5 threshold is comparable or better than expert annotation quality.
 
-The fact that the experts performed slightly worse than the single crowd annotator on the $treat$ annotation quality (Fig.\ref{fig:treat_ann_quality}) is also a surprising finding. Although the difference is too small to draw significant conclusions from, it indicates that the $treat$ relation was easier to interpret by the crowd and generated less disagreement -- the single annotator had a better performance for $treat$ than for $cause$ also in the model evaluation (Fig.\ref{fig:treats_exp_f1}). This result also shows that the experts we employed were fallible, and made mistakes when annotating the data. A better approach to gather the expert annotations would be to ask several experts per sentence, to account for the failures in a single person's interpretations.
+The fact that the experts performed slightly worse than the single crowd annotator on the $treat$ annotation quality (Fig.\ref{fig:ann_quality}) is also a surprising finding. Although the difference is too small to draw significant conclusions from, it indicates that the $treat$ relation was easier to interpret by the crowd and generated less disagreement -- the single annotator had a better performance for $treat$ than for $cause$ also in the model evaluation (Fig.\ref{fig:exp_f1}). This result also shows that the experts we employed were fallible, and made mistakes when annotating the data. A better approach to gather the expert annotations would be to ask several experts per sentence, to account for the failures in a single person's interpretations.
 
-In our error analysis of the annotation quality, we found that (as Figs. \ref{fig:cause_ann_quality} \& \ref{fig:treat_ann_quality} show) experts and the crowd both make errors, but of different kinds.  Experts tend to see relations that they know hold as being expressed in sentences, when they are not.  For example, in, ``He was the first to describe the relation between \textbf{Hemophelia} and \textbf{Hemophilic Arthropathy},'' experts labeled the sentence as expressing the $cause$ relation, since they know Hemophelia causes Hemophilic Arthropathy.  Thus they are particularly prone to errors in sentences selected by distant supervision, since that is the selection criterion. Table~\ref{tab:bad_expert} from the Appendix shows more such examples.  Crowd workers, on the other hand, were more easily fooled by sentences that expressed one of the target relations, but {\em not between the selected arguments.}  For example, in ``Influenza treatments such as \textbf{antivirals} and \textbf{antibiotics} are sometimes recommended," some crowd workers will label the sentence with treats, even though we are looking for the relation between $antivirals$ and $antibiotics$. More such examples are shown in Table~\ref{tab:bad_crowd} from the Appendix. The crowd achieves overall higher annotation quality due to redundancy, over the set of 15 workers, it is unlikely they will all make the same mistake.
+In our error analysis of the annotation quality, we found that (as Figure~\ref{fig:ann_quality} shows) experts and the crowd both make errors, but of different kinds.  Experts tend to see relations that they know hold as being expressed in sentences, when they are not.  For example, in, ``He was the first to describe the relation between \textbf{Hemophelia} and \textbf{Hemophilic Arthropathy},'' experts labeled the sentence as expressing the $cause$ relation, since they know Hemophelia causes Hemophilic Arthropathy.  Thus they are particularly prone to errors in sentences selected by distant supervision, since that is the selection criterion. Table~\ref{tab:bad_expert} from the Appendix shows more such examples.  Crowd workers, on the other hand, were more easily fooled by sentences that expressed one of the target relations, but {\em not between the selected arguments.}  For example, in ``Influenza treatments such as \textbf{antivirals} and \textbf{antibiotics} are sometimes recommended," some crowd workers will label the sentence with treats, even though we are looking for the relation between $antivirals$ and $antibiotics$. More such examples are shown in Table~\ref{tab:bad_crowd} from the Appendix. The crowd achieves overall higher annotation quality due to redundancy, over the set of 15 workers, it is unlikely they will all make the same mistake.
 
 In Figs.~\ref{fig:cos_sim_per_worker} \& \ref{fig:ann_quality_f1} we observe that we need at least 10 workers to get a stable crowd score. This result goes against the general practice for building a ground truth, where per task there usually are 1 to 5 annotators. Based on our results, we believe that the general practice is not applicable for the use case of medical relation extraction, and should perhaps be reconsidered for other annotation use cases where ambiguity can be present, as outside of a few clear cases, the input of more annotators per task can be very useful at indicating the ambiguities inherent in language, as well as all other interpretation tasks (e.g. images, audio, event processing, etc.). Even with this added requirement, we found that crowd data is still cheaper to acquire than annotation from medical experts, as the crowd is both cheap (the cost of the crowd was $\frac{2}{3}$ that of the expert) and always available via dedicated crowdsourcing platforms like Figure Eight.
 
@@ -415,7 +426,7 @@ Our experiment has two limitations: (1) because of the limited availability of d
 
 The standard data labeling practice used in supervised machine learning attempts to minimize disagreement between annotators, and therefore fails to model the ambiguity inherent in language. We propose the CrowdTruth method for collecting ground truth through crowdsourcing, that reconsiders the role of people in machine learning based on the observation that disagreement between annotators can signal ambiguity in the text.
 
-In this work, we used CrowdTruth to build a gold standard of 3,984 sentences for medical relation extraction, focusing on the $cause$ and $treat$ relations, and used the crowd data to train a classification model. We have shown that, with the processing of ambiguity, the crowd performs just as well as medical experts in terms of the quality and efficacy of annotations, while being cheaper and more readily available. In addition, our results show that, when the model reaches maximum performance after training, the crowd also performs better than distant supervision. Finally, we introduced and validated new weighted measures for precision, recall, and F-measure, that account for ambiguity in both human and machine performance on this task. These results encourage us to continue our experiments by replicating this methodology for an increasing set of relations in the medical domain.
+In this work, we used CrowdTruth to build a gold standard of 3,984 sentences for medical relation extraction, focusing on the $cause$ and $treat$ relations, and used the crowd data to train a classification model. We have shown that, with the processing of ambiguity, \textit{the crowd performs just as well as medical experts in terms of the quality and efficacy of annotations}, while being cheaper and more readily available. In addition, our results show that, when the model reaches maximum performance after training, the crowd also performs better than distant supervision. Finally, we introduced and validated new weighted measures for precision, recall, and F-measure, that account for ambiguity in both human and machine performance on this task. These results encourage us to continue our experiments by replicating this methodology for an increasing set of relations in the medical domain.
 
 
 \section*{Acknowledgments}
@@ -427,8 +438,6 @@ The authors would like to thank Dr. Chang Wang for support with using the medica
 
 \begin{table}[hbt!]
 \centering
-\caption {Example sentences removed from the evaluation (term pairs in bold font).}
-\label{tab:bad_sent}
 \scalebox{0.8}{
 \bgroup
 \def\arraystretch{1.5}
@@ -451,13 +460,13 @@ Will giving \textbf{Acetaminophen} prevent the \textbf{pain} of the immunization
 \end{tabular}
 \egroup
 }
+\caption{Example sentences removed from the evaluation (term pairs in bold font).}
+\label{tab:bad_sent}
 \end{table}
 
 
 \begin{table}[hbt!]
 \centering
-\caption {Example sentences where the expert was wrong (term pairs in bold font).}
-\label{tab:bad_expert}
 \scalebox{0.8}{
 \bgroup
 \def\arraystretch{1.5}
@@ -484,13 +493,13 @@ Thirdly the evidence of the efficacy of \textbf{Clomipramine} in \textbf{OCD wit
 \end{tabular}
 \egroup
 }
+\caption{Example sentences where the expert was wrong (term pairs in bold font).}
+\label{tab:bad_expert}
 \end{table}
 
 
 \begin{table}[hbt!]
 \centering
-\caption {Example sentences where the crowd was wrong (term pairs in bold font).}
-\label{tab:bad_crowd}
 \scalebox{0.8}{
 \bgroup
 \def\arraystretch{1.5}
@@ -518,4 +527,6 @@ In one group of four pigs sensitive to \textbf{Malignant Hyperthermia (MHS)} a d
 \end{tabular}
 \egroup
 }
+\caption{Example sentences where the crowd was wrong (term pairs in bold font).}
+\label{tab:bad_crowd}
 \end{table}
