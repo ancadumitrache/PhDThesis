@@ -7,7 +7,7 @@
 \refstepcounter{dummy}
 
 \pdfbookmark[1]{\contentsname}{tableofcontents} % bookmark name visible in a PDF viewer
-\setcounter{tocdepth}{1} % depth of sections to include in the table of contents - currently up to subsections
+\setcounter{tocdepth}{2} % depth of sections to include in the table of contents - currently up to subsections
 \setcounter{secnumdepth}{3} % depth of sections to number in the text itself - currently up to subsubsections
 \manualmark
 \markboth{\spacedlowsmallcaps{\contentsname}}{\spacedlowsmallcaps{\contentsname}}
@@ -19,34 +19,35 @@
 %*******************************************************
 % List of Figures and of the Tables
 %*******************************************************
-%\clearpage
-%\pagestyle{empty} % Uncomment this line if your lists should not have any headlines with section name and page number
+\clearpage
+\pagestyle{empty} % Uncomment this line if your lists should not have any headlines with section name and page number
 
-%\begingroup
-    %\let\clearpage\relax
-    %\let\cleardoublepage\relax
+\begingroup
+    \let\clearpage\relax
+    \let\cleardoublepage\relax
     %*******************************************************
     % List of Figures
     %*******************************************************
-    %\phantomsection
-    %\refstepcounter{dummy}
-    %\addcontentsline{toc}{chapter}{\listfigurename}
-    %\pdfbookmark[1]{\listfigurename}{lof}
-    %\listoffigures
+    \phantomsection
+    \refstepcounter{dummy}
+    \addcontentsline{toc}{chapter}{\listfigurename}
+    \pdfbookmark[1]{\listfigurename}{lof}
+    \listoffigures
 
-    %\vspace{8ex}
+    \vspace{8ex}
+    \newpage
 
     %*******************************************************
     % List of Tables
     %*******************************************************
-    %\phantomsection
-    %\refstepcounter{dummy}
-    %\addcontentsline{toc}{chapter}{\listtablename}
-    %\pdfbookmark[1]{\listtablename}{lot}
-    %\listoftables
+    \phantomsection
+    \refstepcounter{dummy}
+    \addcontentsline{toc}{chapter}{\listtablename}
+    \pdfbookmark[1]{\listtablename}{lot}
+    \listoftables
 
-    %\vspace{8ex}
-    % \newpage
+    \vspace{8ex}
+    \newpage
 
     %*******************************************************
     % List of Listings
@@ -72,4 +73,4 @@
         %\acro{API}{Application Programming Interface}
         %\acro{UML}{Unified Modeling Language}
     %\end{acronym}
-%\endgroup
+\endgroup
