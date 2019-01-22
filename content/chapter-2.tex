@@ -1,5 +1,7 @@
 \chapter{Crowds vs. the Medical Expert}
 \label{chap:med-rel-ex}
+\addcontentsline{lof}{chapter}{\textsc{Chap.~\ref{chap:med-rel-ex}: Crowds vs. the Medical Expert}}
+\addcontentsline{lot}{chapter}{\textsc{Chap.~\ref{chap:med-rel-ex}: Crowds vs. the Medical Expert}}
 
 \begin{chapquote}{Friedrich Nietzsche, \textsc{The Gay Science}}
 One is always wrong; but with two, truth begins. One cannot prove his case, but two are already irrefutable.
@@ -36,9 +38,9 @@ Previously, we studied medical relation extraction in a relatively small set of 
 
 \begin{enumerate}
 
-\item a comparison between using annotations from crowd and from medical experts to train a relation extraction classifier, showing that, with the processing of disagreement, \textit{classifiers trained on crowd annotations perform the same as to those trained on expert annotations};
+\item a comparison between using annotations from crowd and from medical experts to train a relation extraction classifier, showing that, with the processing of disagreement, \textit{classifiers trained on crowd annotations perform the same as to those trained on expert annotations} {\color{blue} (Sections~\ref{sec:res_exp} \& \ref{sec:ct-exp})};
 
-\item a similar comparison between crowd annotations and distant supervision, showing that \textit{classifiers trained on crowd annotations perform better than those trained on distant supervision};
+\item a similar comparison between crowd annotations and distant supervision, showing that \textit{classifiers trained on crowd annotations perform better than those trained on distant supervision} {\color{blue} (Sections~\ref{sec:res_ds} \& \ref{sec:ct-ds})};
 
 \item a \textit{dataset of 3,984 English sentences for medical relation extraction}, centering on the $cause$ and $treat$ relations, that have been processed with disagreement analysis to capture ambiguity~\cite{anca_dumitrache_2016_50676}.
 
@@ -60,7 +62,7 @@ Crowdsourcing ground truth has shown promising results in a variety of other dom
 Other research for crowdsourcing ground truth includes: entity clustering and disambiguation~\cite{Lee2013}, Twitter entity extraction~\cite{Finin2010}, multilingual entity extraction and paraphrasing~\cite{Chen2011}, and taxonomy creation~\cite{Chilton:2013}.  However, all of these approaches rely on the assumption that one black-and-white gold standard must exist for every task.  Disagreement between annotators is discarded by picking one answer that reflects some consensus, usually through using majority vote.  The number of annotators per task is also kept low, between two and five workers, in the interest of reducing cost and eliminating disagreement. \citet{NIPS2009_3644} and \citet{welinder2010multidimensional} have used a latent variable model for task difficulty, as well as latent variables to measure the skill of each annotator, to optimize crowdsourcing for image labels. The novelty in our approach is to consider language ambiguity, and consequently inter-annotator disagreement, as an inherent feature of the language. Language ambiguity can be related to, but is not necessarily a direct cause of task difficulty. The metrics we employ for determining the quality of crowd answers are specifically tailored to measure ambiguity by quantifying disagreement between annotators.
 
 
-\subsection{Disagreement and Ambiguity in Crowdsourcing}
+\subsection{Disagreement \& Ambiguity in Crowdsourcing}
 
 In addition to our own work~\cite{aroyo2013crowd}, the role of ambiguity when building a gold standard has previously been discussed by \citet{lau2014measuring}.  The authors propose a method for crowdsourcing ambiguity in the grammatical correctness of text by giving workers the possibility to pick various degrees of correctness. However, inter-annotator disagreement is not discussed as a factor in measuring this ambiguity. After empirically studying part-of-speech datasets, \citet{plank-hovy-sogaard:2014:P14-2} found that inter-annotator disagreement is consistent across domains, even across languages.  Furthermore, most disagreement is indicative of debatable cases in linguistic theory, rather than faulty annotation.  It is not unreasonable to assume that these findings manifest even more strongly for NLP tasks involving semantic ambiguity, such as relation extraction. 
 
@@ -247,6 +249,7 @@ We collect true and false positives and negatives in the standard way, such that
 \section{Results}
 
 \subsection{CrowdTruth vs. Medical Experts}
+\label{sec:res_exp}
 
 In the first experiment, we compare the quality of the crowd with expert annotations over the sentences that have been also annotated by experts.  We start by comparing the crowd and expert labels to the adjudicated test labels on each sentence, without training a classifier, computing an F1 score that measures the {\em annotation quality} of each set, shown in Figure~\ref{fig:ann_quality}. Since the baseline, expert, and single sets are binary decisions, they appear as horizontal lines, whereas the crowd annotations are shown at different sentence-relation score thresholds. For both relations, the crowd labels have the highest annotation quality F1 scores, 0.907 for the $cause$ relation, and 0.966 for $treat$. The expert data is close behind, with an F1 score of 0.844 for $cause$ and 0.912 for $treat$. To calculate the statistical significance of the results, we used McNemar's test~\cite{mcnemar1947note} over paired nominal data, by constructing a contingency table from the binary classification results (i.e. correct or incorrect classification) of paired datasets (e.g. crowd and expert). This difference between crowd and expert is not significant for $cause$ ($p > 0.5$, $\chi^2 = 0.034$), and significant for $treat$ ($p = 0.002$, $\chi^2 = 5.127$). The sentence -- relation score threshold for the best annotation quality F1 is also the threshold where the highest agreement between crowd and expert occurs (Figure~\ref{fig:crowd_exp_agr}).
 
@@ -350,6 +353,7 @@ Finally, we checked whether the number of workers per task was sufficient to pro
 
 
 \subsection{CrowdTruth vs. Distant Supervision}
+\label{sec:res_ds}
 
 Distant supervision is a widely used technique in NLP, because its obvious flaws can be overcome at scale.  We did not have enough time with the experts to gather a larger dataset from them, but the crowd is always available, so after we determined that the performance of the crowd matched the medical experts, we extended the experiments to 3,984 sentences. The crowd dataset in this experiment uses a fixed sentence-relation score threshold equal to 0.5, since this is the value where the crowd performed the best in the previous experiment, for both of the relations. As in the previous experiment, we employed five-fold cross validation to train the model. The test sets were kept the same as in the previous experiment, using the test partition labels as a gold standard. The goal was to compare the crowd to the distant supervision baseline, while scaling the number of training examples, until achieving a stable learning curve in the F1 score. Since the single annotator dataset performed badly in the initial experiment, it was dropped from this analysis. The full results of the experiment are available in Tab.\ref{tab:statistic_bas}.
 
@@ -395,6 +399,7 @@ The gap in performance is also present in the weighted F1' metrics. As is the ca
 \section{Discussion}
 
 \subsection{CrowdTruth vs. Medical Experts}
+\label{sec:ct-exp}
 
 Our first goal was to demonstrate that, like the crowdsourced medical entity recognition work by \cite{zhai2013web}, the CrowdTruth approach of having multiple annotators with precise quality scores can be harnessed to create gold standard data with a quality that rivals annotated data created by medical experts.  Our results show this clearly, in fact with slight improvements, with a sizable dataset (975 sentences) on a problem (relation extraction) that {\em prima facie} seems to require more domain expertise (than entity recognition).
 
@@ -411,6 +416,7 @@ In Figs.~\ref{fig:cos_sim_per_worker} \& \ref{fig:ann_quality_f1} we observe tha
 A bottleneck in this analysis is the availability of expert annotations -- we did not have the resources to collect a larger expert dataset, and this indeed is the main reason to consider crowdsourcing. In this context, the real value of distant supervision is that large amounts of data can be gathered rather easily and cheaply, since humans are not involved. Therefore, the goal of the second experiment was to explore the trade-off between quality and cost of crowdsourcing compared to distant supervision, while scaling up the model to reach its maximum performance.
 
 \subsection{CrowdTruth vs. Distant Supervision}
+\label{sec:ct-ds}
 
 The results for both relations (Fig.\ref{fig:cause_3800} \& Fig.\ref{fig:treat_3800}) show that the crowd does out-perform the distant supervision baseline after the learning curves have stabilized, thus justifying its cost. From this we infer that not only is the crowd generating higher quality data than the automated baseline, but training the model with weights, as opposed to binary labels, does have a positive impact on the performance of the model.
 
@@ -435,7 +441,7 @@ In this work, we used CrowdTruth to build a gold standard of 3,984 sentences for
 The authors would like to thank Dr. Chang Wang for support with using the medical relation extraction classifier, and Anthony Levas for help with collecting the expert annotations.  The authors, Dr. Wang and Mr. Levas were all employees of IBM Research when the expert data collection was performed, and we are grateful to IBM for making the data freely available subsequently.
 
 
-\section*{Appendix: Example Sentences from the Evaluation Set}
+\section{Appendix: Example Sentences from the Evaluation Set}
 
 \begin{table}[hbt!]
 \centering

@@ -1,5 +1,8 @@
 \chapter{Learning Relation Classification from the Crowd}
 \label{chap:od-rel-ex}
+\addcontentsline{lof}{chapter}{\textsc{Chap.~\ref{chap:od-rel-ex}: Learning Relation Classification from the Crowd}}
+\addcontentsline{lot}{chapter}{\textsc{Chap.~\ref{chap:od-rel-ex}: Learning Relation Classification from the Crowd}}
+
 
 \begin{chapquote}{Ludwig Wittgenstein, \textsc{Tractatus Logico-Philosophicus}}
 It is not humanly possible to gather immediately from it what the logic of language is. Language disguises thought.
@@ -35,9 +38,9 @@ The second experiment explores the possibility of automatically expanding smalle
 {\color{blue} This chapter makes the following contributions:
 
 \begin{enumerate}
-    \item a comparison between crowdsourced and distant-supervision data quality, highlighting the \textit{distant-supervision issues fixed with by the crowd};
+    \item a comparison between crowdsourced and distant-supervision data quality, highlighting the \textit{distant-supervision issues fixed with by the crowd} (Section~\ref{sec:ds-eval});
     
-    \item a \textit{label propagation methodology} to use crowdsourcing data at the scale needed for training neural relation classification models;
+    \item a \textit{label propagation methodology} to use crowdsourcing data at the scale needed for training neural relation classification models (Sections~\ref{sec:label-prop} \& \ref{sec:lp-eval});
     
     \item a {\textit dataset of 4,100 sentences annotated with relations in the open domain}, that have been processed with disagreement analysis to capture ambiguity~\cite{crowdODrelexdata2016}.
 \end{enumerate}}
@@ -81,6 +84,7 @@ For each sentence-relation pair, we compute the \textit{sentence-relation score 
 
 
 \subsection{Label Propagation}
+\label{sec:label-prop}
 
 Inspired by the semantic label propagation method~\cite{sterckx2016knowledge}, we propagate the vectors of $srs$ scores on each crowd annotated sentence to a much larger set of distant supervised (DS) sentences (see datasets description in Section~\ref{sec:train}), scaling the vectors linearly by the distance in low dimensional word2vec vector space~\cite{mikolov2013distributed}.  One of the reasons we chose the CrowdTruth set for this experiment is that the annotation vectors give us a score \emph{for each relation} to propagate to the DS sentences, which have only one binary label.
 
@@ -159,7 +163,7 @@ Manual error analysis on the initial dev set showed that many sentences contain 
 	\caption{DS-based RCP.}
     \label{tab:ds_rcp}
 \end{subfigure}
-\caption{RCP for relation subset: $place\ of\ birth$ (PoB), $origin$ (O), $places\ of\ residence$ (PoR), $place\ of\ death$ (PoD), $founded\ organization$ (FO), $employee\ or\ member$ (EoM), $top\ employee\ or\ member$ (TEoM). The scores show the causal power $RCP(R_i, R_j)$ of relations $R_i$ in the rows, over the relations $R_j$ in the columns. Significant changes between crowd annotation based causal power and distant supervision are in bold.}
+\caption{RCP for relation subset: \textit{place of birth} (PoB), \textit{origin} (O), \textit{places of residence} (PoR), \textit{place of death} (PoD), \textit{founded organization} (FO), \textit{employee or member} (EoM), \textit{top employee or member} (TEoM). The scores show the causal power $RCP(R_i, R_j)$ of relations $R_i$ in the rows, over the relations $R_j$ in the columns. Significant changes between crowd annotation based causal power and distant supervision are in bold.}
 \label{tab:rcp}
 \end{table}
 
@@ -209,6 +213,7 @@ The preliminary results are not overwhelming, but highly indicative. There is co
 
 
 \subsection{Label Propagation Experiment}
+\label{sec:lp-eval}
 
 Building on the results from the previous section on, we studied \textit{label propagation} as a more robust method of using a small crowdsourced corpus to augment a DS dataset larger by several orders of magnitude. As opposed to relation-based correction methods, label propagation takes into account the information contained in the sentences themselves, providing a more fine-grained method to correct errors in DS.
 
@@ -259,7 +264,7 @@ In future work, we plan to use the label propagation method to correct training 
 
 \newpage
 
-\section*{Appendix: Example Sentences with Wrong Distant Supervision Labels}
+\section{Appendix: Example Sentences with Wrong Distant Supervision Labels}
 \label{sec:appendix4.1}
 
 \begin{table}[htb!]
@@ -294,7 +299,7 @@ In future work, we plan to use the label propagation method to correct training 
 \end{tabular}
 \egroup
 }
-\caption{Example sentences with false positive $place\ of\ death$ and $origin$ DS labels due to multiple relations in the KB over $Person$ - $Location$ term types.}
+\caption{Example sentences with false positive \textit{place of death} and \textit{origin} DS labels due to multiple relations in the KB over \textit{Person - Location} term types.}
 \label{tab:ds_fp_ex}
 \end{table}
 
@@ -331,6 +336,6 @@ In future work, we plan to use the label propagation method to correct training 
 \end{tabular}
 \egroup
 }
-\caption{Example sentences with false negative $employee\ or\ member$ and $origin$ DS labels due to missing causal connections.}
+\caption{Example sentences with false negative \textit{employee or member} and \textit{origin} DS labels due to missing causal connections.}
 \label{tab:ds_fn_ex}
 \end{table}

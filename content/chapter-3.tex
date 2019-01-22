@@ -1,5 +1,7 @@
 \chapter{Data Quality from Disagreement}
 \label{chap:maj-vote}
+\addcontentsline{lof}{chapter}{\textsc{Chap.~\ref{chap:maj-vote}: Data Quality from Disagreement}}
+\addcontentsline{lot}{chapter}{\textsc{Chap.~\ref{chap:maj-vote}: Data Quality from Disagreement}}
 
 \begin{chapquote}{Mark Twain, \textsc{Notebook, 1904}}
 Whenever you find yourself on the side of the majority, it is time to reform (or pause and reflect).
@@ -41,13 +43,13 @@ The chapter makes the following contributions:
 
 \begin{enumerate}
 
-\item \textit{comparative analysis of crowdsourcing aggregation methods:} we compare the performance of \textit{ambiguity-aware metrics} and \textit{consensus - enforcing metrics} over a diverse set of crowdsourcing tasks (Sections \ref{sec:results}, \ref{sec:discussion});
+\item \textit{comparative analysis of crowdsourcing aggregation methods:} we compare the performance of \textit{ambiguity-aware metrics} and \textit{consensus - enforcing metrics} over a diverse set of crowdsourcing tasks (Sections \ref{sec:results} \& \ref{sec:discussion});
 
-\item \textit{stability of crowd results:} we show in several crowdsourcing tasks that \textit{an increased number of crowd workers leads to growth and stabilization in the quality of annotations}, going against the usual practice of employing a small number of annotators (Sections \ref{sec:results}, \ref{sec:discussion});
+\item \textit{stability of crowd results:} we show in several crowdsourcing tasks that \textit{an increased number of crowd workers leads to growth and stabilization in the quality of annotations}, going against the usual practice of employing a small number of annotators (Sections \ref{sec:results} \& \ref{sec:discussion});
 
-\item \textit{measuring quality in open-ended tasks:} we present an extension to the CrowdTruth methodology that allows the ambiguity-aware metrics to deal \textit{both with open-ended and closed tasks} (Sections \ref{sec:methodology}, \ref{sec:experimental_setup}), as opposed to the initial version of the CrowdTruth metrics which only processed closed tasks;
+\item \textit{measuring quality in open-ended tasks:} we present an extension to the CrowdTruth methodology that allows the ambiguity-aware metrics to deal \textit{both with open-ended and closed tasks} (Sections \ref{sec:methodology} \& \ref{sec:experimental_setup}), as opposed to the initial version of the CrowdTruth metrics which only processed closed tasks;
 
-\item \textit{semantics of ambiguity:} applying the CrowdTruth methodology we collect richer data that allows to reason about ambiguity of content (in all modality formats, e.g. images, videos and sounds), which is intrinsically relevant to the Semantic Web community.
+\item \textit{semantics of ambiguity:} applying the CrowdTruth methodology we collect richer data that allows to reason about ambiguity of content (in all modality formats, e.g. images, videos and sounds), which is intrinsically relevant to the Semantic Web community (Section~\ref{sec:discussion}).
 
 \end{enumerate}
 
@@ -74,7 +76,7 @@ Measuring quality in CrowdTruth is done with  the triangle of disagreement model
  \begin{figure}[!hpt]
  	\centering
  		\includegraphics[width=0.5\linewidth]{img/triangle.png}
- 	\caption{Triangle of Disagreement}
+ 	\caption{Triangle of disagreement.}
  	\label{fig:triangle_of_reference}
  \end{figure}
 
@@ -148,7 +150,7 @@ Based on the specificity of each task, closed or open-ended, the effort required
     \end{tabular}
     }
     
-	\caption {Crowdsourcing Task Details}
+	\caption {Crowdsourcing task details.}
     \label{tab:crowd_data}
 \end{table}
 
@@ -189,7 +191,7 @@ These tasks were picked from diverse domains (medical, sound, open), to aid in t
 \caption{News Event Extraction}
 \label{fig:screenshot_news}
 \end{subfigure}
-\caption{Templates of the Crowdsourcing Tasks}
+\caption{Templates of the crowdsourcing tasks.}
 \end{figure}
 
 
@@ -209,7 +211,7 @@ Tables \ref{tab:crowd_data} and \ref{tab:crowd_tasks} present an overview of the
     \bottomrule
     \end{tabular}
     }
-	\caption{Crowdsourcing Task Data}
+	\caption{Crowdsourcing task data.}
     \label{tab:crowd_tasks}
 \end{table}
 
@@ -326,7 +328,7 @@ We begin by evaluating \textit{how the majority vote method compares with CrowdT
 \bottomrule
 \end{tabular}
 }
-\caption {CrowdTruth evaluation results; the \textbf{Threshold} column shows the highest F1 media unit-annotation score threshold for each task, for which the evaluation was done.}
+\caption {CrowdTruth evaluation results; the \textbf{Threshold} column shows the highest F1 media unit - annotation score threshold for each task, for which the evaluation was done.}
 \label{tab:f1_mv}
 \end{table}
 
@@ -431,12 +433,12 @@ Finally, it is worth discussing the outlier characteristics of the \textit{Sound
 Crowdsourcing has grown into a viable alternative to expert ground truth collection, as crowdsourcing tends to be both cheaper and more readily available than domain experts. Experiments have been carried out in a variety of tasks and domains:  medical entity extraction~\cite{zhai2013web,Finin2010,van2012eu}, medical relation extraction~\cite{kilicoglu2011constructing,van2012eu}, open-domain relation extraction~\cite{kondreddi2014combining}, clustering and disambiguation~\cite{Lee2013}, ontology evaluation~\cite{noy2013mechanical}, web resource classification~\cite{castano2016human} and taxonomy creation~\cite{bragg2013crowdsourcing}. \cite{Snow2008} have shown that aggregating the answers of an increasing number of unskilled crowd workers with majority vote can lead to high quality NLP training data. The typical approach in these works is to assume the existence of a universal ground truth. Therefore, disagreement between annotators is considered an undesirable feature, and is usually discarded by using either of the following methods: restricting annotator guidelines, picking one answer that reflects some consensus usually through majority voting, or using a small number of annotators.
 
 
-\subsection{Disagreement and Ambiguity in Crowdsourcing}
+\subsection{Disagreement \& Ambiguity in Crowdsourcing}
 
 Besides CrowdTruth, there exists some research on how disagreement in crowdsourcing should be interpreted and handled. In assessing the OAEI benchmark, \cite{cheatham2014conference} found that disagreement between annotators (both crowd and expert) is an indicator for inherent uncertainty in the domain knowledge, and that current benchmarks in ontology alignment and evaluation are not designed to model this uncertainty. \cite{plank-hovy-sogaard:2014:P14-2} found similar results for the task of crowdsourced part-of-speech tagging -- most inter-annotator disagreement was indicative of debatable cases in linguistic theory, rather than faulty annotation. \cite{Bayerl2011} also investigate the role of inter-annotator disagreement as a possible indicator of ambiguity inherent in natural language. \cite{lau2014measuring} propose a method for crowdsourcing ambiguity in the grammatical correctness of text by giving workers the possibility to pick various degrees of correctness, but inter-annotator disagreement is not discussed as a factor in measuring this ambiguity. \cite{schaekermann2016} propose a framework for dealing with uncertainty in ground truth that acknowledges the notion of ambiguity, and uses disagreement in crowdsourcing for modeling this ambiguity. For the task of word sense disambiguation, \cite{jurgens2013embracing} show that, in modeling ambiguity, the crowd was able to achieve expert-level quality of annotations. \cite{Chang:2017:Revolt} implemented a workflow of tasks for collecting and correcting labels for text and images, and found that ambiguous cases cannot simply be resolved by better annotation guidelines or through worker quality control. Finally, \cite{lin2014re} shows that often, machine learning classifiers can achieve a higher accuracy when trained with noisy crowdsourcing data. To our knowledge, this chapter presents the first experiment across several tasks and domains that explores ambiguity as a property of crowdsourcing systems, and how it can be interpreted to improve the quality of ground truth data.
 
 
-\subsection{Crowdsourcing Aggregation beyond Majority Vote}
+\subsection{Crowd Aggregation beyond Majority Vote}
 
 The literature on alternative crowdsourcing aggregation metrics typically focuses on analyzing worker performance -- identifying spam workers~\cite{Bozzon:2013,Kittur2008,Ipeirotis:2010}, and analyzing workers' performance for quality control and optimization of the crowdsourcing processes~\cite{Singer:2013}. \cite{NIPS2009_3644} and \cite{welinder2010multidimensional} have used a latent variable model for task difficulty, as well as latent variables to measure the skill of each annotator, to optimize crowdsourcing for image labels. \cite{werling2015job} use on-the-job learning with Bayesian decision theory to assign the most appropriate workers for each task, for both text and image annotation. Finally, \cite{prelec2017solution} show that the surprisingly popular crowd choice (i.e. the answer that most workers thought would not be picked by other workers, even though it is correct) gave better results than the majority vote for a variety of tasks with unambiguous ground truths (state capitals, trivia questions and price of artworks).
 
@@ -462,7 +464,7 @@ We would like to thank Emiel van Miltenburg for assisting with the exploration o
 
 \newpage
 
-\section*{Appendix: Example Media Units Where the Expert Judgment Is Different from the Trusted Judgment}
+\section{Appendix: Example Media Units Where the Expert Judgment Is Different from the Trusted Judgment}
 \label{sec:appendix}
 
 \begin{table}[!htb]
