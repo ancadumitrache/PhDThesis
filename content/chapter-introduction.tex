@@ -125,7 +125,22 @@ Based on the issues we identified in Section~\ref{sec:intro-rel-work}, the overa
     \end{itemize}
 \end{itemize}
 
-In addition to addressing these research question, another contribution of this thesis is a collection of ground truth datasets for the tasks of medical relation extraction~\cite{anca_dumitrache_2016_50676}, open domain relation extraction~\cite{crowdODrelexdata2016}, and semantic frame disambiguation~\cite{anca_dumitrache_2018_1472345}. These datasets have been collected with crowdsourcing and processed with the CrowdTruth methodology. The disagreement-aware metrics have allowed us to label the data with continuous truth labels for sentences, relations, semantic frames and workers, allowing us to capture the ambiguity inherent in these tasks.
+In addition to addressing these research question, {\color{blue} this thesis also contributes a collection of datasets, across different tasks and domains, that have been collected with crowdsourcing and processed with the CrowdTruth methodology for disagreement analysis to capture ambiguity:
+
+\begin{enumerate}
+    \item 3,984 English sentences for \textit{medical relation extraction}, centering on the $cause$ and $treat$ relations~\cite{anca_dumitrache_2016_50676};
+    
+    \item 4,100 sentences annotated with {\textit open domain relation extraction}, centering on 16 popular relations between $Person$, $Location$ and $Organization$ term types~\cite{crowdODrelexdata2016};
+    
+    \item 433 sentence-word pairs from the FrameNet corpus, and 5,000 sentence-word pairs from Wikipedia annotated with \textit{frame disambiguation}~\cite{anca_dumitrache_2018_1472345}.
+\end{enumerate}
+
+Finally, we have made the CrowdTruth methodology for aggregating crowdsourcing results available as an open-source software package,\footnote{\url{https://github.com/CrowdTruth/CrowdTruth-core}
+} applicable to both closed and open-ended crowdsourcing tasks. To facilitate the usage of our software, we created a tutorial\footnote{\url{http://crowdtruth.org/tutorial/}} that discusses its application in a series of diverse use cases for collecting human annotation.
+}
+
+
+%another contribution of this thesis is a collection of ground truth datasets for the tasks of medical relation extraction~\cite{anca_dumitrache_2016_50676}, open domain relation extraction~\cite{crowdODrelexdata2016}, and semantic frame disambiguation~\cite{anca_dumitrache_2018_1472345}. These datasets have been collected with crowdsourcing and processed with the CrowdTruth methodology. The disagreement-aware metrics have allowed us to label the data with continuous truth labels for sentences, relations, semantic frames and workers, allowing us to capture the ambiguity inherent in these tasks.
 
 % add appendix with all data sources & Github code
 
