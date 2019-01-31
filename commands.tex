@@ -15,13 +15,25 @@
 \newcommand{\myVersion}{version 1.1\xspace}
 
 \makeatletter
-\renewcommand{\@chapapp}{}% Not necessary...
+%\renewcommand{\@chapapp}{}% Not necessary...
 \newenvironment{chapquote}[2][2em]
   {\setlength{\@tempdima}{#1}%
    \def\chapquote@author{#2}%
    \parshape 1 \@tempdima \dimexpr\textwidth-2\@tempdima\relax%
    \itshape}
   {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
+
+\newcommand*{\cleartoleftpage}{%
+  \clearpage
+    \if@twoside
+    \ifodd\c@page
+      \hbox{}\newpage
+      \if@twocolumn
+        \hbox{}\newpage
+      \fi
+    \fi
+  \fi
+}
 
 \makeatother
 
