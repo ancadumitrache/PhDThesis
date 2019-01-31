@@ -9,12 +9,16 @@
 \WarningFilter{titlesec}{Non standard sectioning command detected}
 
 \documentclass[
-  twoside, openright, titlepage, numbers=noenddot, %1headlines,
+  twoside, openright,titlepage, numbers=noenddot, %1headlines,
   headinclude, footinclude, cleardoublepage=empty,
   BCOR=5mm, paper=a4, fontsize=11pt % binding correction, paper type and font size
 ]{scrreprt}
 
 \input{config} % load additional adjustments
+
+% USE THIS FOR CUSTOM PAGE HEADINGS
+%\usepackage{geometry}
+%\usepackage[left=1.85in,right=1.4in,top=1.2in,bottom=1.2in]{geometry}
 
 % ********************************************************************
 % Compile only selected parts
@@ -59,6 +63,10 @@
 \include{front_back_matter/siks_reference} % Siks reference
 \include{front_back_matter/declaration} % declaration
 \include{front_back_matter/supervisors_and_commission} % declaration
+
+\newgeometry{left=1.85in,right=1.6in,top=1.2in,bottom=1.2in,marginparwidth=0pt}
+%\newgeometry{marginparwidth=0pt}
+
 \include{front_back_matter/acknowledgements} % acknowledgements 
 \include{front_back_matter/contents} % contents, list of figures/tables/listings and acronyms
 
