@@ -33,7 +33,7 @@ This chapter is based on the following publications:
 
 % \textbf{RQ4:} \textit{Is inter-annotator disagreement an accurate indicator for ambiguity in natural language?}
 
-{\color{blue} We have shown that preserving inter-annotator disagreement can result in ground truth data of a high quality (Chapters~\ref{chap:med-rel-ex} \&~\ref{chap:maj-vote}), that can be used to improve the performance of natural language processing systems (Chapter~\ref{chap:od-rel-ex}). Based on these results, it appears that inter-annotator disagreement is a useful property to have in ground truth data. We argue that is because \textit{disagreement is often times indicative of ambiguity that is inherent to natural language} (\textbf{RQ4}). In this chapter, we explore how disagreement can be used as an indicator for language ambiguity, using the task of FrameNet frame disambiguation as a use case.}
+We have shown that preserving inter-annotator disagreement can result in ground truth data of a high quality (Chapters~\ref{chap:med-rel-ex} \&~\ref{chap:maj-vote}), that can be used to improve the performance of natural language processing systems (Chapter~\ref{chap:od-rel-ex}). Based on these results, it appears that inter-annotator disagreement is a useful property to have in ground truth data. We argue that is because \textit{disagreement is often times indicative of ambiguity that is inherent to natural language} (\textbf{RQ4}). In this chapter, we explore how disagreement can be used as an indicator for language ambiguity, using the task of FrameNet frame disambiguation as a use case.
 
 FrameNet is a computational linguistics resource based on the frame semantics theory~\cite{baker1998berkeley}. A semantic \textit{frame} is an abstract representation of a word sense, describing a type of entity, relation, or event, and identifies the associated \emph{roles} implied by the frame. The FrameNet resource offers a collection of semantic frames, together with a corpus of documents annotated with these frames. In the corpus, individual words are mapped to the single frame that represents the meaning of that word in the sentence.  
 
@@ -45,13 +45,13 @@ This chapter presents the following contributions:
 
 \begin{enumerate}
 
-\item \emph{metrics for frame and sentence quality}: a qualitative evaluation showing that inter-annotator disagreement is an indicator of ambiguity in both frames and sentences {\color{blue} (Section~\ref{sec:frame-metrics})};
+\item \emph{metrics for frame and sentence quality}: a qualitative evaluation showing that inter-annotator disagreement is an indicator of ambiguity in both frames and sentences (Section~\ref{sec:frame-metrics});
 
-\item \emph{crowd vs. expert evaluation}: the crowd achieves comparative quality with trained FrameNet experts (F1 $>0.67$), and we provide examples of typical cases where the crowd annotation is correct despite the expert disagreement {\color{blue} (Section~\ref{sec:frame-crowd-exp})};
+\item \emph{crowd vs. expert evaluation}: the crowd achieves comparative quality with trained FrameNet experts (F1 $>0.67$), and we provide examples of typical cases where the crowd annotation is correct despite the expert disagreement (Section~\ref{sec:frame-crowd-exp});
 
-\item \emph{ambiguity-aware annotation methodology}: we demonstrate that the cases in which the crowd workers could not agree exhibit ambiguity, either in the sentence, frame, or the task itself; we argue that collapsing such cases to a single, discrete truth value (i.e. correct or incorrect) is inappropriate, creating arbitrary targets for machine learning {\color{blue} (Section~\ref{sec:frame-ambig})};
+\item \emph{ambiguity-aware annotation methodology}: we demonstrate that the cases in which the crowd workers could not agree exhibit ambiguity, either in the sentence, frame, or the task itself; we argue that collapsing such cases to a single, discrete truth value (i.e. correct or incorrect) is inappropriate, creating arbitrary targets for machine learning (Section~\ref{sec:frame-ambig});
 
-\item \emph{evaluation of several frame disambiguation models}: using evaluation metrics that leverage the multiple possible frames per sentence and their confidence scores, we show that even a model that always predicts the top crowd answer will not always have the best performance {\color{blue} (Section~\ref{sec:frame-disambig-eval})};
+\item \emph{evaluation of several frame disambiguation models}: using evaluation metrics that leverage the multiple possible frames per sentence and their confidence scores, we show that even a model that always predicts the top crowd answer will not always have the best performance (Section~\ref{sec:frame-disambig-eval});
 
 \item \emph{annotated corpus}: 433 FrameNet sentences, and 5,000 Wikipedia sentences with crowd annotations~\cite{anca_dumitrache_2018_1472345}.
 
