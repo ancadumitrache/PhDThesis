@@ -135,10 +135,11 @@ In addition to addressing these research question, this thesis also contributes 
     \item 433 sentence-word pairs from the FrameNet corpus, and 5,000 sentence-word pairs from Wikipedia annotated with \textit{frame disambiguation}~\cite{anca_dumitrache_2018_1472345}.
 \end{enumerate}
 
-Finally, we have developed the CrowdTruth methodology for aggregating crowdsourcing results as an open-source software package,\footnote{\url{https://github.com/CrowdTruth/CrowdTruth-core}
-} applicable to both closed and open-ended crowdsourcing tasks. To facilitate the usage of our software, we created a tutorial\footnote{\url{http://crowdtruth.org/tutorial/}} that discusses its application in a series of diverse use cases for collecting human annotation.
+{\color{blue}
+As another contribution, we have developed the CrowdTruth methodology as an open-source {\textit software package}.\footnote{\url{https://github.com/CrowdTruth/CrowdTruth-core}} The CrowdTruth methodology for aggregating crowdsourcing results works by capturing and interpreting inter-annotator disagreement. Unlike other aggregation methods, our goal is to preserve dissenting annotations into a richer, continuous representation of truth. The disagreement is used to calculate quality scores for the crowd task input data, annotations and annotators. The CrowdTruth software implements this methodology as a Python package, calculating the quality scores from raw data collected from crowdsourcing platforms. We offer support for a variety of crowdsourcing tasks, both closed and open-ended.  To facilitate the usage of our software, we provide a tutorial\footnote{\url{http://crowdtruth.org/tutorial/}} that discusses its application in a series of diverse use cases for collecting human annotation.
+}
 
-
+% The central characteristic of CrowdTruth is harnessing the diversity in human interpretation to capture the wide range of opinions and perspectives, and thus, provide more reliable and realistic real-world annotated data for training and evaluating machine learning components.
 
 %another contribution of this thesis is a collection of ground truth datasets for the tasks of medical relation extraction~\cite{anca_dumitrache_2016_50676}, open domain relation extraction~\cite{crowdODrelexdata2016}, and semantic frame disambiguation~\cite{anca_dumitrache_2018_1472345}. These datasets have been collected with crowdsourcing and processed with the CrowdTruth methodology. The disagreement-aware metrics have allowed us to label the data with continuous truth labels for sentences, relations, semantic frames and workers, allowing us to capture the ambiguity inherent in these tasks.
 
