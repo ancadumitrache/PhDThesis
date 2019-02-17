@@ -45,7 +45,7 @@ This chapter presents the following contributions:
 
 \begin{enumerate}
 
-\item \emph{metrics for frame and sentence quality}: a qualitative evaluation showing that inter-annotator disagreement is an indicator of ambiguity in both frames and sentences (Section~\ref{sec:frame-metrics});
+\item \emph{CrowdTruth metrics for frame and sentence quality}: a qualitative evaluation showing that inter-annotator disagreement is an indicator of ambiguity in both frames and sentences (Section~\ref{sec:frame-metrics});
 
 \item \emph{crowd vs. expert evaluation}: the crowd achieves comparative quality with trained FrameNet experts (F1 $>0.67$), and we provide examples of typical cases where the crowd annotation is correct despite the expert disagreement (Section~\ref{sec:frame-crowd-exp});
 
@@ -96,7 +96,7 @@ The dataset used in this experiment consists of sentence-word pairs from the Fra
 
 The restriction on the maximum number of frames was done so as not to overwhelm the crowd with too many choices. However, annotating words that have more than 20 frames can easily be adapted for our template, by fragmenting the candidate frame list into several parts and running the task multiple times. Also, having just one frame per word means that the crowdsourcing task becomes one of validation, not disambiguation, so the restriction on the minimum number of frames was put in place.
 
-For simplicity, we refer to the sentence-word pairs as sentences in the rest of the chapter. This dataset, as well as the crowdsourcing results and aggregated metrics are available online~\cite{anca_dumitrache_2018_1472345}.
+For simplicity, we refer to the sentence-word pairs as sentences in the rest of the chapter. This dataset, as well as the crowdsourcing results and aggregated CrowdTruth metrics are available online~\cite{anca_dumitrache_2018_1472345}.
 
 \subsection{Task Template}
 
@@ -111,10 +111,14 @@ For simplicity, we refer to the sentence-word pairs as sentences in the rest of 
 
 The crowdsourcing task was run on the Amazon Mechanical Turk platform\footnote{\url{https://mturk.com/}}. The task template is shown in Figure~\ref{fig:ch5template}. The workers were given a sentence with the word highlighted, and then asked to perform the multiple choice task of selecting all frames that fit the sense of the highlighted word, or that none of the frames fit. The most challenging part of the frame disambiguation task design is making sure that the crowd can understand the meaning of the frame. For each frame, we show the definition, as well as a list of sentences exemplifying the usage of the frame. These example sentences can be accessed by the workers by clicking a button next to each frame, so that the workers do not become overwhelmed with the information on the task page. In order to make sure we capture diverse worker opinions, we increased the number of annotators per sentence from 10 (the number recommended by \citet{Hong:2011:GCR:2018966.2018970}), to 15. The cost of the task varied from \$0.08 per annotation at the start of the task, in order to attract a sizable pool of workers, to \$0.06 at the end, as workers became quicker at solving the task.
 
-\subsection{Disagreement Metrics}
+{\color{blue}
+\subsection{CrowdTruth Metrics for Capturing Disagreement}
 \label{sec:frame-metrics}
 
-To aggregate the results of the crowd, while also capturing inter-annotator disagreement, we use a modified version of the CrowdTruth~\cite{aroyo2014threesides} metrics. The first step is to construct the \textit{worker vectors}, which are a set of binary vectors encoding the decision of one worker for one sentence. The vector has $n+1$ components, where $n$ is the number of frames shown together with the sentence. If the worker selects a frame from the multiple-choice list, its corresponding component would be marked with `1', and `0' otherwise. The decision to pick none of the frames also corresponds to a component in the vector. Using these worker vectors, we then calculate the following disagreement metrics:
+To aggregate the results of the crowd, while also capturing inter-annotator disagreement, we use the CrowdTruth~\cite{aroyo2014threesides} metrics. In the triangle model of the crowdsourcing system (Chapter~\ref{sec:methodology}), we consider the media unit to be the sentence, and the annotation to be the frame.
+Similarly to Chapter~\ref{sec:chap4_metrics}, we employ version 2.0 of the metrics~\cite{dumitrache2018crowdtruth}, which explicitly models the interdependence between sentences, frames and workers.}
+
+The first step in calculating the CrowdTruth metrics is to construct the \textit{worker vectors}, which are a set of binary vectors encoding the decision of one worker for one sentence. The vector has $n+1$ components, where $n$ is the number of frames shown together with the sentence. If the worker selects a frame from the multiple-choice list, its corresponding component would be marked with `1', and `0' otherwise. The decision to pick none of the frames also corresponds to a component in the vector. Using these worker vectors, we then calculate the following disagreement metrics:
 
 \begin{itemize}
 \item \textbf{frame-sentence score (FSS):} the degree with which a frame matches the sense of the word in the sentence. It is the ratio of workers that picked the frame to all the workers that read the sentence, weighted by the worker quality (WQS).  A higher FSS should indicate that the frame is more clearly expressed in a sentence.
@@ -273,30 +277,17 @@ While the majority of expert choices have high FSS scores, there are some except
 \section{Capturing Ambiguity}
 \label{sec:frame-ambig}
 
-The cases where the experts and crowd disagree exemplify how difficult frame disambiguation can be when dealing with ambiguity, both in sentences and in the frame definition. Currently in the FrameNet corpus, the expert annotations lack the level of granularity necessary to differentiate between clear expressions of the frames, and more ambiguous ones. We propose the FSS metric as a method to capture the degree of ambiguity with which a frame captures a word sense in a sentence. In Table~\ref{tab:fss_ex}, we show how the FSS metric varies together with the clarity with which a frame is expressed across different sentences. We demonstrate this across 3 different frames:
+The cases where the experts and crowd disagree exemplify how difficult frame disambiguation can be when dealing with ambiguity, both in sentences and in the frame definition. Currently in the FrameNet corpus, the expert annotations lack the level of granularity necessary to differentiate between clear expressions of the frames, and more ambiguous ones. {\color{blue} In this section, we discuss cases of ambiguity in the frame-sentence expression, in the sentence quality, and in the frame quality.
+
+\subsection{Ambiguity in the Frame-Sentence Expression}
+}
+
+We proposed the FSS metric as a method to capture the degree of ambiguity with which a frame captures a word sense in a sentence. In Table~\ref{tab:fss_ex}, we show how the FSS metric varies together with the clarity with which a frame is expressed across different sentences. We demonstrate this across 3 different frames:
 
 \begin{itemize}
 
 \item $removing$: $P1$ is an unambiguous expression of the frame, as reflected by the high agreement score. In $P2$, the top crowd frame as well as the expert choice frame $change\ of\ leadership$ refers to overthrowing the government, and $removing$ can be read as a generalization of this sense (i.e. removing the government by overthrowing it) -- $removing$ is a valid interpretation, but less specific, and the lower FSS seems justified. $P3$ is an even more ambiguous case -- it is not clear whether the word \textit{skimming} refers to generally $committing\ crime$, or to the more specific crime of $theft$, and $removing$ is a generalization for the sense of $theft$, however skimming here is a common metaphor, and not the actual act of skimming. We claim the rank ordering of uses of the \textit{removing} frame here is sensible, moreover it is far more useful to capture this information than require a single discrete truth value - the third case is simply not as clear a usage of the frame as the first.  There is a certain arbitrariness to determining which of these is "truly removing" and which is not.
 
-
-
-\begin{figure}[tbh!]
-\centering
-\begin{subfigure}{.5\textwidth}
-\centering
-\includegraphics[width=\linewidth]{img/sqs_f1.pdf}
-\caption{SQS in relation to F1 score (with \\ expert annotations as true positives), shows that in higher quality sentences, the crowd tends to agree with experts.}
-\label{fig:sqs_f1}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-\centering
-\includegraphics[width=\linewidth]{img/fqs_f1.pdf}
-\caption{FQS in relation with F1 score (with expert annotations as true positives), shows that in higher quality frames, the crowd tends to agree with the experts.}
-\label{fig:fqs_f1}
-\end{subfigure}
-\caption{SQS \& FQS evaluation.}
-\end{figure}
 
 \begin{table}[tbh!]
 \centering
@@ -367,11 +358,49 @@ In addition to the ranking, the method of collecting data from multiple crowd wo
 
 The SQS and FQS metrics can additionally be used to express the overall ambiguity in the sentence and frame, respectively. Figures~\ref{fig:sqs_f1} \&~\ref{fig:fqs_f1} show that sentences with higher SQS and frames with higher FQS also have higher F1 values, demonstrating that the SQS and FQS metrics can be useful in determining data quality. This result, in combination with the correlation between FSS and expert annotations, shows that when there is agreement in the crowd, then the crowd also agrees with the experts, but when there is disagreement, it may be because something is wrong: with the workers, the sentence, or the frames.
 
+\begin{figure}[htb!]
+\centering
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{img/sqs_f1.pdf}
+\caption{SQS in relation to F1 score (with \\ expert annotations as true positives), shows that in higher quality sentences, the crowd tends to agree with experts.}
+\label{fig:sqs_f1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{img/fqs_f1.pdf}
+\caption{FQS in relation with F1 score (with expert annotations as true positives), shows that in higher quality frames, the crowd tends to agree with the experts.}
+\label{fig:fqs_f1}
+\end{subfigure}
+\caption{SQS \& FQS evaluation.}
+\end{figure}
+
+
+{\color{blue} \subsection{Ambiguity \& Sentence Quality}}
+
 In Table~\ref{tab:sqs}, we show some examples of how SQS captures the clarity for the sense of a word in a sentence, by taking the same word (and therefore same list of candidate frames) in different sentences:
 
 
+\begin{itemize}
 
-\begin{table}[tb!]
+\item Sentences $Q1$, $Q2$ and $Q3$ all contain the word \textit{construct}, with different degrees of clarity. When the object being constructed is a building (i.e. the \textit{Temple} in $Q1$), there is no ambiguity in selecting the $building$ frame, but when the object is a \textit{road bump} ($Q2$), the sense of the building $frame$ becomes difficult to separate from $manufacturing$. In $Q3$, the object of the construction is not expressed, but the construction materials imply a precious object, therefore $building$, $manufacturing$ and $create\ physical\ artwork$ are all possible interpretations. Sentences 
+
+\item $Q4$ and $Q5$ illustrate the variation in clarity for the word \textit{become}. While in $Q4$, the sense $becoming$ is the unambiguous choice, in $Q5$ it is difficult to choose between the frames $becoming$ and $undergo\ change$ (it is arguable that \textit{Cheung Chau} needs to undergo some form of change in order to become a center).
+
+\item $Q6$ and $Q7$ both deal with the word \textit{effort}. In $Q7$, however, the \textit{conscious} qualifier for the word \textit{effort}, as well as the goal to \textit{develop}, implies a sustained, long-term action that can be understood as either an $attempt$ or a $commitment$ to achieve a goal. In contrast, $Q6$ expresses a short-term, concrete action (to \textit{bring}), which more closely fits the sense of the frame $attempt$.
+
+\end{itemize}
+
+Again, our claim is that these scores and ranking are far more sensible and informative than requiring a discrete truth decision, which seems more arbitrary as the scores decrease.
+
+As the examples above indicate, one possible cause for sentence ambiguity is missing context information (e.g. in $Q3$). This was also one of the causes for disagreement between crowd and expert. A solution to this problem would be to expand the input text for the crowdsourcing task, to include the full paragraph, or even just one sentence before and one after the one we want the crowd to annotate.
+
+Another reason for sentence ambiguity is frames that overlap in meaning (e.g. in $Q5$ and $Q7$). While providing more context could help with this, it is often the case that even the definitions of the frames are very close. The FQS metric is a useful indicator for these case.
+
+{\color{blue} \subsection{Ambiguity \& Frame Quality}}
+
+
+\begin{table}[htb!]
 \centering
 
 \scalebox{0.8}{
@@ -411,27 +440,11 @@ In Table~\ref{tab:sqs}, we show some examples of how SQS captures the clarity fo
 \label{tab:fqs}
 \end{table}
 
-\begin{itemize}
-
-\item Sentences $Q1$, $Q2$ and $Q3$ all contain the word \textit{construct}, with different degrees of clarity. When the object being constructed is a building (i.e. the \textit{Temple} in $Q1$), there is no ambiguity in selecting the $building$ frame, but when the object is a \textit{road bump} ($Q2$), the sense of the building $frame$ becomes difficult to separate from $manufacturing$. In $Q3$, the object of the construction is not expressed, but the construction materials imply a precious object, therefore $building$, $manufacturing$ and $create\ physical\ artwork$ are all possible interpretations. Sentences 
-
-\item $Q4$ and $Q5$ illustrate the variation in clarity for the word \textit{become}. While in $Q4$, the sense $becoming$ is the unambiguous choice, in $Q5$ it is difficult to choose between the frames $becoming$ and $undergo\ change$ (it is arguable that \textit{Cheung Chau} needs to undergo some form of change in order to become a center).
-
-\item $Q6$ and $Q7$ both deal with the word \textit{effort}. In $Q7$, however, the \textit{conscious} qualifier for the word \textit{effort}, as well as the goal to \textit{develop}, implies a sustained, long-term action that can be understood as either an $attempt$ or a $commitment$ to achieve a goal. In contrast, $Q6$ expresses a short-term, concrete action (to \textit{bring}), which more closely fits the sense of the frame $attempt$.
-
-\end{itemize}
-
-Again, our claim is that these scores and ranking are far more sensible and informative than requiring a discrete truth decision, which seems more arbitrary as the scores decrease.
-
-As the examples above indicate, one possible cause for sentence ambiguity is missing context information (e.g. in $Q3$). This was also one of the causes for disagreement between crowd and expert. A solution to this problem would be to expand the input text for the crowdsourcing task, to include the full paragraph, or even just one sentence before and one after the one we want the crowd to annotate.
-
-Another reason for sentence ambiguity is frames that overlap in meaning (e.g. in $Q5$ and $Q7$). While providing more context could help with this, it is often the case that even the definitions of the frames are very close. The FQS metric is a useful indicator for these case.
-
 Table~\ref{tab:fqs} shows varying FQS values for different frames, from very clear to ambiguous. The frame $subjective\ influence$, with an FQS of 0.366, has a low score compared to the others. From looking at the sentences, we observed that the crowd had difficulty distinguishing between this frame and $objective\ influence$. The difference between these two frames is very small -- $subjective\ influence$ means a general, vague type of influence, whose effect cannot be measured, whereas $objective\ influence$ refers to a more concrete type of influence. However, as we see from the example sentences in Table~\ref{tab:fqs}, these cases can be very difficult to separate in natural language (e.g. in $F13$ is \textit{cultural influence} subjective or objective?).
 
 Another feature we observed was the correlation of FQS with how abstract the sense of the frame is. Frames with high FQS, such as $killing$ and $food$, tend to refer to concrete events or objects. These frames can still appear in ambiguous contexts (e.g. in $F5$, it is not clear whether \textit{herbs} classify as a type of $food$), but overall these frames refer to specific and particular senses that are unambiguous. As the value of the FQS metric goes down, the frames become more abstract. $assistance$ and $purpose$ both have example sentences where they are expressed unambiguously ($F6$ and $F9$), but their definitions are more abstract, and therefore have more room for interpretation. For instance, providing benefits (in $F7$) or expertise (in $F8$) can be regarded as a type of help, or $assistance$, even though the expert picked the more literal sense of the frame $supply$ for both of these cases. Likewise the frame $purpose$ can be understood in $F10$ as the purpose of a design (the expert picked the more literal $coming\ up\ with$), or in $F11$ as the goal of the desire/will (the expert picked $desiring$). $undergo\ change$, the frame with the lowest FQS in Table~\ref{tab:fqs} has a very broad meaning, and is a generalization of other more specific frames: $change\ position\ on\ a\ scale$ in $F16$, and $thriving$ in $F17$.
 
-As we have seen from these examples, ambiguity in frames is connected to ambiguity in sentences. Frames with abstract or overlapping definitions are likely to appear in ambiguous sentences, and missing context from sentences is likely to result in more ambiguous scores for the frames. While workers misunderstanding the task is also a confounding factor that adds to the noise in the data, it is clear that there are many instances where inter-annotator disagreement is legitimately a by-product of ambiguity. This is an issue with the FrameNet dataset, as it does not allow for expressing the various degrees with which a sense applies to a word in a sentence, and instead relies on binary labels (i.e. the frame is expressed or not). This results in a loss of information that could impact the various natural language processing and machine learning applications that make use of this corpus, as it sets false targets for optimization -- i.e. it seems unfair to expect a model to differentiate between highly ambiguous examples, when even human annotators are having such difficulty with them.
+As we have seen from these examples, ambiguity in frames is connected to ambiguity in sentences. Frames with abstract or overlapping definitions are likely to appear in ambiguous sentences, and missing context from sentences is likely to result in more ambiguous scores for the frames. While workers misunderstanding the task is also a confounding factor that adds to the noise in the data, it is clear that there are many instances where inter-annotator disagreement is legitimately a by-product of ambiguity. This is an issue with the FrameNet dataset, as it does not allow for expressing the various degrees with which a sense applies to a word in a sentence, and instead relies on binary labels (i.e. the frame is expressed or not). This results in a loss of information that could impact the various natural language processing and machine learning applications that make use of this corpus, as it sets false targets for optimization -- i.e. it seems unfair to expect a model to differentiate between highly ambiguous examples, when even human annotators are having such difficulty with them. \\
 
 
 \section{A Frame Disambiguation Corpus with Ambiguity}
