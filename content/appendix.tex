@@ -3,7 +3,16 @@
 % \markboth{\spacedlowsmallcaps{Summary}}{\spacedlowsmallcaps{Summary}}
 % \addcontentsline{toc}{chapter}{\tocEntry{Summary}}
 
-\chapter{Appendix: CrowdTruth Metrics V.2.0}
+\phantomsection
+\manualmark
+\markboth{\spacedlowsmallcaps{Appendix: CrowdTruth Metrics V.2.0}}{\spacedlowsmallcaps{Appendix: CrowdTruth Metrics V.2.0}}
+\addcontentsline{toc}{chapter}{\tocEntry{Appendix: CrowdTruth Metrics V.2.0}}{\protect\setcounter{tocdepth}{1}}
+
+\renewcommand{\thesection}{\Alph{section}}
+
+\appendix
+
+\chapter*{Appendix: CrowdTruth Metrics V.2.0}
 
 Typically crowdsourcing-based approaches to gather annotated data use inter-annotator agreement as a measure of quality. However, in many domains, there is ambiguity in the data, as well as a multitude of perspectives of the information examples. In this paper, we present ongoing work into the CrowdTruth metrics, that capture and interpret inter-annotator disagreement in crowdsourcing. The CrowdTruth metrics model the inter-dependency between the three main components of a crowdsourcing system -- worker, input data, and annotation. The goal of the metrics is to capture the degree of ambiguity in each of these three components. The metrics are available online at \url{https://github.com/CrowdTruth/CrowdTruth-core}.
 
