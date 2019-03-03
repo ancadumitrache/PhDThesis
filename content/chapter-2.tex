@@ -238,11 +238,20 @@ We collect true and false positives and negatives in the standard way, such that
 
 \begin{itemize}
 
-\item \textit{weighted precision:}   Where normally $P = tp/(tp + fp)$, weighted precision $$P' = \dfrac{\sum_{s}{srs(s) \cdot tp(s)}} {\sum_{s}{srs(s) \cdot tp(s) + (1 - srs(s)) \cdot fp(s)}};$$
+\item \textit{weighted precision:}   Where normally $P = tp/(tp + fp)$, weighted precision 
+\begin{align}
+    P' = \dfrac{\sum_{s}{srs(s) \cdot tp(s)}} {\sum_{s}{srs(s) \cdot tp(s) + (1 - srs(s)) \cdot fp(s)}};
+\end{align}
 
-\item \textit{weighted recall:} Where normally $R = tp/(tp + fn)$, weighted recall $$R' = \dfrac{\sum_{s}{srs(s) \cdot tp(s)}}{\sum_{s}{srs(s) \cdot tp(s) + srs(s) \cdot fn(s)}};$$
+\item \textit{weighted recall:} Where normally $R = tp/(tp + fn)$, weighted recall
+\begin{align}
+R' = \dfrac{\sum_{s}{srs(s) \cdot tp(s)}}{\sum_{s}{srs(s) \cdot tp(s) + srs(s) \cdot fn(s)}};
+\end{align}
 
-\item \textit{weighted F-measure:} Is the harmonic mean of weighted precision and recall: $$F1' = 2 P' R' / (P' + R').$$
+\item \textit{weighted F-measure:} Is the harmonic mean of weighted precision and recall: 
+\begin{align}
+F1' = 2 P' R' / (P' + R').
+\end{align}
 
 \end{itemize}
 
@@ -397,7 +406,6 @@ For the $treat$ relation, the crowd scores an F1 of 0.88, while baseline scores 
 The gap in performance is also present in the weighted F1' metrics. As is the case in the previous experiment, the F1' scores higher than the regular F1 score for both crowd and baseline. The only weighted metric that does not increase is the baseline recall. This is also the only metric by which the baseline model performed better than the crowd.
 
 
-{\color{blue}
 \section{Discussion}
 
 \subsection{CrowdTruth vs. Medical Experts}
@@ -431,7 +439,7 @@ Over-fitting on term types classification could also be the reason that baseline
 In our error analysis of the annotation quality, we found that (as Figure~\ref{fig:ann_quality} shows) \textbf{experts and the crowd both make errors, but of different kinds}.  Experts tend to see relations that they know hold as being expressed in sentences, when they are not.  For example, in, ``He was the first to describe the relation between \textsc{Hemophelia} and \textsc{Hemophilic Arthropathy},'' experts labeled the sentence as expressing the $cause$ relation, since they know Hemophelia causes Hemophilic Arthropathy.  Thus they are particularly prone to errors in sentences selected by distant supervision, since that is the selection criterion. Table~\ref{tab:bad_expert} from the Appendix shows more such examples.  Crowd workers, on the other hand, were more easily fooled by sentences that expressed one of the target relations, but {\em not between the selected arguments.}  For example, in ``Influenza treatments such as \textsc{antivirals} and \textsc{antibiotics} are sometimes recommended," some crowd workers will label the sentence with treats, even though we are looking for the relation between $antivirals$ and $antibiotics$. More such examples are shown in Table~\ref{tab:bad_crowd} from the Appendix. The crowd achieves overall higher annotation quality due to redundancy, over the set of 15 workers, it is unlikely they will all make the same mistake.
 
 Our experiment has two limitations: (1) because of the limited availability of domain experts, we could not collect more than one expert judgment per sentence, and (2) because the model used classifies data with either a positive or a negative label, we removed the examples from the evaluation set that could not fit into either label.  We expect that adding more expert annotators per sentence will result in better quality annotations. However, disagreement will likely still be present -- as indicated by our previous work~\cite{aroyo2013crowd} on a set of 90 sentences, two experts agreed only 30\% of the time over what the correct relation is. Future work could explore whether disagreement between experts is consistent with the crowd disagreement. The second limitation lies with evaluation measures such as precision and recall that require discrete labels, which are the standard for classification models. The CrowdTruth method was designed specifically to represent ambiguous cases that are more difficult to fit into a positive or negative label, but to evaluate it in comparison with discrete data, we had to use the standard metrics. Now that we have shown the quality of the crowd data, it can be used to perform more detailed evaluations that take ambiguity into account through the use of weighted precision, recall and F1.
-}
+
 
 
 \section{Conclusion}
@@ -445,6 +453,7 @@ In this work, we used CrowdTruth to build a gold standard of 3,984 sentences for
 
 The authors would like to thank Dr. Chang Wang for support with using the medical relation extraction classifier, and Anthony Levas for help with collecting the expert annotations.  The authors, Dr. Wang and Mr. Levas were all employees of IBM Research when the expert data collection was performed, and we are grateful to IBM for making the data freely available subsequently.
 
+\newpage
 
 \section{Appendix: Evaluation Set Examples}
 

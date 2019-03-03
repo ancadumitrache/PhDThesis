@@ -13,7 +13,6 @@
 \appendix
 
 \chapter*{Appendix: CrowdTruth Metrics V.2.0}
-\ref{app:ct2.0}
 
 In this appendix, we present version 2.0 of the CrowdTruth methodology and metrics, that capture and interpret inter-annotator disagreement in crowdsourcing. The novelty in the current version of CrowdTruth is modeling the inter-dependency between the three main components of a crowdsourcing system -- worker, input data, and annotation. The goal of the metrics is to capture the degree of ambiguity in each of these three components. The metrics are available online at \url{https://github.com/CrowdTruth/CrowdTruth-core}.
 
@@ -21,6 +20,7 @@ This chapter is based on the technical report \textit{CrowdTruth 2.0: Quality Me
 
 
 \section{CrowdTruth Methodology}
+\label{app:ct2.0}
 
 In previous work~\cite{aroyo2015truth}, we proposed the \textbf{CrowdTruth methodology} as an alternative approach for crowdsourcing ground truth data that, instead of enforcing agreement between annotators, captures the ambiguity inherent in semantic annotation through the use of disagreement-aware metrics for aggregating crowdsourcing responses. The CrowdTruth methodology consists of a set of quality metrics and best practices to aggregate inter-annotator agreement such that ambiguity in the task is preserved. The methodology uses the triangle of disagreement model (based on the triangle reference \cite{knowlton1966definition}) to represent the crowdsourcing system and its three main components -- input media units, workers, and annotations (Figure~\ref{fig:tor}). Based on this model, the CrowdTruth methodology calculates quality metrics for workers, media units and annotations.
 
