@@ -13,20 +13,16 @@
 \appendix
 
 \chapter*{Appendix: CrowdTruth Metrics V.2.0}
+\ref{app:ct2.0}
 
 In this appendix, we present version 2.0 of the CrowdTruth methodology and metrics, that capture and interpret inter-annotator disagreement in crowdsourcing. The novelty in the current version of CrowdTruth is modeling the inter-dependency between the three main components of a crowdsourcing system -- worker, input data, and annotation. The goal of the metrics is to capture the degree of ambiguity in each of these three components. The metrics are available online at \url{https://github.com/CrowdTruth/CrowdTruth-core}.
 
 This chapter is based on the technical report \textit{CrowdTruth 2.0: Quality Metrics for Crowdsourcing with Disagreement}, co-authored by Oana Inel, Benjamin Timmermans, Lora Aroyo and Chris Welty~\cite{dumitrache2018crowdtruth}.
 
-\section{Introduction}
-
-The process of gathering ground truth data through human annotation is a major bottleneck in the use of information extraction methods. Crowdsourcing-based approaches are gaining popularity in the attempt to solve the issues related to volume of data and lack of annotators. Typically these practices use inter-annotator agreement as a measure of quality. However, this assumption often creates issues in practice. Previous experiments we performed~\cite{aroyo2013crowd} found that inter-annotator disagreement is usually never captured, either because the number of annotators is too small to capture the full diversity of opinion, or because the crowd data is aggregated with metrics that enforce consensus, such as majority vote.  These practices create artificial data that is neither general nor reflects the ambiguity inherent in the data.
-
-To address these issues, we proposed the \textbf{CrowdTruth}~\cite{aroyo2015truth} method for crowdsourcing ground truth by harnessing inter-annotator disagreement.  We present an alternative approach for crowdsourcing ground truth data that, instead of enforcing agreement between annotators, captures the ambiguity inherent in semantic annotation through the use of disagreement-aware metrics for aggregating crowdsourcing responses.  In this paper, we introduce the second version of \textbf{CrowdTruth metrics} -- a set of metrics that capture and interpret inter-annotator disagreement in crowdsourcing annotation tasks. As opposed to the first version of the metrics, published in~\cite{inel2014crowdtruth}, the current version models the \textit{inter-dependency between the three main components of a crowdsourcing system -- worker, input data, and annotation}. This update is based on the intuition that disagreement caused by low quality workers should not be interpreted as the data being ambiguous, but also that ambiguous input data should not be interpreted as due to the low quality of the workers.
-
-This paper presents the definitions of the CrowdTruth metrics 2.0, together with the theoretical motivations of the updates based on the previous version 1.0. The code of the implementation of the metrics is available on the CrowdTruth Github.\footnote{\url{https://github.com/CrowdTruth/CrowdTruth-core}} The 2.0 version of the metrics has already been applied successfully to a number of use cases, e.g. semantic frame disambiguation~\cite{DBLP:conf/hcomp/DumitracheAW18}, relation extraction from sentences~\cite{dumitrache2017false}, topic relevance~\cite{inel2018studying}. In the future, we plan to continue the validation of the metrics through evaluation over different annotation tasks, comparing CrowdTruth approach with other disagreement-aware crowd aggregation methods.
 
 \section{CrowdTruth Methodology}
+
+In previous work~\cite{aroyo2015truth}, we proposed the \textbf{CrowdTruth methodology} as an alternative approach for crowdsourcing ground truth data that, instead of enforcing agreement between annotators, captures the ambiguity inherent in semantic annotation through the use of disagreement-aware metrics for aggregating crowdsourcing responses. The CrowdTruth methodology consists of a set of quality metrics and best practices to aggregate inter-annotator agreement such that ambiguity in the task is preserved. The methodology uses the triangle of disagreement model (based on the triangle reference \cite{knowlton1966definition}) to represent the crowdsourcing system and its three main components -- input media units, workers, and annotations (Figure~\ref{fig:tor}). Based on this model, the CrowdTruth methodology calculates quality metrics for workers, media units and annotations.
 
  \begin{figure}[!bth]
  	\centering
@@ -35,6 +31,15 @@ This paper presents the definitions of the CrowdTruth metrics 2.0, together with
  	\label{fig:tor}
  \end{figure}
 
+
+The triangle model also expresses how ambiguity in any of the corners disseminates and influences the other components of the triangle. For example, an unclear sentence or an ambiguous annotation scheme would cause more disagreement between workers \cite{aroyo2014threesides}, and thus, both need to be accounted for when measuring the quality of the workers. Based on this observation, we introduce \textbf{version 2.0 of CrowdTruth metrics} -- a set of metrics that capture and interpret inter-annotator disagreement in crowdsourcing annotation tasks. As opposed to the first version of the metrics, published in~\cite{inel2014crowdtruth}, the current version models the \textit{inter-dependency between the three main components of a crowdsourcing system -- worker, input data, and annotation}. So for example, the quality of a worker is weighted by the quality of the media units the worker has annotated, and the quality of the annotations in the task. This update is based on the intuition that disagreement caused by low quality workers should not be interpreted as the data being ambiguous, but also that ambiguous input data should not be interpreted as due to the low quality of the workers.
+
+The following sections describe how to formalize the output from the crowd into \textbf{annotation vectors} (Section~\ref{app:vec}), and how to calculate quality scores over the annotation vectors using \textbf{disagreement metrics} (Section~\ref{app:metrics}). The code of the implementation of the metrics is available on the CrowdTruth Github.\footnote{\url{https://github.com/CrowdTruth/CrowdTruth-core}} The 2.0 version of the metrics has already been applied in Chapters~\ref{chap:od-rel-ex} and~\ref{chap:frames}, as well as to a number of use cases not discussed in this thesis, e.g. topic relevance~\cite{inel2018studying}.
+
+
+\section{Building the Annotation Vectors}
+\label{app:vec}
+
 \begin{figure}[!htb]
  	\centering
  	\includegraphics[width=\linewidth]{img/closed_open_task.png}
@@ -42,33 +47,14 @@ This paper presents the definitions of the CrowdTruth metrics 2.0, together with
  	\label{fig:tasks}
  \end{figure}
 
-The CrowdTruth methodology consists of a set of quality metrics and best practices to aggregate inter-annotator agreement such that ambiguity in the task is preserved. The methodology uses the triangle of disagreement model (based on the triangle reference \cite{knowlton1966definition}) to represent the crowdsourcing system and its three main components -- input media units, workers, and annotations (Figure~\ref{fig:tor}). The triangle model expresses how ambiguity in any of the corners disseminates and influences the other components of the triangle. For example, an unclear sentence or an ambiguous annotation scheme would cause more disagreement between workers \cite{aroyo2014threesides}, and thus, both need to be accounted for when measuring the quality of the workers.
-
-The CrowdTruth methodology calculates quality metrics for workers, media units and annotations. The novel contribution of version 2.0 is that \textit{the way how ambiguity propagates between the three components of the crowdsourcing system has been made explicit in the quality formulas of the components}. So for example, the quality of a worker is weighted by the quality of the media units the worker has annotated, and the quality of the annotations in the task.
-
-This section describes the two steps of the CrowdTruth methodology:
-\begin{enumerate}
-\item formalizing the output from crowd tasks into \textbf{annotation vectors};
-\item calculating quality scores over the annotation vectors using \textbf{disagreement metrics}.
-\end{enumerate}
-
-%The main basis for measuring quality in CrowdTruth is the triangle of disagreement (based on the triangle reference \cite{knowlton1966definition}), which links together media units, workers, and annotations, as seen in Figure~\ref{fig:tor}.
-
-%It allows us to assess the quality of each worker, the clarity of each media unit, and the ambiguity, similarity and frequency of each annotation. The triangle model expresses how ambiguity in any of the corners disseminates and influences the other components of the triangle. For example, an unclear sentence or an ambiguous annotation scheme would cause more disagreement between workers \cite{aroyo2014threesides}, and thus, both need to be accounted for when measuring the quality of the workers. 
-
-%The CrowdTruth quality metrics~\cite{aroyo2014threesides} are designed to capture inter-annotator disagreement in crowdsourcing. The metrics were introduced for \textit{closed tasks}, i.e. multiple choice tasks, where the annotation set is known before running the crowdsourcing task. The metrics can be used for both \textit{closed tasks} as well as \textit{open-ended tasks} (i.e. the annotation set is not known beforehand, and the workers can freely select all the choices that apply).
-
-\subsection{Building the Annotation Vectors}
-\label{sec:vectors}
-
 In order to measure the quality of the crowdsourced data, we need to formalize crowd annotations into a \textbf{vector space representation}. For \emph{closed tasks}, the annotation vector contains the given answer options in the task template, which the crowd can choose from. For example, the template of a \emph{closed task} can be composed of a multiple choice question, which appears as a list checkboxes or radio buttons, thus, having a finite list of options to choose from. Figure~\ref{fig:tasks} shows an example of a closed and an open task, indicating also what the media units and annotations are for both cases.
 
 While for \emph{closed tasks} the number of elements in the annotation vector is known in advance, for \emph{open-ended tasks} the number of elements in the annotation vector can only be determined when all the judgments for a media unit have been gathered. An example of such a task can be highlighting words or word phrases in a sentence, or as an input text field where the workers can introduce keywords. In this case the answer space is composed of all the unique keywords from all the workers that solved that media unit. As a consequence, all the media units in a closed task have the same answers space, while for open-ended tasks the answer space is different across all the media units. Although the answer space for open-ended tasks is not known from the beginning, it still can be further processed in a finite answer space.
 
 In the annotation vector, each answer option is a boolean value, showing whether the worker annotated that answer or not. This allows the annotations of each worker on a given media unit to be aggregated, resulting in a \textbf{media unit vector} that represents for each option how often it was annotated. Figure~\ref{fig:tasks} shows how the worker and media unit vectors are formed for both a closed and an open task.
 
-\subsection{Disagreement Metrics}
-\label{sec:metrics}
+\section{Disagreement Metrics}
+\label{app:metrics}
 
 Using the vector representations, we calculate three core metrics that capture the \textbf{media unit quality}, \textbf{worker quality} and \textbf{annotation quality}. These metrics are mutually dependent (e.g. the media unit quality is weighted by the annotation quality and worker quality), based on the idea from the triangle of disagreement that ambiguity in any of the corners disseminates and influences the other components of the triangle. The mutual dependence requires an iterative dynamic programming approach, calculating the metrics in a loop until convergence is reached. All the metrics have scores in the $[0,1]$ interval, with $0$ meaning low quality and $1$ meaning high quality. Before starting the iterative dynamic programming approach, the quality metrics are initialized with $1$. % as we assume that workers, media units and annotations have maximum quality 
 
@@ -91,15 +77,8 @@ The \textbf{Media Unit Quality Score (UQS)} expresses the overall worker agreeme
 
 \begin{align}
 UQS(u) = & \dfrac{\sum\limits_{i, j} WCos(\vec{w}_{i,u} , \vec{w}_{j,u}) \; WQS(i) \; WQS(j)}{\sum\limits_{i,j} WQS(i) \; WQS(j)}, \\
-%WorkWCos(i, j, u) = & WCos(\vec{w_{i, u}}, \vec{w}(j, u)), \\
 & \forall i, j \in workers(u), i \neq j. \nonumber
 \end{align}
-
-% \begin{align}
-% UQS(u) = & \dfrac{\sum\limits_{i, j} WorkWCos(i, j, u) \; WQS(i) \; WQS(j)}{\sum\limits_{i,j} WQS(i) \; WQS(j)}, \\
-% WorkWCos(i, j, u) = & WCos(\vec{w_{i, u}}, \vec{w}(j, u)), \\
-% & \forall i, j \in workers(u), i \neq j. \nonumber
-% \end{align}
 
 %\subsection{Worker Quality Score (WQS)}
 The \textbf{Worker Quality Score (WQS)} measures the overall agreement of one crowd worker with the other workers. Given a worker $i$, $WQS(i)$ is the product of 2 separate metrics - the worker-worker agreement $WWA(i)$ and the worker-media unit agreement $WUA(i)$:
@@ -122,12 +101,6 @@ The \textbf{Worker-Media Unit Agreement (WUA)} measures the similarity between t
 \begin{align}
 WUA(i) = & \dfrac{\sum\limits_{u \in units(i)} WCos(\vec{w}_{i,u} , \vec{u} - \vec{w}_{i,u}) \; UQS(u)}{\sum\limits_{u \in units(i)} UQS(u)}.
 \end{align}
-
-% \begin{align}
-% WUA(i) = & \dfrac{\sum\limits_{u \in units(i)} UnitWCos(u, i) \; UQS(u)}{\sum\limits_{u \in units(i)} UQS(u)}, \\
-%  UnitWCos(u, i) = & WCos(\vec{w}(i,u), \\
-%       & MediaUnitVec(u) - \vec{w_{i, u}}). \nonumber
-% \end{align}
 
 The \textbf{Annotation Quality Score (AQS)} measures the agreement over an annotation in all media units that it appears. Therefore, it is only applicable to closed tasks, where the same annotation set is used for all input media units. It is based on $P_a(i | j)$, the probability that if a worker $j$ annotates $a$ in a media unit, worker $i$ will also annotate it.
 
@@ -152,11 +125,6 @@ UAS(u, a) = \dfrac{ \sum\limits_{i \in workers(u)} \vec{w}_{i,u}(a) \; WQS(i) }{
 \end{align}
 
 
-\section{Conclusion}
-
-In this paper, we present ongoing work into the CrowdTruth metrics, that capture and interpret inter-annotator disagreement in crowdsourcing. Typically crowdsourcing-based approaches to gather annotated data use inter-annotator agreement as a measure of quality. However, in many domains, there is ambiguity in the data, as well as a multitude of perspectives of the information examples. The CrowdTruth metrics model the inter-dependency between the three main components of a crowdsourcing system -- worker, input data, and annotation.
-
-We have presented the definitions and formulas of several CrowdTruth metrics, including the three core metrics measuring the quality of workers, annotations, and input media units. The metrics are based on the idea of the triangle of disagreement, expressing how ambiguity in any of the corners disseminates and influences the other components of the triangle. Because of this, disagreement caused by low quality workers should not be interpreted as the data being ambiguous, but also that ambiguous input data should not be interpreted as due to the low quality of the workers. The metrics have already been applied successfully to use cases in topic relevance~\cite{inel2018studying}, semantic frame disambiguation~\cite{dumitrache2018capturing} and relation extraction from sentences~\cite{dumitrache2017false}.
-
 \section*{Acknowledgments}
-...
+
+We would like to thank Markus de Jong, Evgeny Krivosheev and Panagiotis Mavridis for their valuable feedback in improving the mathematical notation and readability of the chapter. 
