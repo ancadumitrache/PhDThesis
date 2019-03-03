@@ -111,12 +111,12 @@ For simplicity, we refer to the sentence-word pairs as sentences in the rest of 
 
 The crowdsourcing task was run on the Amazon Mechanical Turk platform\footnote{\url{https://mturk.com/}}. The task template is shown in Figure~\ref{fig:ch5template}. The workers were given a sentence with the word highlighted, and then asked to perform the multiple choice task of selecting all frames that fit the sense of the highlighted word, or that none of the frames fit. The most challenging part of the frame disambiguation task design is making sure that the crowd can understand the meaning of the frame. For each frame, we show the definition, as well as a list of sentences exemplifying the usage of the frame. These example sentences can be accessed by the workers by clicking a button next to each frame, so that the workers do not become overwhelmed with the information on the task page. In order to make sure we capture diverse worker opinions, we increased the number of annotators per sentence from 10 (the number recommended by \citet{Hong:2011:GCR:2018966.2018970}), to 15. The cost of the task varied from \$0.08 per annotation at the start of the task, in order to attract a sizable pool of workers, to \$0.06 at the end, as workers became quicker at solving the task.
 
-{\color{blue}
+
 \subsection{CrowdTruth Metrics for Capturing Disagreement}
 \label{sec:frame-metrics}
 
 To aggregate the results of the crowd, while also capturing inter-annotator disagreement, we use the CrowdTruth~\cite{aroyo2014threesides} metrics. In the triangle model of the crowdsourcing system (Chapter~\ref{sec:methodology}), we consider the media unit to be the sentence, and the annotation to be the frame.
-Similarly to Chapter~\ref{sec:chap4_metrics}, we employ version 2.0 of the metrics~\cite{dumitrache2018crowdtruth}, which explicitly models the interdependence between sentences, frames and workers.}
+Similarly to Chapter~\ref{sec:chap4_metrics}, we employ version 2.0 of the metrics (Appendix~\ref{app:ct2.0}), which explicitly models the interdependence between sentences, frames and workers.
 
 The first step in calculating the CrowdTruth metrics is to construct the \textit{worker vectors}, which are a set of binary vectors encoding the decision of one worker for one sentence. The vector has $n+1$ components, where $n$ is the number of frames shown together with the sentence. If the worker selects a frame from the multiple-choice list, its corresponding component would be marked with `1', and `0' otherwise. The decision to pick none of the frames also corresponds to a component in the vector. Using these worker vectors, we then calculate the following disagreement metrics:
 
@@ -277,10 +277,9 @@ While the majority of expert choices have high FSS scores, there are some except
 \section{Capturing Ambiguity}
 \label{sec:frame-ambig}
 
-The cases where the experts and crowd disagree exemplify how difficult frame disambiguation can be when dealing with ambiguity, both in sentences and in the frame definition. Currently in the FrameNet corpus, the expert annotations lack the level of granularity necessary to differentiate between clear expressions of the frames, and more ambiguous ones. {\color{blue} In this section, we discuss cases of ambiguity in the frame-sentence expression, in the sentence quality, and in the frame quality.
+The cases where the experts and crowd disagree exemplify how difficult frame disambiguation can be when dealing with ambiguity, both in sentences and in the frame definition. Currently in the FrameNet corpus, the expert annotations lack the level of granularity necessary to differentiate between clear expressions of the frames, and more ambiguous ones.  In this section, we discuss cases of ambiguity in the frame-sentence expression, in the sentence quality, and in the frame quality.
 
 \subsection{Ambiguity in the Frame-Sentence Expression}
-}
 
 We proposed the FSS metric as a method to capture the degree of ambiguity with which a frame captures a word sense in a sentence. In Table~\ref{tab:fss_ex}, we show how the FSS metric varies together with the clarity with which a frame is expressed across different sentences. We demonstrate this across 3 different frames:
 
@@ -376,7 +375,7 @@ The SQS and FQS metrics can additionally be used to express the overall ambiguit
 \end{figure}
 
 
-{\color{blue} \subsection{Ambiguity \& Sentence Quality}}
+\subsection{Ambiguity \& Sentence Quality}
 
 In Table~\ref{tab:sqs}, we show some examples of how SQS captures the clarity for the sense of a word in a sentence, by taking the same word (and therefore same list of candidate frames) in different sentences:
 
@@ -397,7 +396,7 @@ As the examples above indicate, one possible cause for sentence ambiguity is mis
 
 Another reason for sentence ambiguity is frames that overlap in meaning (e.g. in $Q5$ and $Q7$). While providing more context could help with this, it is often the case that even the definitions of the frames are very close. The FQS metric is a useful indicator for these case.
 
-{\color{blue} \subsection{Ambiguity \& Frame Quality}}
+\subsection{Ambiguity \& Frame Quality}
 
 
 \begin{table}[htb!]

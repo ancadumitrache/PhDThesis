@@ -73,7 +73,7 @@ WCos(\vec{x}, \vec{y}) = & \dfrac{\sum\limits_{a} \vec{x} (a) \; \vec{y} (a) \; 
 & \forall a \text{ - annotation}. \nonumber
 \end{align}
 
-The \textbf{Media Unit Quality Score (UQS)} expresses the overall worker agreement over one media unit. Given an input media unit $u$, $UQS(u)$ is computed as the average cosine similarity between all worker vectors, weighted by the worker quality ($WQS$) and annotation quality ($AQS$). Through the weighted average, workers and annotations with lower quality will have less of an impact on the final score. The formula used in its calculation is:
+The \textbf{Media Unit Quality Score (UQS)} expresses the overall worker agreement over one media unit. This metric is a generalized definition of the \textit{sentence quality score} described in Chapter~\ref{sec:frame-metrics}. Given an input media unit $u$, $UQS(u)$ is computed as the average cosine similarity between all worker vectors, weighted by the worker quality ($WQS$) and annotation quality ($AQS$). Through the weighted average, workers and annotations with lower quality will have less of an impact on the final score. The formula used in its calculation is:
 
 \begin{align}
 UQS(u) = & \dfrac{\sum\limits_{i, j} WCos(\vec{w}_{i,u} , \vec{w}_{j,u}) \; WQS(i) \; WQS(j)}{\sum\limits_{i,j} WQS(i) \; WQS(j)}, \\
@@ -102,7 +102,7 @@ The \textbf{Worker-Media Unit Agreement (WUA)} measures the similarity between t
 WUA(i) = & \dfrac{\sum\limits_{u \in units(i)} WCos(\vec{w}_{i,u} , \vec{u} - \vec{w}_{i,u}) \; UQS(u)}{\sum\limits_{u \in units(i)} UQS(u)}.
 \end{align}
 
-The \textbf{Annotation Quality Score (AQS)} measures the agreement over an annotation in all media units that it appears. Therefore, it is only applicable to closed tasks, where the same annotation set is used for all input media units. It is based on $P_a(i | j)$, the probability that if a worker $j$ annotates $a$ in a media unit, worker $i$ will also annotate it.
+The \textbf{Annotation Quality Score (AQS)} measures the agreement over an annotation in all media units that it appears. Therefore, it is only applicable to closed tasks, where the same annotation set is used for all input media units. This metric is a generalized definition of the \textit{frame quality score} described in Chapter~\ref{sec:frame-metrics}. AQS is based on $P_a(i | j)$, the probability that if a worker $j$ annotates $a$ in a media unit, worker $i$ will also annotate it.
 
 \begin{align}
 P_a(i | j) = & \frac{ \sum\limits_{u} \vec{w}_{i,u}(a) \; \vec{w}_{j,u}(a) \; UQS(u)}{ \sum\limits_{u} \vec{w}_{j, u}(a) \;  UQS(u) }, \\
@@ -118,7 +118,7 @@ AQS(a) = & \dfrac{ \sum\limits_{i,j} WQS(i) \; WQS(j) \; P_a(i | j) }{ \sum\limi
 
 The formulas for media unit, worker and annotation quality are all mutually dependent. To calculate them, we apply an iterative dynamic programming approach. First, we initialize each quality metric with the score for maximum quality (i.e. equal to 1). Then we repeatedly re-calculate the quality metrics until each of the values are stabilized. This is assessed by calculating the sum of variations between iterations for all quality values, and checking until it drops under a set threshold $t$.
 
-The final metric we calculate is the \textbf{Media Unit - Annotation Score (UAS)} -- the degree of clarity with which an annotation is expressed in a unit. Given an annotation $a$ and a media unit $u$, $UAS(u, a)$ is the ratio of the number of workers that picked annotation $u$ over all workers that annotated the unit, weighted by the worker quality:
+The final metric we calculate is the \textbf{Media Unit - Annotation Score (UAS)} -- the degree of clarity with which an annotation is expressed in a unit. This metric is a generalized definition of the \textit{sentence-relation score} described in Chapter~\ref{sec:chap4_metrics}, and the \textit{frame-sentence score} described in Chapter~\ref{sec:frame-metrics}. Given an annotation $a$ and a media unit $u$, $UAS(u, a)$ is the ratio of the number of workers that picked annotation $u$ over all workers that annotated the unit, weighted by the worker quality:
 
 \begin{align}
 UAS(u, a) = \dfrac{ \sum\limits_{i \in workers(u)} \vec{w}_{i,u}(a) \; WQS(i) }{ \sum\limits_{i \in workers(u)} WQS(i) }.

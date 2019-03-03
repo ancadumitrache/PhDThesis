@@ -32,12 +32,6 @@ In this chapter, we build on these findings and investigate more precisely \text
 
 To capture and interpret inter-annotator disagreement, we employ the \textit{CrowdTruth} methodology for crowdsourcing human annotation~\cite{aroyo2014threesides}. Through the use of CrowdTruth aggregation metrics, the interpretations collected from the crowd are transformed into explicit semantics for the various tasks presented in this chapter -- i.e. relations expressed in sentences, topics / events expressed in tweets and news articles, words describing sounds -- thus enabling knowledge base curation for these specific tasks.  We prove that capturing disagreement is essential for acquiring high quality semantics.  We achieve this by comparing the quality of the data aggregated with CrowdTruth metrics with majority vote, a method which enforces consensus among annotators.  By applying our analysis over a set of diverse tasks we show that, even though ambiguity manifests differently depending on the task (e.g. each task has an optimal number of workers necessary to capture the full spectrum of opinions), our theory of inter-annotator disagreement as a property of ambiguity is generalizable for any semantic annotation crowdsourcing task.
 
-%In this chapter, we investigate tasks of text and sound annotation, in both domains that typically require expertise from annotators (e.g. medical) and those that don't (open domain).  In particular, we look at four crowdsourcing tasks: \textit{Medical Relation Extraction}, \textit{Twitter Event Identification}, \textit{News Event Extraction} and \textit{Sound Interpretation}.  The aim is to investigate the role of inter-annotator disagreement as part of the crowdsourcing system by applying the CrowdTruth methodology to collect data over a set of diverse use cases. 
-
-%This is a novel approach for crowdsourcing human annotation that, instead of enforcing agreement between annotators, captures the ambiguity inherent in semantic annotation through the use of ambiguity-aware metrics for aggregating crowdsourcing responses. Based on this principle, we have implemented the CrowdTruth methodology as part of a framework~\cite{inel2014crowdtruth} for machine-human computation, that first introduced the ambiguity-aware metrics and built a pipeline to process crowdsourcing data with these metrics.
-
-%To capture disagreement across different tasks, we extend the definition of our ambiguity-aware methodology (CrowdTruth version 1.0~\cite{inel2014crowdtruth}) to work both with crowdsourcing tasks that are \textit{closed}, i.e. the annotations that can occur in the data are already known, and the workers are asked to validate their existence (e.g. given a news event, decide whether it is expressed in a tweet), and tasks that are \textit{open}, i.e. the annotation space is not known, and workers can freely select all the choices that apply (e.g. given a news piece, select all events that appear in the text). The code for the extended CrowdTruth version 1.1 methodology and metrics is available at: \url{https://git.io/fA3Mq}.
-
 The chapter makes the following contributions:
 
 \begin{enumerate}
@@ -79,9 +73,9 @@ Measuring quality in CrowdTruth is done with  the triangle of disagreement model
  	\label{fig:triangle_of_reference}
  \end{figure}
 
-The CrowdTruth quality metrics~\cite{aroyo2014threesides} are designed to capture inter-annotator disagreement in crowdsourcing. {\color{blue} The CrowdTruth metrics were developed for \textit{closed tasks}, i.e. multiple choice tasks, where the annotation set is known before running the crowdsourcing task. In Chapter~\ref{sec:chap2_metrics}, we employed them to aggregate the results from the crowd for the task of medical relation extraction from sentences, where the sentences represent the media units and the relations represent the annotations in the triangle of disagreement model.
+The CrowdTruth quality metrics~\cite{aroyo2014threesides} are designed to capture inter-annotator disagreement in crowdsourcing. The CrowdTruth metrics were developed for \textit{closed tasks}, i.e. multiple choice tasks, where the annotation set is known before running the crowdsourcing task. In Chapter~\ref{sec:chap2_metrics}, we employed them to aggregate the results from the crowd for the task of medical relation extraction from sentences, where the sentences represent the media units and the relations represent the annotations in the triangle of disagreement model.
 
-In this chapter, we present a generalized and extended version of these metrics (version 1.1)}, that can be used for both \textit{closed tasks} as well as \textit{open-ended tasks} (i.e. the annotation set is not known beforehand, and the workers can freely select all the choices that apply). The code for the CrowdTruth version 1.1 metrics is available at: \url{https://git.io/fA3Mq}.
+In this chapter, we present a generalized and extended version of these metrics (version 1.1), that can be used for both \textit{closed tasks} as well as \textit{open-ended tasks} (i.e. the annotation set is not known beforehand, and the workers can freely select all the choices that apply). The code for the CrowdTruth version 1.1 metrics is available at: \url{https://git.io/fA3Mq}.
 
 The quality of the crowdsourced data is measured using a \textit{vector space representation} of the crowd annotations. For \emph{closed tasks}, the annotation vector contains the given answer options in the task template, which the crowd can choose from. For example, the template of a \emph{closed task} can be composed of a multiple choice question, which appears as a list checkboxes or radio buttons, thus, having a finite list of options to choose from.
 
@@ -170,31 +164,31 @@ These tasks were picked from diverse domains (medical, sound, open), to aid in t
 \subsection{Crowdsourcing Overview}
 \label{subsec:detasets}
 
-\begin{figure}[!tb]
-\centering
-\label{fig:taskdesigns}
-\begin{subfigure}{.5\textwidth}
-\includegraphics[width=\linewidth]{img/relex}
-\caption{Medical Relation Extraction}
-\label{fig:screenshot_medical}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-\includegraphics[width=\linewidth]{img/tweets.png}
-\caption{Twitter Event Identification}
-\label{fig:screenshot_tweets}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-\includegraphics[width=\linewidth]{img/sound-task.png}
-\caption{Sound Interpretation}
-\label{fig:screenshot_sounds}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-\includegraphics[width=\linewidth]{img/news_event_extraction.png}
-\caption{News Event Extraction}
-\label{fig:screenshot_news}
-\end{subfigure}
-\caption{Templates of the crowdsourcing tasks.}
-\end{figure}
+% \begin{figure}[!tb]
+% \centering
+% \label{fig:taskdesigns}
+% \begin{subfigure}{.5\textwidth}
+% \includegraphics[width=\linewidth]{img/relex}
+% \caption{Medical Relation Extraction}
+% \label{fig:screenshot_medical}
+% \end{subfigure}%
+% \begin{subfigure}{.5\textwidth}
+% \includegraphics[width=\linewidth]{img/tweets.png}
+% \caption{Twitter Event Identification}
+% \label{fig:screenshot_tweets}
+% \end{subfigure}
+% \begin{subfigure}{.5\textwidth}
+% \includegraphics[width=\linewidth]{img/sound-task.png}
+% \caption{Sound Interpretation}
+% \label{fig:screenshot_sounds}
+% \end{subfigure}%
+% \begin{subfigure}{.5\textwidth}
+% \includegraphics[width=\linewidth]{img/news_event_extraction.png}
+% \caption{News Event Extraction}
+% \label{fig:screenshot_news}
+% \end{subfigure}
+% \caption{Templates of the crowdsourcing tasks.}
+% \end{figure}
 
 
 Tables \ref{tab:crowd_data} and \ref{tab:crowd_tasks} present an overview of the crowdsourcing tasks, as well as the datasets used. The results of the crowdsourcing tasks were processed with the use of CrowdTruth metrics (Sec.~\ref{subsec:metrics}), and we removed consistently low quality workers based on the spam removal procedure (Sec~\ref{subsec:spam_removal}). The tasks were implemented and ran on Figure Eight\footnote{\url{https://figure-eight.com/}} (formerly known as CrowdFlower). The templates are available on the CrowdTruth platform\footnote{tasks marked with $*$: \url{https://github.com/CrowdTruth/CrowdTruth/wiki/Templates}}.
@@ -223,13 +217,41 @@ The number of workers per media unit was determined experimentally with the goal
 
 The \textbf{Medical Relation Extraction dataset} consists of 975 sentences extracted from PubMed\footnote{\url{http://www.ncbi.nlm.nih.gov/pubmed}} article abstracts. The sentences were collected using distant supervision~\cite{mintz2009distant}, a method that picks positive sentences from a corpus based on whether known arguments of the seed relation appear together in the sentence (\emph{e.g.}, the $treat$ relation occurs between the terms $antibiotics$ and $typhus$, so find all sentences containing both and repeat this for all pairs of arguments that hold). The MetaMap parser~\cite{aronson2001effective} was used to extract medical terms from the corpus and the UMLS vocabulary~\cite{bodenreider2004unified} was used for mapping terms to categories, and relations to term types. The intuition of distant supervision is that since we know the terms are related, and they are in the same sentence, it is more likely that the sentence expresses a relation between them (than just any random sentence). We started with a set of 8 UMLS relations important for clinical decision making~\cite{P14-1078}, that became the seed in distant supervision, but this chapter only discusses results for the relations $cause$ and $treat$, as these were the only relations for which we could also collect expert annotations. The expert judgment collection is detailed in Section~\ref{subsec:expert_data}.
 
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{img/relex}
+\caption{Medical relation extraction task template.}
+\label{fig:screenshot_medical}
+\end{figure}
+
 The \emph{medical relation extraction task} (see Figure \ref{fig:screenshot_medical}) is a \textit{closed task}. The crowd is given a medical sentence with the two highlighted terms collected with distant supervision, and is then asked to select from a list all relations that are expressed between the two terms in the sentence. The relation list contains eight UMLS\footnote{\url{https://www.nlm.nih.gov/research/umls/}} relations, as well as \textit{is a}, \textit{part of}, \textit{associated with}, \textit{other}, \textit{none} relations, added to make the choice list complete. Multiple choices are allowed in this task. To reduce the bias of selecting $none$, we also added an in-task effort consistency check by asking workers to explain in a text box why no relation is possible between the terms. The task results are processed into an annotation vector containing a component for each of the relations. A detailed description of the crowdsourcing data collection is given in \cite{DBLP:journals/corr/DumitracheAW17}.
 
 The \textbf{Twitter Event Identification dataset} consists of 3,019 English tweets from 2014, crawled from Twitter. The tweets are selected as been relevant to eight events, such as, ``Japan whale hunt'', ``China Vietnam relation'' among other controversial events. The dataset was created by querying a Twitter dataset from 2014 with relevant phrases for each of the eight events, \emph{e.g.}, ``Whaling Hunting'', ``Anti-Chinese in Vietnam''. The \emph{Twitter event identification task} (see Figure \ref{fig:screenshot_tweets}) is a \textit{closed task}. The crowd is asked to choose for each tweet the relevant events out of the list of eight, as well as to highlight for each of the relevant events the event mentions in the tweet. The crowd could also pick that none of the events was present in the tweet. Multiple choices of events were permitted. Since tweets and tweet annotations typically are not done by experts, we did not collect expert data for this task. To reduce the bias of selecting no event, we also added an in-task effort consistency check by asking workers to explain in a text box why none of the events is present in the tweet. The task results are processed into an annotation vector containing a component for each of the events.
 
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{img/tweets.png}
+\caption{Twitter event identification task template.}
+\label{fig:screenshot_tweets}
+\end{figure}
+
 The \textbf{News Event Extraction dataset} consists of 200 randomly selected English sentences from the English TimeBank corpora~\cite{pustejovsky2003timebank}, which were also presented in \cite{CASELLI16.966}. The \emph{news event extraction} (see Figure \ref{fig:screenshot_news}) is an \textit{open-ended task}. The crowd receives an English sentence, and is asked to highlight words or word phrases (multiple words) that describe an event or a time expression. For each sentence, the crowd is allowed to highlight a maximum of 30 event expressions or time expressions. For the purpose of this research we only focus on evaluating the extraction of event expressions. We define an \emph{event} as something that happened, is happening, will or happen. On this dataset we employed expert annotators as described in Section \ref{subsec:expert_data}. To reduce the bias of selecting fewer events than actually expressed in the task, we implemented an in-task effort consistency check by asking workers that annotated 3 events or less to explain in a text box why no other events are expressed in the sentence. As part of the \textit{answer set dimensionality reduction step}, we removed the stop words from the sentence (we consider that the stop words are not meaningful for our analysis and they could add unsubstantial disagreement), and split the expressions collected from the crowd into words.  The annotation vector is composed of the words in the sentence, where a word is selected in the worker vector if it appears in at least one of the expressions identified by the worker.
 
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{img/news_event_extraction.png}
+\caption{News event extraction task template.}
+\label{fig:screenshot_news}
+\end{figure}
+
 The \textbf{Sound Interpretation dataset} consists of 284 unique sounds sampled from the Freesound\footnote{\url{https://www.freesound.org/}} online database. All these recordings and their metadata are freely accessible through the Freesound API\footnote{\url{https://www.freesound.org/docs/api/}}. We focused on SoundFX sounds, \emph{i.e.}, sound effects category, as classified by \cite{font2014audio}. The \emph{Sound interpretation task} (see Figure \ref{fig:screenshot_sounds}) is an \textit{open-ended task}, where the crowd is asked to listen to three sounds and provide for each sound a comma separated list of keywords that best describe what they heard. For each sound, any number of answers is possible. In the \textit{answer set dimensionality reduction step}, the annotated keywords were clustered syntacticly using spell checking and stemming, and semantically using a word2vec model~\cite{mikolov2013distributed} pre-trained on the Google News corpus.  The annotation vector contains a component for each of the keywords used to describe the sound, after clustering. A detailed description of the crowdsourcing data collection and processing is given in \cite{miltenburg2016}. For this dataset we also collected expert annotations from the sound creators as described in Section \ref{subsec:expert_data}.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{img/sound-task.png}
+\caption{Sound interpretation task template.}
+\label{fig:screenshot_sounds}
+\end{figure}
 
 
 \subsection{Evaluation Methodology}
@@ -404,7 +426,6 @@ Finally, Figure~\ref{fig:f1_exp} shows an evaluation of CrowdTruth using only th
 \section{Discussion}
 \label{sec:discussion}
 
-{\color{blue}
 This chapter discusses the two main findings of the experiments: (1) that the ambiguity-aware CrowdTruth approach with multiple annotators and disagreement-based quality scores can perform better than majority vote, and (2) that increasing the number of workers has a significant impact on the quality of CrowdTruth annotations.
 
 \subsection{CrowdTruth vs. Majority Vote}
@@ -433,7 +454,7 @@ An interesting observation is that the optimal number of workers per task does n
 While four tasks is a small sample to draw conclusions from, our findings seem to indicate that ambiguity in the crowdsourcing system has an impact on both the optimal number of workers per task, as well as the clarity of the media units.  These observations will form the basis for our future research in modeling crowd disagreement.
 
 Finally, it is worth discussing the outlier characteristics of the \textit{Sound Interpretation} task. It is the only task that does not achieve a stable F1 curve (Figure~\ref{fig:f1_workers}) possibly due to insufficient workers assigned to it. It is also unique in its lack of false positive examples -- precision is 1 for the optimal media unit-annotation score threshold (Table~\ref{tab:f1_mv}), meaning that all labels collected from the crowd were accepted as part of the trusted judgments, with the exception of the spam workers that were removed from the set.  \textit{Sound Interpretation} is also the only task for which the expert annotator performed comparatively poor, with a statistically significant difference from CrowdTruth. As mentioned in the beginning of this section, after collecting the trusted judgments for this task, it became clear that the main challenge for the \textit{Sound Interpretation} task is not to achieve consensus between annotators, but to collect the entire spectrum of annotations that describe a sound, given that this spectrum is so large (e.g. the tags \texttt{balloon popping} and \texttt{gunshot} can both reasonably apply to the same sound). For this reason, it was difficult to label tags as false positives, and the annotations of the workers, experts included, were largely non-overlapping, as they tended to interpret the sounds quite differently.  The \textit{Sound Interpretation} task is therefore an extreme example of subjective ground truth. \\
-}
+
 
 \section{Related Work}
 \label{sec:relatedwork}
