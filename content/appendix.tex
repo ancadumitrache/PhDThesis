@@ -63,10 +63,11 @@ To define the CrowdTruth metrics, we introduce the following notation:
 \item $workers(u):$ all workers that annotate media unit $u$;
 \item $units(i):$ all input media units annotated by worker $i$;
 \item worker vector $\vec{w}_{i, u}:$ annotations of worker $i$ on media unit $u$ as a binary vector;
-\item media unit vector $\vec{u} = \sum\limits_{i \in workers(u)} \vec{w}_{i,u}$: the sum of all worker vectors $\vec{w}_{i,u}$ for a given media unit $u$.
+\item media unit vector $\vec{u} = \sum\limits_{i \in workers(u)} \vec{w}_{i,u}$: the sum of all worker vectors $\vec{w}_{i,u}$ for a given media unit $u$;
+\item $\vec{x}(a):$ value for annotation $a$ in vector $\vec{x}$.
 \end{itemize}
 
-To calculate agreement between 2 workers on the same media unit, we compute the cosine similarity over the 2 worker vectors. In order to reflect the dependency of the agreement on the degree of clarity of the annotations, we compute $WCos$, the weighted version of the cosine similarity. The Annotation Quality Score (AQS), which will be described in more detail at the end of the section, is used as the weight. For open-ended tasks, where annotation quality cannot be calculated across multiple media units, we consider annotation quality equal to 1 (the maximum value) in all cases. Given 2 worker vectors, $\vec{x}$ and $\vec{\vec{y}}$ on the same media unit, the formula for the weighted cosine score is:
+To calculate agreement between 2 workers on the same media unit, we compute the cosine similarity over the 2 worker vectors. In order to reflect the dependency of the agreement on the degree of clarity of the annotations, we compute $WCos$, the weighted version of the cosine similarity. The Annotation Quality Score (AQS), which will be described in more detail at the end of the section, is used as the weight. For open-ended tasks, where annotation quality cannot be calculated across multiple media units, we consider annotation quality equal to 1 (the maximum value) in all cases. Given 2 worker vectors, $\vec{x}$ and $\vec{y}$ on the same media unit, the formula for the weighted cosine score is:
 
 \begin{align}
 WCos(\vec{x}, \vec{y}) = & \dfrac{\sum\limits_{a} \vec{x} (a) \; \vec{y} (a) \;  AQS(a)}{\sqrt{(\sum\limits_{a} \vec{x}(a)^2 \; AQS(a)) \; (\sum\limits_{a} \vec{y}(a)^2 \; AQS(a))}}, \\
@@ -127,4 +128,4 @@ UAS(u, a) = \dfrac{ \sum\limits_{i \in workers(u)} \vec{w}_{i,u}(a) \; WQS(i) }{
 
 \section*{Acknowledgments}
 
-We would like to thank Markus de Jong, Evgeny Krivosheev and Panagiotis Mavridis for their valuable feedback in improving the mathematical notation and readability of the chapter. 
+We would like to thank Markus de Jong, Evgeny Krivosheev and Panagiotis Mavridis for their valuable feedback on how to improve the mathematical notation and readability of the chapter. 
