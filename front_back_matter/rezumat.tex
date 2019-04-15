@@ -9,5 +9,38 @@
 
 \chapter*{Rezumat}
 
+Odată cu creșterea cunoștințelor disponibile pe Internet, metodele de prelucrare a limbajului natural au devenit de neprețuit pentru a facilita navigarea datelor. Sarcini cum ar fi completarea bazelor de cunoștințe și dezambiguizarea sunt rezolvate cu modele de învățare automată (n.t. \textit{machine learning}) pentru prelucrarea limbajului natural. Aceste modele necesită un volum substanțial de date, în special date de referință adnotate manual, ce sunt folosite pentru învățarea, testarea și evaluarea modelelor de învățare automată.
+
+Externalizarea în masă a datelor (n.t. \textit{crowdsourcing}) a devenit recent o metodă viabilă de a colecta date de referință. Dar stabilirea calității adnotărilor colectate prin externalizare în masă este încă o problemă deschisă. Când pentru aceeași sarcină sunt colectate date de la mai mulți adnotatori, este probabil să apară dezacorduri și neînțelegeri. În configurările tipice de adnotare, se presupune că există un singur răspuns corect pentru fiecare sarcină și că neînțelegerile trebuie eliminate din corpusul de referință. Această abordare tradițională pentru colectarea datelor, bazată pe instrucțiuni restrictive pentru adnotare, rezultă adesea în penalizarea nejustificată a adnotatorilor calificați ce oferă o perspectivă diferită de consensul general, precum și date supra-generalizate și pierderea ambiguității inerente în limbajul natural. În consecință, datele de referință pot deveni nepotrivite pentru învățarea metodelor de prelucrare a limbajului natural.
+
+Metodologia CrowdTruth (n.t. \textit{adevărul mulțimii}) a fost propusă pentru a efectua externalizarea în masă a datelor, păstrând în același timp neînțelegerile dinte adnotatori. CrowdTruth se bazează pe ideea că dezacordurile nu sunt doar zgomot ce trebuie eliminat din datele de referință, ci un semnal important ce poate fi folosit pentru a captura ambiguitatea datelor. Această metodologie reprezintă sistemul de externalizare în masă ca un triunghi cu următoarele trei componente inter-conectate: adnotatori, date și adnotări. CrowdTruth capturează dezacordurile între adnotatori, care sunt apoi folosite pentru a calcula un set de măsurători ale calității pentru cele trei componente ale sistemului de externalizare în masă. De asemenea, măsurătorile CrowdTruth țin cont de felul în care cele trei componente interacționează unele cu celelalte -- e.g. în propoziții ambigue ne așteptăm să găsim mai multe neînțelegeri între adnotatori, prin urmare adnotatorii acestor propoziții nu ar trebui considerați de calitate scăzută.
+
+Această disertație explorează folosirea metodologiei CrowdTruth în colectarea datelor de referință pentru învățarea și evaluarea modelelor de prelucrare a limbajului natural. \\
+
 adevărul din neînțelegeri  - externalizarea în masă a datelor pentru prelucrarea limbajului natural
+
 crowdsourcing = externalizarea în masă % https://www.e-birouvirtual.ro/node/4909
+
+NLP = prelucrarea limbajului natural
+
+knowledge base = bază de cunoștințe
+
+disambiguation = dezambiguizare
+
+semantic frame = cadru semantic % http://www.diacronia.ro/ro/indexing/details/A6485/pdf
+
+semantic label propagation = propagarea etichetelor semantice
+
+gold standard = date de referință
+
+crowd worker / annotator = adnotator voluntar (?)
+
+machine learning = învățare automată
+
+training = instruire / învățare
+
+semi-supervised training = învățare supervizată parțial
+
+crowdsourced corpus = corpus de date colectate prin externalizare în masă
+
+% https://ro.wikipedia.org/wiki/Învățare_automată
