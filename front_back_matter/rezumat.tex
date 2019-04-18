@@ -9,7 +9,7 @@
 
 \chapter*{Rezumat}
 
-Odată cu creșterea cunoștințelor disponibile pe Internet, metodele de prelucrare a limbajului natural au devenit de neprețuit pentru a facilita navigarea datelor. Sarcini cum ar fi completarea bazelor de cunoștințe și dezambiguizarea sunt rezolvate cu modele de învățare automată (n.t. \textit{machine learning}) pentru prelucrarea limbajului natural. Aceste modele necesită un volum substanțial de date, în special date de referință adnotate manual, ce sunt folosite pentru învățarea, testarea și evaluarea modelelor de învățare automată.
+Odată cu creșterea volumului de cunoștințe disponibile pe Internet, metodele de prelucrare a limbajului natural au devenit de neprețuit pentru a facilita navigarea datelor. Sarcini cum ar fi completarea bazelor de cunoștințe și dezambiguizarea sunt rezolvate cu modele de învățare automată (n.t. \textit{machine learning}) pentru prelucrarea limbajului natural. Aceste modele necesită un volum substanțial de date, în special date de referință adnotate manual, ce sunt folosite pentru învățarea, testarea și evaluarea modelelor de învățare automată.
 
 Externalizarea în masă a datelor (n.t. \textit{crowdsourcing}) a devenit recent o metodă viabilă pentru a colecta date de referință. Dar stabilirea calității adnotărilor colectate prin externalizare în masă este încă o problemă deschisă. Când pentru aceeași sarcină sunt colectate date de la mai mulți adnotatori, este probabil să apară dezacorduri și neînțelegeri. În configurările tipice de adnotare, se presupune că există un singur răspuns corect pentru fiecare sarcină și că neînțelegerile trebuie eliminate din corpusul de referință. Această abordare tradițională pentru colectarea datelor, bazată pe instrucțiuni restrictive pentru adnotare, rezultă adesea în penalizarea nejustificată a adnotatorilor calificați ce oferă o perspectivă diferită de consensul general, precum și date supra-generalizate și pierderea ambiguității inerente în limbajul natural. În consecință, datele de referință pot deveni nepotrivite pentru învățarea metodelor de prelucrare a limbajului natural.
 
@@ -21,34 +21,34 @@ Capitolul~\ref{chap:med-rel-ex} argumentează că eliminarea dezacordurilor din 
 
 Capitolul~\ref{chap:maj-vote} continuă cercetarea calității datelor de referință ce păstrează dezacordurile adnotatorilor. Calitatea datelor externalizate în masă aplicate pe un set divers de sarcini este comparată în două situații: când datele sunt agregate cu metoda CrowdTruth și când datele sunt agregate cu votul majorității, o metodă ce impune consensul majorității. Capitolul demonstrează că, prin aplicarea metodologiei CrowdTruth, datele de referință sunt mai detaliate, permițând astfel o analiză a ambiguității conținutului ce este adnotat. Mai mult, un număr crescut de adnotatori duce la creșterea și apoi stabilizarea calității adnotațiilor, în contradicție cu practica uzuală de a folosi un număr relativ mic de adnotatori.
 
-Odată ce calitatea datelor externalizate în masă cu păstrarea dezacordurilor a fost stabilită, Capitolul~\ref{chap:od-rel-ex} prezintă cum datele colectate prin metoda CrowdTruth pot fi folosite pentru a îmbunătăți performanța unui model pentru clasificarea relațiilor din propoziții. Astfel se generalizează observațiile din Capitloul~\ref{chap:med-rel-ex}, unde s-a demonstrat că un model învățat cu adnotații colectate prin externalizare în masă rezultă într-o performanță mai bună decât învățarea cu date adnotate în mod automat cu metoda de supervizare distantă (n.t. \textit{distant supervision}). Însă externalizarea în masă a datelor este un proces costisitor, prin urmare corpusurile colectate prin această metodă tind să fie de dimensiuni reduse. Capitolul~\ref{chap:od-rel-ex} descrie cum un astfel de corpus relativ mic, colectat prin externalizare în masă, poate fi utilizat pentru a corecta un corpus de dimensiuni mari pentru învățarea unui model de clasificare a relațiilor, folosind două metode diferite: (1) prin propagarea manuală a cazurilor fals pozitive și a legăturilor între relații identificate cu ajutorul adnotatorilor și (2) prin adaptarea metodei de propagare a etichetelor semantice pentru a funcționa cu date colectate folosind CrowdTruth.
+După ce calitatea datelor externalizate în masă cu păstrarea dezacordurilor a fost demonstrată, Capitolul~\ref{chap:od-rel-ex} prezintă cum datele colectate prin metoda CrowdTruth pot fi folosite pentru a îmbunătăți performanța unui model pentru clasificarea relațiilor din propoziții. Astfel se generalizează observațiile din Capitloul~\ref{chap:med-rel-ex}, unde s-a demonstrat că un model învățat cu adnotații colectate prin externalizare în masă rezultă într-o performanță mai bună decât învățarea cu date adnotate în mod automat cu metoda de supervizare distantă (n.t. \textit{distant supervision}). Însă externalizarea în masă a datelor este un proces costisitor, prin urmare corpusurile colectate prin această metodă tind să fie de dimensiuni reduse. Capitolul~\ref{chap:od-rel-ex} descrie cum un astfel de corpus relativ mic, colectat prin externalizare în masă, poate fi utilizat pentru a corecta un corpus de dimensiuni mari pentru învățarea unui model de clasificare a relațiilor, folosind două metode diferite: (1) prin propagarea manuală a cazurilor fals pozitive și a legăturilor între relații identificate cu ajutorul adnotatorilor și (2) prin adaptarea metodei de propagare a etichetelor semantice pentru a funcționa cu date colectate folosind CrowdTruth.
 
-. \\
+În cele din urmă, Capitloul~\ref{chap:frames} explorează cum dezacordurile între adnotatori pot fi utilizate ca un indicator al ambiguității limbajului, pentru sarcina de dezambiguizare a cadrelor semantice (i.e. concepte generale ce reprezintă înțelesul cuvintelor). Similar cu Capitolul~\ref{chap:med-rel-ex}, externalizarea în masă pentu această sarcină obține date de calitate asemănătoare cu datele adnotate de experți în domeniu. O analiză calitativă a dezacordurilor dintre adnotatorii platformelor de externalizare și experți arată că neînțelegerile sunt un indicator al ambiguității atât a propozițiilor cât și a cadrelor semantice. Tratarea acestor cazuri ca și cum ar avea o singură interpretarem cu valoare discretă (i.e. corect sau incorect) este nepotrivită și poate rezulta în obiective arbitrare pentru modelele cu învățare automată. 
 
-adevărul din neînțelegeri  - externalizarea în masă a datelor pentru prelucrarea limbajului natural
+% adevărul din neînțelegeri  - externalizarea în masă a datelor pentru prelucrarea limbajului natural
 
-crowdsourcing = externalizarea în masă % https://www.e-birouvirtual.ro/node/4909
+% crowdsourcing = externalizarea în masă % https://www.e-birouvirtual.ro/node/4909
 
-NLP = prelucrarea limbajului natural
+% NLP = prelucrarea limbajului natural
 
-knowledge base = bază de cunoștințe
+% knowledge base = bază de cunoștințe
 
-disambiguation = dezambiguizare
+% disambiguation = dezambiguizare
 
-semantic frame = cadru semantic % http://www.diacronia.ro/ro/indexing/details/A6485/pdf
+% semantic frame = cadru semantic % http://www.diacronia.ro/ro/indexing/details/A6485/pdf
 
-semantic label propagation = propagarea etichetelor semantice
+% semantic label propagation = propagarea etichetelor semantice
 
-gold standard = date de referință
+% gold standard = date de referință
 
-crowd worker / annotator = adnotator voluntar (?)
+% crowd worker / annotator = adnotator voluntar (?)
 
-machine learning = învățare automată
+% machine learning = învățare automată
 
-training = instruire / învățare
+% training = instruire / învățare
 
-semi-supervised training = învățare supervizată parțial
+% semi-supervised training = învățare supervizată parțial
 
-crowdsourced corpus = corpus de date colectate prin externalizare în masă
+% crowdsourced corpus = corpus de date colectate prin externalizare în masă
 
 % https://ro.wikipedia.org/wiki/Învățare_automată
