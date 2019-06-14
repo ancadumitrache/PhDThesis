@@ -534,7 +534,7 @@ Instead of traditional evaluation metrics that require binary labels, we propose
 \begin{table}[t!]
     \centering
     \scalebox{0.8}{
-    \begin{tabular}{cccccc}
+    \begin{tabular}{cc|ccc|c}
          \hline
         %  \textbf{\textsc{Test Set}} & \textbf{\textsc{Eval. Metric}} & \textbf{OS} & \textbf{OS+}  & \textbf{FS} \\ \hline
           & \textsc{Eval. Metric} & \textbf{OS} & \textbf{OS+}  & \textbf{FS} & \textbf{TC} \\ \hline
@@ -553,7 +553,7 @@ Instead of traditional evaluation metrics that require binary labels, we propose
     \label{tab:results}
 \end{table}
 
-The results (Figure~\ref{fig:eval} \& Table~\ref{tab:results}) show that, even taking into account sentences with lexical units not in FrameNet for which OS+ cannot disambiguate, \textbf{the OS+ model performs best, likely because of its ability to emit predictions for the multiple frames that can apply to the same word}. FS performs the worst out of all models on \textsc{R-Set}, because it cannot find newly added frames from the latest FrameNet release, but improves on the \textsc{F-Set} (FS can find candidate frames for lexical units not in FrameNet). The scores on the \textsc{F-Set} were lower for all baselines, suggesting that \textbf{sentences with lexical units not in FrameNet are more difficult to classify} -- this could be because FrameNet is missing frames that can express the full meaning of these lexical units. TC has a good performance, but is far from being unbeatable -- when measuring Kendall's $\uptau$ over the \textsc{R-Set}, OS+ performs better than TC.
+The results (Figure~\ref{fig:eval} \& Table~\ref{tab:results}) show that, even taking into account sentences with lexical units not in FrameNet for which OS+ cannot disambiguate, \emph{the OS+ model performs best, likely because of its ability to emit predictions for the multiple frames that can apply to the same word}. FS performs the worst out of all models on \textsc{R-Set}, because it cannot find newly added frames from the latest FrameNet release, but improves on the \textsc{F-Set} (FS can find candidate frames for lexical units not in FrameNet). The scores on the \textsc{F-Set} were lower for all baselines, suggesting that \emph{sentences with lexical units not in FrameNet are more difficult to classify} -- this could be because FrameNet is missing frames that can express the full meaning of these lexical units. TC has a good performance, but is far from being unbeatable -- when measuring Kendall's $\uptau$ over the \textsc{R-Set}, OS+ performs better than TC.
 
 
 
