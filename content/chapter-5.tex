@@ -25,7 +25,7 @@ This chapter is based on the following publications:
 \begin{itemize}
     \item \textit{Capturing Ambiguity in Crowdsourcing Frame Disambiguation}, in the AAAI Conference on Human Computation and Crowdsourcing (HCOMP) 2018, co-authored by Lora Aroyo and Chris Welty.~\cite{DBLP:conf/hcomp/DumitracheAW18}
     
-    \item \textit{A Crowdsourced Frame Disambiguation Corpus with Ambiguity}, in publication at the Annual Conference of the North American Chapter of the Association for Computational Linguistics (NAACL-HLT) 2019, co-authored by Lora Aroyo and Chris Welty.~\cite{dumitrache2019frames}
+    \item \textit{A Crowdsourced Frame Disambiguation Corpus with Ambiguity}, in the Annual Conference of the North American Chapter of the Association for Computational Linguistics (NAACL-HLT) 2019, co-authored by Lora Aroyo and Chris Welty.~\cite{dumitrache2019frames}
 \end{itemize}
 
 
@@ -534,19 +534,19 @@ Instead of traditional evaluation metrics that require binary labels, we propose
 \begin{table}[t!]
     \centering
     \scalebox{0.8}{
-    \begin{tabular}{cc|ccc|c}
-         \hline
+    \begin{tabular}{cccccc}
+         \toprule
         %  \textbf{\textsc{Test Set}} & \textbf{\textsc{Eval. Metric}} & \textbf{OS} & \textbf{OS+}  & \textbf{FS} \\ \hline
-          & \textsc{Eval. Metric} & \textbf{OS} & \textbf{OS+}  & \textbf{FS} & \textbf{TC} \\ \hline
-                      & Kendall's $\uptau$  AUC & 0.339 & \textbf{0.477} & 0.279 & 0.466 \\
-         \textsc{R-}  & Kendall's $\uptau$ w-avg & 0.362 & \textbf{0.497} & 0.3 & 0.48 \\
-         \textsc{Set} & Cos Sim AUC & 0.57 & \textbf{0.685} & 0.518 & 0.818 \\ 
-                      & Cos Sim w-avg & 0.608 & \textbf{0.717} & 0.545 & 0.854 \\ \hline
+          & \textsc{Eval. Metric} & \textbf{OS} & \textbf{OS+}  & \textbf{FS} & \cellcolor{aliceblue} \textbf{TC} \\ \toprule
+                      & Kendall's $\uptau$  AUC & 0.339 & \textbf{0.477} & 0.279 & \cellcolor{aliceblue} 0.466 \\
+         \textsc{R-}  & Kendall's $\uptau$ w-avg & 0.362 & \textbf{0.497} & 0.3 & \cellcolor{aliceblue} 0.48 \\
+         \textsc{Set} & Cos Sim AUC & 0.57 & \textbf{0.685} & 0.518 & \cellcolor{aliceblue} 0.818 \\ 
+                      & Cos Sim w-avg & 0.608 & \textbf{0.717} & 0.545 & \cellcolor{aliceblue} 0.854 \\ \toprule
          
-                     & Kendall's $\uptau$ AUC & 0.269 & \textbf{0.379} & 0.253 & 0.491 \\
-         \textsc{F-} & Kendall's $\uptau$ w-avg & 0.307 & \textbf{0.421} & 0.284 & 0.501 \\
-         \textsc{Set} & Cos Sim AUC & 0.453 & \textbf{0.544} & 0.511 & 0.810 \\
-                      & Cos Sim w-avg & 0.515 & \textbf{0.607} & 0.539 & 0.849 \\ \hline
+                     & Kendall's $\uptau$ AUC & 0.269 & \textbf{0.379} & 0.253 & \cellcolor{aliceblue} 0.491 \\
+         \textsc{F-} & Kendall's $\uptau$ w-avg & 0.307 & \textbf{0.421} & 0.284 & \cellcolor{aliceblue} 0.501 \\
+         \textsc{Set} & Cos Sim AUC & 0.453 & \textbf{0.544} & 0.511 & \cellcolor{aliceblue} 0.810 \\
+                      & Cos Sim w-avg & 0.515 & \textbf{0.607} & 0.539 & \cellcolor{aliceblue} 0.849 \\ \bottomrule
     \end{tabular}
     }
     \caption{Aggregated evaluation results.}
