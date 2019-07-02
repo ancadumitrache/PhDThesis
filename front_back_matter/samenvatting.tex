@@ -8,4 +8,63 @@
 \addcontentsline{toc}{chapter}{\tocEntry{Samenvatting}}
 
 \chapter*{Samenvatting}
-???
+Met de toename van de hoeveelheid kennis op het Web, zijn methodes voor natuurlijke tekstverwerking van onschatbare waarde geworden voor het ondersteunen van het navigeren van data en informatie. 
+\emph{Machine learning} modellen voor natuurlijke taalverwerking (het geautomatiseerd of computationeel verwerken van taal), die van grote hoeveelheden data afhankelijk zijn, worden ingezet om taken als \emph{``knowledge base completion''} en disambiguatie op te lossen. 
+Met de hand geannoteerde ``gouden standaard'' (of \emph{ground truth}) data worden gebruikt om deze \emph{machine learning} componenten te trainen, testen, en evalueren. 
+In de afgelopen jaren heeft \emph{crowdsourcing} zich tot levensvatbare methode ontwikkeld voor het verzamelen van dergelijke \emph{ground truth}-data. 
+
+Maar het staat nog ter discussie hoe de kwaliteit van deze ``\emph{crowd}-annotaties'' te meten. 
+Bij het verzamelen van meerdere annotaties voor dezelfde taak is de aanwezigheid van onenigheid tussen \emph{crowd}-werkers (\emph{inter-annotator disagreement}) waarschijnlijk. 
+In een typische opzet voor het verzamelen van annotaties, wordt aangenomen dat slechts één juist antwoord bestaat op elke vraag, en dat onenigheid uit de \emph{ground truth}-data geëlimineerd moet worden. 
+% This traditional approach to gathering annotation, based on restrictive annotation guidelines, can often result in {the unjust penalization of qualified workers with a different perspective from the general consensus}, as well as {over-generalized observations}, and {a loss of ambiguity inherent to language}, which could render the annotated data unsuitable for use in training natural language processing systems. 
+% [DG: this sentence is a bit long, I've turned it into an enumeration and into two sentences, also not sure about "can often result in"; it "can result in" or "often results in", I went for the latter in the Dutch version]
+Deze traditionele methode voor het verzamelen van annotaties, gebaseerd op beperkende richtlijnen, kan verschillende onwenselijke gevolgen hebben, zoals: 
+het onrechtmatig bestraffen van gekwalificeerde werkers wiens perspectief van de norm afwijken, 
+de overgeneralisatie van observaties, en 
+het verlies van de ambiguïteit die inherent is aan taal. 
+Dit kan tot gevolg hebben dat de geannoteerde data onbruikbaar is voor het trainen van natuurlijke taalverwerkingssystemen. 
+
+% The CrowdTruth methodology has been proposed to perform crowdsourcing while preserving inter-annotator disagreement. 
+De CrowdTruth-methodologie is voorgesteld om crowdsourcing met behoud van onenigheid tussen werkers uit te voeren. 
+CrowdTruth is gestoeld op het idee dat zulke onenigheid geen ruis is, maar een belangrijk signaal die ingezet kan worden om de ambiguïteit van geannoteerde data te vangen. 
+De methodologie ziet het systeem van crowdsourcing als een driehoek, bestaande uit drie onderling verbonden componenten; 
+(1) de (\emph{crowd})-werkers, 
+(2) de data, en 
+(3) de annotaties. 
+
+% CrowdTruth captures inter-annotator disagreement and uses it to calculate a set of quality metrics for the three crowdsourcing components, by modeling the way that the components interact with each other -- e.g. in ambiguous sentences, we expect to have more disagreement between workers, therefore workers on those sentences should not be considered less trustworthy. 
+% [DG: I find the "therefore" difficult to translate; now I imply a causal link between the expectation of ambiguity and the not considering less trustworthy of workers]
+CrowdTruth weegt onenigheid tussen werkers mee, en gebruikt deze onenigheid om kwaliteitscriteria van de drie componenten te kunnen berekenen, door de interacties tussen componenten te modelleren. 
+Zo kunnen we in ambigue zinnen meer onenigheid tussen werkers verwachten, en daarom zouden werkers die deze zinnen annoteren niet als minder betrouwbaar aangemerkt moeten worden. 
+
+Dit proefschrift onderzoekt hoe de CrowdTruth-methodologie ingezet kan worden om \emph{ground truth}-data te verkrijgen voor het trainen en evalueren van modellen voor natuurlijke tekstverwerking. 
+We presenteren werk voor verschillende taken (relatie-extractie, \emph{semantic frame disambiguation}) binnen verschillende domeinen (het medisch domein, het open domein). 
+Onze experimenten tonen welke rol onenigheid tussen werkers kan spelen in het vaststellen van datakwaliteit, op een manier die verder gaat dan het simpelweg identificeren van de werkers van lage kwaliteit. 
+
+Hoofdstuk~\ref{chap:med-rel-ex} stelt dat we onenigheid niet uit \emph{ground truth}-data hoeven te verwijderen om data te verkrijgen die vergelijkbaar is met die van domeinexperts. 
+We verkennen deze stelling binnen een casus van relatie-extractie uit medische teksten. 
+Een veelvoorkomende aanname binnen het medisch domein is dat expertise nodig is om \emph{ground truth}-data met de hoogste kwaliteit te verkrijgen. 
+
+% This work shows that, by capturing the inter-annotator disagreement with the CrowdTruth method, medical relation classifiers trained on crowd annotations perform the same as those trained on expert annotations. 
+Dit werk toont aan dat door het meewegen van de onenigheid tussen werkers met de CrowdTruth-methode, medische relatie classificatiemodellen gebaseerd op \emph{crowd}-annotaties even goed presteren als modellen gebaseerd op annotaties van domeinexperts. 
+Daarnaast tonen we aan dat classificatiemodellen die op \emph{crowd}-annotaties gebaseerd zijn, beter presteren dan modellen die op automatisch-gegenereerde annotaties zijn gebaseerd. 
+Gebruikmaken van de \emph{crowd} drukt ook de kosten van dataverzameling, zowel kwa geld, als kwa tijd die nodig is voor het vinden van geschikte werkers. 
+
+% Chapter~\ref{chap:maj-vote} continues the investigation into the quality of the disagreement-preserving crowd data, by comparing the quality of crowd data aggregated with CrowdTruth metrics and majority vote, a consensus-enforcing metric, over a diverse set of crowdsourcing tasks. 
+Hoofdstuk~\ref{chap:maj-vote} zet het onderzoek voort naar de kwaliteit van \emph{crowd}-annotaties waarin onenigheid tussen werkers behouden blijft. 
+In dit hoofdstuk vergelijken we de kwaliteit van de data verzameld met de CrowdTruth-methode, met data verzameld op basis van \emph{majority vote} (een methode die consensus onder werkers juist in stand houdt), voor een divers aantal crowdsourcing taken. 
+We tonen aan dat door de CrowdTruth-methodologie toe te passen, we rijkere data verzamelen, die in staat stelt om te redeneren over de ambiguïteit van de inhoud. 
+Daarnaast tonen we aan dat een toegenomen aantal \emph{crowd}-werkers leidt tot groei en stabilisatie van de kwaliteit van hun annotaties, een observatie die indruist tegen de gebruikelijke praktijk van het inzetten van een klein aantal werkers. 
+
+Na het vaststellen van de kwaliteit van de onenigheid-behoudende \emph{crowd} data, bespreken we in Hoofdstuk~\ref{chap:od-rel-ex} hoe CrowdTruth data gebruikt kan worden om de prestaties van een relatie-classificatie model voor ``algemene'' zinnen (in het open domein) te verbeteren. 
+We bouwen voort op werk uit Hoofdstuk~\ref{chap:med-rel-ex}, waar we aantonen dat het baseren van modellen op \emph{crowd}-annotaties betere resultaten oplevert dan op basis van \emph{distant supervision} geautomatiseerde verkregen annotaties. 
+Echter, omdat data van de \emph{crowd} duur kan zijn om te verkrijgen, zijn corpussen verzameld met deze methode over het algemeen kleinschalig. 
+% Chapter~\ref{chap:od-rel-ex} describes how such a relatively small crowdsourced corpus can be used to correct a large corpus of training data for relation classification, with two different methods: (1) by manually propagating the false positive and cross-relation signals identified with the help of the crowd, and (2) by adapting the semantic label propagation method to work with CrowdTruth data.
+Hoofdstuk~\ref{chap:od-rel-ex} omschrijft hoe zo’n relatief kleinschalig via crowdsourcing verkregen corpus ingezet kan worden om een grootschalig corpus voor het leren van relatie-classificatie te corrigeren, op basis van twee verschillende methodes: 
+(1) het handmatig propageren van de foutpositieven en \emph{cross-relation signals} geïdentificeerd door de \emph{crowd}, en 
+(2) het aanpassen van \emph{“semantic label propagation”}-methodes om te werken met CrowdTruth data. 
+
+Tenslotte onderzoeken we in Hoofdstuk~\ref{chap:frames} hoe de onenigheid tussen werkers gebruikt kan worden als indicatie van de ambiguïteit van taal, in de context van het disambigueren van \emph{semantic frames} (abstracte concepten die de betekenis van woorden representeren). 
+Net als in Hoofdstuk~\ref{chap:med-rel-ex}, tonen we aan dat de \emph{crowd} gelijksoortige kwaliteit als domeinexperts oplevert. 
+Een kwalitatieve evaluatie van de gevallen waarin \emph{crowd}-werkers het onderling of met de experts niet eens zijn, toont aan dat de onenigheid tussen werkers een indicatie van ambiguïteit in zowel \emph{semantic frames} als in de betekenis van zinnen kan bieden. 
+Wij stellen dat zulke gevallen tot één enkele discrete waarde (correct of incorrect) te reduceren niet wenselijk is, en arbitraire doelen voor \emph{machine learning} schept. 
